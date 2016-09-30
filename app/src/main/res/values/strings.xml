@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">口袋问</string>
+    <string name="report">举报</string>
+    <string name="send">发送</string>
+</resources>
