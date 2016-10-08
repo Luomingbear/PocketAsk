@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="lightgray">#bebebe</color>
+    <color name="deepgray">#5d5d5d</color>
+    <color name="grayblue">#2d8292</color>
+    <color name="deepblue">#2d8493</color>
+    <color name="lightblue">#bad2d5</color>
+
 </resources>
