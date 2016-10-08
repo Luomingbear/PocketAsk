@@ -1,11 +1,5 @@
 package com.bear.pocketask.view;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import com.bear.pocketask.R;
-import com.bear.pocketask.utils.DipPxConversion;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -17,6 +11,12 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.bear.pocketask.R;
+import com.bear.pocketask.utils.DipPxConversion;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 录音view
