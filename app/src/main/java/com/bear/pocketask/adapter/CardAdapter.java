@@ -27,6 +27,8 @@ public class CardAdapter extends BaseAdapter implements View.OnClickListener {
     CardItemInfo info;
     private LayoutInflater inflater;
 
+    private float mTouchX, mTouchY;
+
     public CardAdapter(Context context, List<CardItemInfo> list) {
         inflater = LayoutInflater.from(context);
         this.list = list;
@@ -59,7 +61,7 @@ public class CardAdapter extends BaseAdapter implements View.OnClickListener {
             viewHolder.tvQuestion = (TextView) convertView.findViewById(R.id.card_item_questions);
             viewHolder.tvUserName = (TextView) convertView.findViewById(R.id.card_item_user_name);
 
-            viewHolder.report = convertView.findViewById(R.id.card_item_report);
+            viewHolder.leReport = convertView.findViewById(R.id.card_item_report);
             viewHolder.btSend = convertView.findViewById(R.id.card_item_send);
             convertView.setTag(viewHolder);
         } else
@@ -73,37 +75,44 @@ public class CardAdapter extends BaseAdapter implements View.OnClickListener {
         ImageLoader.getInstance().displayImage(info.getDetailPic(), viewHolder.ivDetailPic);
 
         //添加点击事件
-        viewHolder.report.setOnClickListener(this);
+        viewHolder.leReport.setOnClickListener(this);
         viewHolder.ivDetailPic.setOnClickListener(this);
         viewHolder.ivHeadPic.setOnClickListener(this);
+        //        viewHolder.btSend.setOnTouchListener(this);
         viewHolder.btSend.setOnClickListener(this);
         return convertView;
     }
 
     private ViewHolder viewHolder;
+    private boolean isMove = false;
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.card_item_report: {
+            case R.id.card_item_head_pic: {
                 if (cardItemClickListener != null)
-                    cardItemClickListener.onClickedObject(CardItemClickMode.REPORT_BUTTON, info.getQuestionId());
+                    cardItemClickListener.onClickedObject(CardItemClickMode.HEAD_PIC, info.getQuestionId());
+                Log.i(TAG, "onTouch: down head pic");
                 break;
             }
             case R.id.card_item_detail_pic: {
                 if (cardItemClickListener != null)
                     cardItemClickListener.onClickedObject(CardItemClickMode.DETAIL_PIC, info.getQuestionId());
-                Log.i(TAG, "onClick: detail");
+                Log.i(TAG, "onTouch: down detail pic");
                 break;
+
             }
-            case R.id.card_item_head_pic: {
+            case R.id.card_item_report: {
                 if (cardItemClickListener != null)
-                    cardItemClickListener.onClickedObject(CardItemClickMode.HEAD_PIC, info.getQuestionId());
+                    cardItemClickListener.onClickedObject(CardItemClickMode.Report_BUTTON, info.getQuestionId());
+                Log.i(TAG, "onClick: leReport");
                 break;
+
             }
             case R.id.card_item_send: {
                 if (cardItemClickListener != null)
                     cardItemClickListener.onClickedObject(CardItemClickMode.SEND_BUTTON, info.getQuestionId());
+                Log.i(TAG, "onClick: send");
                 break;
             }
         }
@@ -115,7 +124,7 @@ public class CardAdapter extends BaseAdapter implements View.OnClickListener {
         TextView tvUserName;
         ImageView ivDetailPic;
         View btSend;
-        View report;
+        View leReport;
     }
 
     private CardItemClickListener cardItemClickListener;
@@ -136,9 +145,9 @@ public class CardAdapter extends BaseAdapter implements View.OnClickListener {
         DETAIL_PIC,
 
         ///举报按钮
-        REPORT_BUTTON,
+        Report_BUTTON,
 
         //发送按钮
-        SEND_BUTTON
+        SEND_BUTTON,
     }
 }

@@ -126,7 +126,7 @@ public class RecordView extends View
 	 */
 	private void drawRecord(Canvas canvas)
 	{
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.broadcast);
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.record);
 
 		Rect rectSrc = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
 		int margin = DipPxConversion.dip2px(getContext(), 16);

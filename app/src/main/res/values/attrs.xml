@@ -20,4 +20,13 @@
         <attr name="min_adapter_stack" format="integer"/>
         <attr name="max_visible" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="TitleView">
+        <attr name="titleText" format="string|reference"/>
+        <attr name="titleColor" format="color"/>
+        <attr name="titleSize" format="dimension"/>
+        <attr name="titleMode" format="enum">
+            <enum name="PERSON_TITLE_EDIT" value="0"/>
+        </attr>
+    </declare-styleable>
 </resources>

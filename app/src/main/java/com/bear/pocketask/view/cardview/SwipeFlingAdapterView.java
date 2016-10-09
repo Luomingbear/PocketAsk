@@ -11,6 +11,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.FrameLayout;
 
@@ -21,7 +22,7 @@ import android.widget.FrameLayout;
 
 public class SwipeFlingAdapterView extends BaseFlingAdapterView
 {
-	private int MAX_VISIBLE = 3; //最多可见的卡片数量
+	private int MAX_VISIBLE = 2; //最多可见的卡片数量
 	private int MIN_ADAPTER_STACK = 5;
 	private float ROTATION_DEGREES = 15.f; //旋转的角度
 	private float ITEM_SMALL_WIDTH = 20; //卡片的最小宽度
@@ -32,12 +33,10 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView
 	private onFlingListener mFlingListener;
 	private AdapterDataSetObserver mDataSetObserver;
 	private boolean mInLayout = false;
-	private View mActiveCard = null;
+	private CardItem mActiveCard = null;
 	private OnItemClickListener mOnItemClickListener;
 	private FlingCardListener flingCardListener;
 	private PointF mLastTouchPoint;
-
-	private float mTouchX, mTouchY;//手指按下时的坐标
 
 	private float p = 0f;
 
@@ -48,7 +47,7 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView
 
 	public SwipeFlingAdapterView(Context context, AttributeSet attrs)
 	{
-		this(context, attrs, R.attr.SwipeFlingStyle);
+		this(context, attrs, 0);
 	}
 
 	public SwipeFlingAdapterView(Context context, AttributeSet attrs, int defStyle)
@@ -87,33 +86,6 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView
 			mOnItemClickListener = (OnItemClickListener) context;
 		}
 		setAdapter(mAdapter);
-	}
-
-//	@Override
-//	public boolean dispatchTouchEvent(MotionEvent ev)
-//	{
-//		if (ev.getAction() == MotionEvent.ACTION_MOVE)
-//		{
-//			return true;
-//		} else
-//			return super.dispatchTouchEvent(ev);
-//	}
-//
-//	@Override
-//	public boolean onInterceptTouchEvent(MotionEvent ev)
-//	{
-//		if (ev.getAction() == MotionEvent.ACTION_MOVE)
-//		{
-//			return true;
-//		} else
-//			return super.onInterceptTouchEvent(ev);
-//	}
-
-	@Override
-	public boolean onTouchEvent(MotionEvent event)
-	{
-
-		return super.onTouchEvent(event);
 	}
 
 	@Override
@@ -205,13 +177,14 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView
 			n = 2;
 		else
 			n = index;
+		//p移动的比例 ?/500
 		if (index == 3 && p > 0.5f)
 		{
 			n = index;
 		}
-		// 控制位移
-		// child.offsetTopAndBottom((int) (dpToPx((int) ITEM_SMALL_HIGH) * (n - p)));
-		//控制缩放
+		//位移越来越小
+		//		int offset = (int) (dpToPx((int) ITEM_SMALL_HIGH) * n * (1 - 0.1f * (n - p)));
+		//		child.offsetTopAndBottom(offset);
 		child.setScaleX(1 - 0.1f * (n - p));
 		child.setScaleY(1 - 0.1f * (n - p));
 	}
@@ -226,9 +199,7 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView
 	private void makeAndAddView(int index, View child)
 	{
 
-		//
-		// FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) child.getLayoutParams();
-		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
 		addViewInLayout(child, 0, lp, true);
 
 		final boolean needToMeasure = child.isLayoutRequested();
@@ -247,7 +218,8 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView
 		int gravity = lp.gravity;
 		if (gravity == -1)
 		{
-			gravity = Gravity.TOP | Gravity.START;
+			//设置卡片的位置 居中
+			gravity = Gravity.CENTER | Gravity.START;
 		}
 		//        int layoutDirection = getLayoutDirection();
 		//        final int absoluteGravity = Gravity.getAbsoluteGravity(gravity, layoutDirection);
@@ -296,10 +268,12 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView
 		if (getChildCount() > 0)
 		{
 
-			mActiveCard = getChildAt(LAST_OBJECT_IN_STACK);
+			mActiveCard = (CardItem) getChildAt(LAST_OBJECT_IN_STACK);
+
+
+
 			if (mActiveCard != null)
 			{
-
 				flingCardListener = new FlingCardListener(mActiveCard, mAdapter.getItem(0), ROTATION_DEGREES, new FlingCardListener.FlingListener()
 				{
 
@@ -329,14 +303,12 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView
 					{
 						if (mOnItemClickListener != null)
 							mOnItemClickListener.onItemClicked(0, dataObject);
-
 					}
 
 					@Override
 					public void onScroll(float scrollProgressPercent)
 					{
 						mFlingListener.onScroll(scrollProgressPercent);
-
 					}
 
 					@Override
@@ -346,6 +318,8 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView
 						float mY = (int) Math.abs(moveY);
 						if (mX > 50 || mY > 50)
 						{
+							//手指移动的位移大于50 时触发
+							//移动范围50在-550
 							float m = Math.max(mX, mY);
 							p = (m - 50f) / 500f;
 							if (p > 1f)
@@ -457,5 +431,6 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView
 		void onAdapterAboutToEmpty(int itemsInAdapter);
 
 		void onScroll(float scrollProgressPercent);
+
 	}
 }

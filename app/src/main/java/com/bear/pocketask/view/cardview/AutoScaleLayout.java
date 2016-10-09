@@ -30,7 +30,7 @@ public class AutoScaleLayout extends RelativeLayout
 	{
 		super(context, attrs, defStyle);
 		TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.AutoScaleLayout);
-		mScaleRate = typedArray.getFloat(R.styleable.AutoScaleLayout_scaleRate, 1.159f);
+		mScaleRate = typedArray.getFloat(R.styleable.AutoScaleLayout_scaleRate, 1.277f);
 		typedArray.recycle();
 	}
 

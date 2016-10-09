@@ -9,10 +9,12 @@
     <!-- 外边距 -->
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
-    <dimen name="margin_large">26dp</dimen>
+    <dimen name="margin_big">26dp</dimen>
+    <dimen name="margin_large">46dp</dimen>
 
     <!-- 字体大小 -->
     <dimen name="font_small">12sp</dimen>
     <dimen name="font_normal">14sp</dimen>
-    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_big">18sp</dimen>
+    <dimen name="font_large">22sp</dimen>
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.bear.pocketask.view.cardview.CardItem
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_item_touch_layout"
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/margin_large"
+            android:padding="@dimen/margin_big"
             android:paddingLeft="@dimen/margin_small"
             android:paddingRight="@dimen/margin_large">
 
@@ -45,8 +45,7 @@
                     <com.bear.pocketask.view.CircleImageView
                         android:id="@+id/card_item_head_pic"
                         android:layout_width="@dimen/image_normal"
-                        android:layout_height="@dimen/image_normal"
-                        android:src="@drawable/head"/>
+                        android:layout_height="@dimen/image_normal"/>
 
                     <TextView
                         android:id="@+id/card_item_user_name"
@@ -115,7 +114,6 @@
                     android:id="@+id/card_item_detail_pic"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:background="@drawable/head"
                     android:scaleType="centerCrop"/>
             </com.bear.pocketask.view.cardview.AutoScaleLayout>
 
@@ -138,6 +136,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    app:recordMode="record"
                     app:roundSize="5dp"/>
 
                 <!-- 发送 -->
@@ -151,7 +150,8 @@
                     android:text="@string/send"
                     android:textColor="#ffffff"/>
             </LinearLayout>
+
         </LinearLayout>
 
     </com.bear.pocketask.view.cardview.AutoScaleLayout>
-</RelativeLayout>
+</com.bear.pocketask.view.cardview.CardItem>
