@@ -142,17 +142,6 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView implements CardI
         }
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        //TODO
-        return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        //TODO
-        return super.onInterceptTouchEvent(ev);
-    }
 
     private static final String TAG = "SwipeFlingAdapterView";
     @Override

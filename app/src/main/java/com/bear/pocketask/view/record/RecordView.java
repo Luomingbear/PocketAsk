@@ -159,48 +159,6 @@ public class RecordView extends View implements RecordObserver {
         }
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN: {
-//                posX = event.getX();
-//                posY = event.getY();
-//
-//                if (shouldTouch(event.getX(), event.getY())) {
-//                    if (mRecordMode == RecordMode.RECORD) {
-//                        //TODO 开始录音
-//                        setRecord(true);
-//                    }
-//                }
-//                break;
-//            }
-//            case MotionEvent.ACTION_UP: {
-//                float x = event.getX();
-//                float y = event.getY();
-//                float distance = Math.max(Math.abs(x - posX), Math.abs(y - posY));
-//                if (shouldTouch(x, y) && distance < 20) {
-//                    switch (mRecordMode) {
-//                        case BROADCAST: {
-//                            setPlay();
-//                            break;
-//                        }
-//                        case RECORD: {
-//                            //TODO 录音结束
-//                            setRecord(false);
-//                            break;
-//                        }
-//                    }
-//                }
-//                break;
-//            }
-//
-//            case MotionEvent.ACTION_CANCEL: {
-//                setRecord(false);
-//            }
-//        }
-//        return true;
-//    }
-
     private boolean shouldTouch(float x, float y) {
         if (x < getWidth() && x > 0)
             if (y < getHeight() && y > 0)
