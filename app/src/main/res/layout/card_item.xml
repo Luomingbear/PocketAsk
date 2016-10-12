@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.bear.pocketask.view.cardview.CardItem
+<com.bear.pocketask.view.cardview.CardItemView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_item_touch_layout"
@@ -114,6 +114,7 @@
                     android:id="@+id/card_item_detail_pic"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:background="@color/lightgray"
                     android:scaleType="centerCrop"/>
             </com.bear.pocketask.view.cardview.AutoScaleLayout>
 
@@ -131,12 +132,12 @@
                 android:orientation="horizontal">
 
                 <!-- 录音 -->
-                <com.bear.pocketask.view.RecordView
-                    android:id="@+id/card_item_edit"
+                <com.bear.pocketask.view.record.RecordView
+                    android:id="@+id/card_item_record"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:recordMode="record"
+                    app:recordMode="broadcast"
                     app:roundSize="5dp"/>
 
                 <!-- 发送 -->
@@ -154,4 +155,4 @@
         </LinearLayout>
 
     </com.bear.pocketask.view.cardview.AutoScaleLayout>
-</com.bear.pocketask.view.cardview.CardItem>
+</com.bear.pocketask.view.cardview.CardItemView>
