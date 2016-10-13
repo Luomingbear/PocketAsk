@@ -10,16 +10,17 @@
     <com.bear.pocketask.view.TitleView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:titleMode="PERSON_TITLE_EDIT"
         app:titleText="@string/app_name">
 
     </com.bear.pocketask.view.TitleView>
 
-    <com.bear.pocketask.view.cardview.SwipeFlingAdapterView
+    <com.bear.pocketask.view.cardview.CardSlideAdapterView
         android:id="@+id/flingView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/lightblue">
 
-    </com.bear.pocketask.view.cardview.SwipeFlingAdapterView>
+    </com.bear.pocketask.view.cardview.CardSlideAdapterView>
 
 </LinearLayout>

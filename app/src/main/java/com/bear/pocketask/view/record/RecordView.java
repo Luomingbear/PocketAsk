@@ -220,7 +220,6 @@ public class RecordView extends View implements RecordObserver {
             TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
-                    // TODO Auto-generated method stub
                     //由于主线程安全，页面的更新需放到主线程中
                     Message msg = new Message();
                     msg.what = 1;

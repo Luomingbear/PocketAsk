@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.bear.pocketask.R;
 import com.bear.pocketask.adapter.CardAdapter;
 import com.bear.pocketask.info.CardItemInfo;
-import com.bear.pocketask.view.cardview.SwipeFlingAdapterView;
+import com.bear.pocketask.view.cardview.CardSlideAdapterView;
 import com.bear.pocketask.view.record.RecordObservable;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -16,10 +16,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-public class MainActivity extends Activity
-		implements SwipeFlingAdapterView.onFlingListener, SwipeFlingAdapterView.OnItemClickListener, CardAdapter.CardItemClickListener
+public class MainActivity extends Activity implements CardAdapter.CardItemClickListener, CardSlideAdapterView.OnCardSlidingListener
 {
-
+	private static final String TAG = "MainActivity";
 	private ArrayList<CardItemInfo> mCardInfoList;
 	private CardAdapter cardAdapter;
 	private boolean isInsertTouch = false; // 是否是点击的卡片里面的按钮
@@ -49,7 +48,7 @@ public class MainActivity extends Activity
 	private void initView()
 	{
 		mCardInfoList = new ArrayList<CardItemInfo>();
-		for (int i = 0; i < 50; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			CardItemInfo cardItemInfo = new CardItemInfo();
 			cardItemInfo.setUserName("海绵宝宝" + i);
@@ -61,51 +60,11 @@ public class MainActivity extends Activity
 			mCardInfoList.add(cardItemInfo);
 		}
 
-		SwipeFlingAdapterView flingAdapterView = (SwipeFlingAdapterView) findViewById(R.id.flingView);
+		CardSlideAdapterView flingAdapterView = (CardSlideAdapterView) findViewById(R.id.flingView);
 
 		cardAdapter = new CardAdapter(this, mCardInfoList);
 		cardAdapter.setCardItemClickListener(this);
 		flingAdapterView.init(this, cardAdapter);
-
-	}
-
-	@Override
-	public void removeFirstObjectInAdapter()
-	{
-		mCardInfoList.remove(0);
-		cardAdapter.notifyDataSetChanged();
-	}
-
-	@Override
-	public void onLeftCardExit(Object dataObject)
-	{
-
-	}
-
-	@Override
-	public void onRightCardExit(Object dataObject)
-	{
-
-	}
-
-	@Override
-	public void onAdapterAboutToEmpty(int itemsInAdapter)
-	{
-
-	}
-
-	private static final String TAG = "MainActivity";
-
-	@Override
-	public void onScroll(float scrollProgressPercent)
-	{
-		//Log.d(TAG, "onScroll: scroll++"+scrollProgressPercent);
-	}
-
-	@Override
-	public void onItemClicked(int itemPosition, Object dataObject)
-	{
-		Toast.makeText(this, "点击了卡片", Toast.LENGTH_SHORT).show();
 
 	}
 
@@ -114,7 +73,6 @@ public class MainActivity extends Activity
 	@Override
 	public void onClickedObject(CardAdapter.CardItemClickMode clickMode)
 	{
-		Log.i(TAG, "onClickedObject: insert");
 		switch (clickMode)
 		{
 		case DETAIL_PIC:
@@ -141,9 +99,27 @@ public class MainActivity extends Activity
 			break;
 		}
 		case RECORD_BUTTON:
-//			Toast.makeText(this, "点击了录音", Toast.LENGTH_SHORT).show();
+			//			Toast.makeText(this, "点击了录音", Toast.LENGTH_SHORT).show();
 			isPlay = !isPlay;
 			RecordObservable.getInstance().notifyObservers(mCardInfoList.get(0).getQuestionId(), isPlay);
 		}
+	}
+
+	@Override
+	public void onRemove()
+	{
+		Toast.makeText(this, "移除", Toast.LENGTH_SHORT).show();
+		Log.e(TAG, "onRemove: +++++++1" );
+		if (mCardInfoList.size() > 0)
+		{
+			mCardInfoList.remove(0);
+			cardAdapter.notifyDataSetChanged();
+		}
+	}
+
+	@Override
+	public void onClicked()
+	{
+		Toast.makeText(this, "点击了卡片", Toast.LENGTH_SHORT).show();
 	}
 }

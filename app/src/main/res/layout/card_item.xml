@@ -55,7 +55,7 @@
                         android:gravity="center"
                         android:text="三九"
                         android:textColor="@color/grayblue"
-                        android:textSize="@dimen/font_small"/>
+                        android:textSize="@dimen/font_min"/>
                 </LinearLayout>
 
                 <RelativeLayout
@@ -73,7 +73,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/app_name"
                         android:textColor="@color/grayblue"
-                        android:textSize="@dimen/font_normal"/>
+                        android:textSize="@dimen/font_small"/>
 
                     <!-- 举报-->
                     <LinearLayout
@@ -87,7 +87,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/report"
                             android:textColor="@color/deepgray"
-                            android:textSize="@dimen/font_small"/>
+                            android:textSize="@dimen/font_min"/>
 
                         <ImageView
                             android:layout_width="@dimen/icon_small"
@@ -132,13 +132,12 @@
                 android:orientation="horizontal">
 
                 <!-- 录音 -->
-                <com.bear.pocketask.view.record.RecordView
+                <EditText
                     android:id="@+id/card_item_record"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:recordMode="broadcast"
-                    app:roundSize="5dp"/>
+                    android:background="@drawable/edit_round_bg"/>
 
                 <!-- 发送 -->
                 <TextView

@@ -6,9 +6,9 @@ import java.util.Observable;
 import com.bear.pocketask.R;
 import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.view.CircleImageView;
-import com.bear.pocketask.view.record.RecordObservable;
 import com.bear.pocketask.view.record.RecordView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 
 import android.content.Context;
 import android.util.Log;
@@ -71,7 +71,7 @@ public class CardAdapter extends BaseAdapter implements View.OnClickListener
 			viewHolder.ivHeadPic = (CircleImageView) convertView.findViewById(R.id.card_item_head_pic);
 			viewHolder.tvQuestion = (TextView) convertView.findViewById(R.id.card_item_questions);
 			viewHolder.tvUserName = (TextView) convertView.findViewById(R.id.card_item_user_name);
-			viewHolder.rvRecordView = (RecordView) convertView.findViewById(R.id.card_item_record);
+			//			viewHolder.rvRecordView = (RecordView) convertView.findViewById(R.id.card_item_record);
 
 			viewHolder.leReport = convertView.findViewById(R.id.card_item_report);
 			viewHolder.btSend = convertView.findViewById(R.id.card_item_send);
@@ -80,20 +80,23 @@ public class CardAdapter extends BaseAdapter implements View.OnClickListener
 			viewHolder = (ViewHolder) convertView.getTag();
 
 		//设置值
-		info = list.get(position);
-		viewHolder.tvUserName.setText(info.getUserName());
-		viewHolder.tvQuestion.setText(info.getQuestions());
-		ImageLoader.getInstance().displayImage(info.getHeadPic(), viewHolder.ivHeadPic);
-		ImageLoader.getInstance().displayImage(info.getDetailPic(), viewHolder.ivDetailPic);
-		viewHolder.rvRecordView.setRecordId(info.getQuestionId());
-		RecordObservable.getInstance().addObserver(viewHolder.rvRecordView);
+		if (list.size() > 0 && position < list.size())
+		{
+			info = list.get(position);
+			viewHolder.tvUserName.setText(info.getUserName());
+			viewHolder.tvQuestion.setText(info.getQuestions());
+			ImageLoader.getInstance().displayImage(info.getHeadPic(), viewHolder.ivHeadPic);
+			ImageLoader.getInstance().displayImage(info.getDetailPic(), viewHolder.ivDetailPic);
+		}
+		//		viewHolder.rvRecordView.setRecordId(info.getQuestionId());
+		//		RecordObservable.getInstance().addObserver(viewHolder.rvRecordView);
 
 		//添加点击事件
 		viewHolder.leReport.setOnClickListener(this);
 		viewHolder.ivDetailPic.setOnClickListener(this);
 		viewHolder.ivHeadPic.setOnClickListener(this);
 		viewHolder.btSend.setOnClickListener(this);
-		viewHolder.rvRecordView.setOnClickListener(this);
+		//		viewHolder.rvRecordView.setOnClickListener(this);
 
 		return convertView;
 	}

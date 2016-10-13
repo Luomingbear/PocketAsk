@@ -19,16 +19,19 @@ public class CardItemView extends RelativeLayout
 {
 	private static final String TAG = "CardItemView";
 	private Spring mSpringX, mSpringY; //反弹
-	private double mTension = 25; //拉力
-	private double mFriction = 3; //摩擦力
+	private double mTension = 20; //拉力
+	private double mFriction = 5; //摩擦力
 	private float mTouchX, mTouchY; //手指按下时的坐标
 	private float mDistanceX = 0, mDistanceY = 0; //手指移动的总距离
 	private float mPosX = 0, mPosY = 0; //卡片的初始坐标
-	private float mMaxRotation = 5; //限制卡片旋转的角度
+	private float mMaxRotation = 8; //限制卡片旋转的角度
 
 	private float mCardHalfWidth = 0; //卡片的宽度的1/4
 
 	private boolean isClicked = false;
+
+	private boolean isRemove = false;//是否移除了
+	private boolean isOutLeft = false;//向左滑出
 
 	public CardItemView(Context context)
 	{
@@ -62,13 +65,24 @@ public class CardItemView extends RelativeLayout
 				setX(x);
 				float rotation = x * mMaxRotation / 360;
 				setRotation(rotation);
+				//将当前的位置传递给父类让他更新卡片堆栈的其他卡片的位置
+				if (springUpdateListener != null)
+					springUpdateListener.onUpdateX(x - mPosX);
 
 			}
 
 			@Override
 			public void onSpringAtRest(Spring spring)
 			{
+				if (onCardSlideListener != null && isRemove)
+				{
+					onCardSlideListener.onRemove();
 
+					if (isOutLeft)
+						onCardSlideListener.onExitLeft();
+					else
+						onCardSlideListener.onExitRight();
+				}
 			}
 
 			@Override
@@ -92,6 +106,8 @@ public class CardItemView extends RelativeLayout
 			{
 				float y = (float) spring.getCurrentValue();
 				setY(y);
+				if (springUpdateListener != null)
+					springUpdateListener.onUpdateY(y - mPosY);
 			}
 
 			@Override
@@ -164,6 +180,7 @@ public class CardItemView extends RelativeLayout
 			mDistanceX += event.getX() - mTouchX;
 			mDistanceY += event.getY() - mTouchY;
 
+			isRemove = false;
 			//使弹簧静止
 			mSpringX.setAtRest();
 			mSpringY.setAtRest();
@@ -227,6 +244,9 @@ public class CardItemView extends RelativeLayout
 	 */
 	public void setSlideLeft()
 	{
+		isOutLeft = true;
+		isRemove = true;
+
 		mSpringX.setCurrentValue(getX());
 		mSpringX.setEndValue(-getWidth() * 1.5);
 
@@ -237,12 +257,6 @@ public class CardItemView extends RelativeLayout
 			y = getWidth();
 		y = ((mDistanceY - mPosY) * (mPosX + getWidth()) / Math.abs(mDistanceX - mPosX));
 		mSpringY.setEndValue(y);
-
-		if (onCardSlideListener != null)
-		{
-			onCardSlideListener.onExitLeft();
-			onCardSlideListener.onRemove();
-		}
 	}
 
 	/**
@@ -250,6 +264,9 @@ public class CardItemView extends RelativeLayout
 	 */
 	public void setSlideRight()
 	{
+		isRemove = true;
+		isOutLeft = false;
+
 		mSpringX.setCurrentValue(getX());
 		mSpringX.setEndValue(getWidth() * 1.5);
 
@@ -261,28 +278,47 @@ public class CardItemView extends RelativeLayout
 		y = ((mDistanceY - mPosY) * (mPosX + getWidth()) / Math.abs(mDistanceX - mPosX));
 		mSpringY.setEndValue(y);
 
-		if (onCardSlideListener != null)
-		{
-			onCardSlideListener.onExitRight();
-			onCardSlideListener.onRemove();
-		}
 	}
 
-	private onCardSlidingListener onCardSlideListener;
+	private onCardItemSlidingListener onCardSlideListener;
 
-	public void setOnCardSlideListener(onCardSlidingListener onCardSlideListener)
+	public void setOnCardItemSlideListener(onCardItemSlidingListener onCardSlideListener)
 	{
 		this.onCardSlideListener = onCardSlideListener;
 	}
 
-	public interface onCardSlidingListener
+	/**
+	 * 卡片滑动的回调
+	 */
+	public interface onCardItemSlidingListener
 	{
+		//向左滑出
 		void onExitLeft();
 
+		//向右滑出
 		void onExitRight();
 
+		//移除
 		void onRemove();
 
+		//点击
 		void onClicked();
+	}
+
+	private SpringUpdateListener springUpdateListener;
+
+	public void setSpringUpdateListener(SpringUpdateListener springUpdateListener)
+	{
+		this.springUpdateListener = springUpdateListener;
+	}
+
+	/**
+	 * 弹簧更新回调
+	 */
+	public interface SpringUpdateListener
+	{
+		void onUpdateX(float posX);
+
+		void onUpdateY(float posY);
 	}
 }
