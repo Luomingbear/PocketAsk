@@ -6,6 +6,9 @@
     <!-- 图片大小 -->
     <dimen name="image_normal">63dp</dimen>
 
+    <!-- 标题栏 -->
+    <dimen name="title_height">48dp</dimen>
+
     <!-- 外边距 -->
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
@@ -13,8 +16,8 @@
     <dimen name="margin_large">46dp</dimen>
 
     <!-- 字体大小 -->
-    <dimen name="font_small">12sp</dimen>
-    <dimen name="font_normal">14sp</dimen>
-    <dimen name="font_big">18sp</dimen>
-    <dimen name="font_large">22sp</dimen>
+    <dimen name="font_min">12sp</dimen>
+    <dimen name="font_small">14sp</dimen>
+    <dimen name="font_normal">18sp</dimen>
+    <dimen name="font_big">22sp</dimen>
 </resources>

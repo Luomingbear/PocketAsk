@@ -19,224 +19,233 @@ import android.widget.TextView;
  * 标题栏
  * Created by luoming on 10/9/2016.
  */
-public class TitleView extends LinearLayout
-{
-	private TitleMode mTitleMode;
+public class TitleView extends LinearLayout {
+    private static final String TAG = "TitleView";
 
-	private TextView mTitleTextView;
-	private ImageView mLeftImageView;
-	private ImageView mRightImageView;
+    private TitleMode mTitleMode;
+    private int mTitleHeight;//标题栏高度
 
-	private String titleText; //标题文本
-	private int titleColor; //标题颜色
-	private float titleSize; //标题大小
 
-	public TitleView(Context context)
-	{
-		this(context, null);
-	}
+    private TextView mmTitleTextView;
+    private ImageView mLeftImageView;
+    private ImageView mRightImageView;
 
-	public TitleView(Context context, AttributeSet attrs)
-	{
-		this(context, attrs, 0);
-	}
+    private String mTitleText; //标题文本
+    private int mTitleColor; //标题颜色
+    private float mTitleSize; //标题大小
 
-	public TitleView(Context context, AttributeSet attrs, int defStyle)
-	{
-		super(context, attrs, defStyle);
-		setOrientation(HORIZONTAL);
-		setGravity(Gravity.CENTER_VERTICAL);
-		setBackgroundColor(Color.WHITE);
+    public TitleView(Context context) {
+        this(context, null);
+    }
 
-		TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TitleView);
-		mTitleMode = TitleMode.values()[typedArray.getInt(R.styleable.TitleView_titleMode, 0)];
-		titleText = typedArray.getString(R.styleable.TitleView_titleText);
-		titleColor = typedArray.getColor(R.styleable.TitleView_titleColor, getResources().getColor(R.color.grayblue));
-		titleSize = typedArray.getDimension(R.styleable.TitleView_titleSize, getResources().getDimension(R.dimen.font_big));
-		typedArray.recycle();
-		initView();
-	}
+    public TitleView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
 
-	/**
-	 * 初始化界面
-	 */
-	private void initView()
-	{
-		switch (mTitleMode)
-		{
-		case PERSON_TITLE_EDIT:
-		{
-			//左边的图标
-			addLeftButton();
-			//居中的标题
-			mTitleTextView = newTextView(titleText, titleColor, titleSize);
-			mTitleTextView.setGravity(Gravity.CENTER);
-			addView(mTitleTextView);
-			//右边的图标
-			addRightButton();
-			break;
-		}
-		}
-	}
+    public TitleView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        setOrientation(HORIZONTAL);
+        setGravity(Gravity.CENTER_VERTICAL);
+        setBackgroundColor(Color.WHITE);
 
-	private void addLeftButton()
-	{
-		mLeftImageView = newImageView();
-		mLeftImageView.setImageResource(R.drawable.user);
-		addView(mLeftImageView);
-		mLeftImageView.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				if (mTitleViewListener != null)
-					mTitleViewListener.onLeftButton();
-			}
-		});
-	}
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TitleView);
+        mTitleMode = TitleMode.values()[typedArray.getInt(R.styleable.TitleView_titleMode, 0)];
+        mTitleText = typedArray.getString(R.styleable.TitleView_titleText);
+        mTitleColor = typedArray.getColor(R.styleable.TitleView_titleColor, getResources().getColor(R.color.grayblue));
+        mTitleSize = typedArray.getDimension(R.styleable.TitleView_titleSize, getResources().getDimension(R.dimen.font_normal));
+        typedArray.recycle();
 
-	private void addRightButton()
-	{
-		mRightImageView = newImageView();
-		mRightImageView.setImageResource(R.drawable.edit);
-		addView(mRightImageView);
-		mRightImageView.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				if (mTitleViewListener != null)
-					mTitleViewListener.onRightButton();
-			}
-		});
-	}
+        mTitleHeight = (int) getResources().getDimension(R.dimen.title_height);
+        initView();
+    }
 
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-	{
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-		int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-		int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-		int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+    /**
+     * 初始化界面
+     */
+    private void initView() {
+        switch (mTitleMode) {
+            case PERSON_TITLE_EDIT: {
+                //左边的图标
+                addLeftButton(R.drawable.person);
+                //居中的标题
+                addTitle();
+                //右边的图标
+                addRightButton(R.drawable.write);
+                break;
+            }
+            case BACK_TITLE_GO: {
+                addLeftButton(R.drawable.back);
+                addTitle();
+                addRightButton(R.drawable.goon);
+            }
+        }
+    }
 
-		if (widthMode == MeasureSpec.AT_MOST)
-			widthSize = DipPxConversion.dip2px(getContext(), 200);
-		if (heightMode == MeasureSpec.AT_MOST)
-			heightSize = DipPxConversion.dip2px(getContext(), 48);
+    private void addTitle() {
+        mmTitleTextView = newTextView(mTitleText, mTitleColor, mTitleSize);
+        mmTitleTextView.setGravity(Gravity.CENTER);
+        addView(mmTitleTextView);
+    }
 
-		setMeasuredDimension(widthSize, heightSize);
-	}
+    private void addLeftButton(int drawableId) {
+        LinearLayout leftLayout = new LinearLayout(getContext());
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, mTitleHeight);
+        leftLayout.setLayoutParams(params);
+        leftLayout.setGravity(Gravity.CENTER);
+        mLeftImageView = newImageView();
+        mLeftImageView.setImageResource(drawableId);
+        leftLayout.addView(mLeftImageView);
+        addView(leftLayout);
+        leftLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mTitleViewListener != null)
+                    mTitleViewListener.onLeftButton();
+            }
+        });
+    }
 
-	/**
-	 * 新建文本view
-	 * @param text
-	 * @param color
-	 * @param size
-	 * @return
-	 */
-	private TextView newTextView(String text, int color, float size)
-	{
-		TextView textView = new TextView(getContext());
-		textView.setText(text);
-		textView.setTextColor(color);
-		textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+    private void addRightButton(int drawableId) {
+        LinearLayout rightLayout = new LinearLayout(getContext());
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, mTitleHeight);
+        rightLayout.setLayoutParams(params);
+        rightLayout.setGravity(Gravity.CENTER);
+        mRightImageView = newImageView();
+        mRightImageView.setImageResource(drawableId);
+        rightLayout.addView(mRightImageView);
+        addView(rightLayout);
+        rightLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mTitleViewListener != null)
+                    mTitleViewListener.onRightButton();
+            }
+        });
+    }
 
-		LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
-		textView.setLayoutParams(params);
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
-		return textView;
-	}
+        if (widthMode == MeasureSpec.AT_MOST)
+            widthSize = DipPxConversion.dip2px(getContext(), 200);
+        if (heightMode == MeasureSpec.AT_MOST)
+            heightSize = (int) getResources().getDimension(R.dimen.title_height);
 
-	/**
-	 * 新建图片view
-	 */
-	private ImageView newImageView()
-	{
-		ImageView imageView = new ImageView(getContext());
-		LayoutParams params = new LayoutParams(DipPxConversion.dip2px(getContext(), 32), DipPxConversion.dip2px(getContext(), 32));
-		int margin = (int) getResources().getDimension(R.dimen.margin_normal);
-		//设置外边距
-		params.setMargins(margin, 0, margin, 0);
-		imageView.setLayoutParams(params);
+        setMeasuredDimension(widthSize, heightSize);
+    }
 
-		//设置裁剪属性
-		imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-		return imageView;
-	}
+    /**
+     * 新建文本view
+     *
+     * @param text
+     * @param color
+     * @param size
+     * @return
+     */
+    private TextView newTextView(String text, int color, float size) {
+        TextView textView = new TextView(getContext());
+        textView.setText(text);
+        textView.setTextColor(color);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
 
-	/**
-	 * 设置标题文字
-	 * @param s
-	 */
-	public void setTitleText(String s)
-	{
-		if (mTitleTextView != null)
-			mTitleTextView.setText(s);
-	}
+        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        textView.setLayoutParams(params);
 
-	/**
-	 * 设置标题颜色
-	 * @param color
-	 */
-	public void setTitleColor(int color)
-	{
-		if (mTitleTextView != null)
-			mTitleTextView.setTextColor(color);
-	}
+        return textView;
+    }
 
-	/**
-	 * 设置标题大小
-	 * @param size
-	 */
-	public void setTitleSize(float size)
-	{
-		if (mTitleTextView != null)
-			mTitleTextView.setTextSize(size);
-	}
+    /**
+     * 新建图片view
+     */
+    private ImageView newImageView() {
+        ImageView imageView = new ImageView(getContext());
+        LayoutParams params = new LayoutParams(DipPxConversion.dip2px(getContext(), 32), DipPxConversion.dip2px(getContext(), 32));
+        int margin = (int) getResources().getDimension(R.dimen.margin_normal);
+        //设置外边距
+        params.setMargins(margin, 0, margin, 0);
+        imageView.setLayoutParams(params);
 
-	/**
-	 * 设置左边的图标
-	 * @param drawableId
-	 */
-	public void setLeftImage(int drawableId)
-	{
-		if (mLeftImageView != null)
-		{
-			mLeftImageView.setImageResource(drawableId);
-		}
-	}
+        //设置裁剪属性
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        return imageView;
+    }
 
-	/**
-	 * 设置右边的图标
-	 * @param drawableId
-	 */
-	public void setmRightImage(int drawableId)
-	{
-		if (mRightImageView != null)
-		{
-			mRightImageView.setImageResource(drawableId);
-		}
-	}
+    /**
+     * 设置标题文字
+     *
+     * @param s
+     */
+    public void setmTitleText(String s) {
+        if (mmTitleTextView != null)
+            mmTitleTextView.setText(s);
+    }
 
-	public enum TitleMode
-	{
-		PERSON_TITLE_EDIT
-	}
+    /**
+     * 设置标题颜色
+     *
+     * @param color
+     */
+    public void setmTitleColor(int color) {
+        if (mmTitleTextView != null)
+            mmTitleTextView.setTextColor(color);
+    }
 
-	private TitleViewListener mTitleViewListener;
+    /**
+     * 设置标题大小
+     *
+     * @param size
+     */
+    public void setmTitleSize(float size) {
+        if (mmTitleTextView != null)
+            mmTitleTextView.setTextSize(size);
+    }
 
-	public void setTitleViewListener(TitleViewListener mTitleViewListener)
-	{
-		this.mTitleViewListener = mTitleViewListener;
-	}
+    /**
+     * 设置左边的图标
+     *
+     * @param drawableId
+     */
+    public void setLeftImage(int drawableId) {
+        if (mLeftImageView != null) {
+            mLeftImageView.setImageResource(drawableId);
+        }
+    }
 
-	public interface TitleViewListener
-	{
-		//点击了左边的按钮执行
-		void onLeftButton();
+    /**
+     * 设置右边的图标
+     *
+     * @param drawableId
+     */
+    public void setmRightImage(int drawableId) {
+        if (mRightImageView != null) {
+            mRightImageView.setImageResource(drawableId);
+        }
+    }
 
-		//点击了右边的按钮执行
-		void onRightButton();
-	}
+    public enum TitleMode {
+        //个人- 标题 - 编辑
+        PERSON_TITLE_EDIT,
+
+        //返回 - 标题 - 前进
+        BACK_TITLE_GO
+    }
+
+    private TitleViewListener mTitleViewListener;
+
+    public void setTitleViewListener(TitleViewListener mTitleViewListener) {
+        this.mTitleViewListener = mTitleViewListener;
+    }
+
+    public interface TitleViewListener {
+        //点击了左边的按钮执行
+        void onLeftButton();
+
+        //点击了右边的按钮执行
+        void onRightButton();
+    }
 }

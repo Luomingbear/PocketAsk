@@ -27,6 +27,7 @@
         <attr name="titleSize" format="dimension"/>
         <attr name="titleMode" format="enum">
             <enum name="PERSON_TITLE_EDIT" value="0"/>
+            <enum name="BACK_TITLE_GO" value="1"/>
         </attr>
     </declare-styleable>
 </resources>
