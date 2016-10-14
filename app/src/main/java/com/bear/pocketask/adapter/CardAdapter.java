@@ -8,7 +8,6 @@ import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.view.CircleImageView;
 import com.bear.pocketask.view.record.RecordView;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 
 import android.content.Context;
 import android.util.Log;
@@ -61,7 +60,8 @@ public class CardAdapter extends BaseAdapter implements View.OnClickListener
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-
+		if (list.size() < 1)
+			return null;
 		if (convertView == null)
 		{
 			convertView = inflater.inflate(R.layout.card_item, null);

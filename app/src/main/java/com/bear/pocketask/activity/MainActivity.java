@@ -109,7 +109,6 @@ public class MainActivity extends Activity implements CardAdapter.CardItemClickL
 	public void onRemove()
 	{
 		Toast.makeText(this, "移除", Toast.LENGTH_SHORT).show();
-		Log.e(TAG, "onRemove: +++++++1" );
 		if (mCardInfoList.size() > 0)
 		{
 			mCardInfoList.remove(0);
