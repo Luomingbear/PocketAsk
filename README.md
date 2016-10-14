@@ -4,6 +4,7 @@
 #使用
 简单的更新和使用说明
 ##标题栏
+标题栏，默认mode为PERSON_TITLE_EDIT，显示效果是个人－标题－编辑
 标题栏增加左边返回-中间标题-右边前进的样式
 使用方法在布局文件里面设置titleMode为BACK-TITLE-GO
 按钮的点击事件需要监听TitleViewListener
