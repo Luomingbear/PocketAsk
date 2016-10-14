@@ -278,11 +278,13 @@ public class CardSlideAdapterView extends AdapterView implements CardItemView.on
 
     @Override
     public void onExitLeft() {
+        mCardSlidingListener.onExitLeft();
 
     }
 
     @Override
     public void onExitRight() {
+        mCardSlidingListener.onExitRight();
 
     }
 
@@ -319,9 +321,20 @@ public class CardSlideAdapterView extends AdapterView implements CardItemView.on
 
     private OnCardSlidingListener mCardSlidingListener;
 
+    /**
+     * 卡片的拖动回调函数
+     */
     public interface OnCardSlidingListener {
+        //当卡片被移除的时候执行
         void onRemove();
 
+        //点击了卡片的非特殊区域时执行
         void onClicked();
+
+        //当卡片向左移除时执行
+        void onExitLeft();
+
+        //当卡片向右移除时执行
+        void onExitRight();
     }
 }
