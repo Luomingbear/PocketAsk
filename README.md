@@ -10,3 +10,5 @@
 按钮的点击事件需要监听TitleViewListener
 ##可拖动的卡片
 完全自定义实现了卡片的拖动和背景的缩放效果，可以设置最大的卡片数量。卡片的不同地方点击效果会不一样，需要实现OnCardSlidingListener监听卡片的拖动、移除和点击
+##单选和多选
+自定义的单选喝多选的选项控件,使用方法,在布局文件里面添加一个SelectorGroup作为选项的父布局,设置SelectorMode类型,有[RadioButton]单选和[CheckButton]多选。在它的里面加入SelectorButton选项布局就完成了,要得到选择的值需要对SelectorGroup实现SelectorCheckListener方法监听点击的选择事件

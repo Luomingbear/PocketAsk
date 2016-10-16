@@ -187,11 +187,20 @@ public class SelectorButton extends View {
     public void setChecked(boolean checked) {
         isChecked = checked;
 
-        invalidate();
+        postInvalidate();
     }
 
     public boolean isChecked() {
         return isChecked;
+    }
+
+    public String getTextString() {
+        return mTextString;
+    }
+
+    public void setTextString(String textString) {
+        this.mTextString = textString;
+        postInvalidate();
     }
 
     private float touchX, touchY;

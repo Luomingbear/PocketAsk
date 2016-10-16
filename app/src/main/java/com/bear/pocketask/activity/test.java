@@ -5,8 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.bear.pocketask.R;
+import com.bear.pocketask.adapter.SelectorAdapter;
+import com.bear.pocketask.info.SelectorInfo;
+import com.bear.pocketask.utils.AdapterViewUtil;
+import com.bear.pocketask.view.selectorbutton.SelectorAdapterView;
 import com.bear.pocketask.view.selectorbutton.SelectorGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,8 +31,22 @@ public class test extends Activity implements SelectorGroup.SelectorCheckedListe
     }
 
     private void initView() {
-        selectorGroup = (SelectorGroup) findViewById(R.id.selectorGroup);
-        selectorGroup.setSelectorCheckedListener(this);
+//        selectorGroup = (SelectorGroup) findViewById(R.id.selectorGroup);
+//        selectorGroup.setSelectorCheckedListener(this);
+        setAdaperView();
+    }
+
+    private void setAdaperView() {
+        List<SelectorInfo> selectorInfoList = new ArrayList<SelectorInfo>();
+        for (int i = 0; i < 10; i++) {
+            SelectorInfo info = new SelectorInfo("FuCK" + i);
+            selectorInfoList.add(info);
+        }
+
+        SelectorAdapterView selectorAdapterView = (SelectorAdapterView) findViewById(R.id.selectorAdapterView);
+        SelectorAdapter selectorAdapter = new SelectorAdapter(this, selectorInfoList);
+        selectorAdapterView.setAdapter(selectorAdapter);
+        AdapterViewUtil.FixHeight(selectorAdapterView);
     }
 
     @Override

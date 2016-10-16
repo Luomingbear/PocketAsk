@@ -2,14 +2,13 @@ package com.bear.pocketask.adapter;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bear.pocketask.R;
+import com.bear.pocketask.adapter.base.IBaseAdapter;
 import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.view.record.RecordView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -24,41 +23,23 @@ import java.util.Observable;
  * Created by bear on 16/10/7.
  */
 
-public class CardAdapter extends BaseAdapter implements View.OnClickListener {
+public class CardAdapter extends IBaseAdapter implements View.OnClickListener {
     private static final String TAG = "CardAdapter";
-    private List<CardItemInfo> list; //数据源列表
     private CardItemInfo info;
-    private LayoutInflater inflater;
 
     private Observable observable;
 
     public CardAdapter(Context context, List<CardItemInfo> list) {
-        inflater = LayoutInflater.from(context);
-        this.list = list;
+        super(context, list);
         observable = new Observable();
     }
 
     @Override
-    public int getCount() {
-        return list == null ? 0 : list.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return list == null ? null : list.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return list == null ? 0 : position;
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (list.size() < 1)
+        if (getList().size() < 1)
             return null;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.card_item, null);
+            convertView = getInflater().inflate(R.layout.card_item, null);
 
             viewHolder = new ViewHolder();
             viewHolder.ivDetailPic = (ImageView) convertView.findViewById(R.id.card_item_detail_pic);
@@ -73,8 +54,8 @@ public class CardAdapter extends BaseAdapter implements View.OnClickListener {
             viewHolder = (ViewHolder) convertView.getTag();
 
         //设置值
-        if (list.size() > 0 && position < list.size()) {
-            info = list.get(position);
+        if (getList().size() > 0 && position < getList().size()) {
+            info = (CardItemInfo) getItem(position);
             viewHolder.tvUserName.setText(info.getUserName());
             viewHolder.tvQuestion.setText(info.getQuestions());
             //显示圆形的图像
