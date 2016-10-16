@@ -1,15 +1,14 @@
 package com.bear.pocketask.view.cardview;
 
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.widget.RelativeLayout;
+
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringListener;
 import com.facebook.rebound.SpringSystem;
-
-import android.content.Context;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.widget.RelativeLayout;
 
 /**
  * 卡片布局
@@ -192,10 +191,7 @@ public class CardItemView extends RelativeLayout {
                     setSlideBack();
 
                 //设置是否是点击效果
-                if (Math.max(Math.abs(mDistanceX - mPosX), Math.abs(mDistanceY - mPosY)) > 5)
-                    isClicked = false;
-                else
-                    isClicked = true;
+                isClicked = Math.max(Math.abs(mDistanceX - mPosX), Math.abs(mDistanceY - mPosY)) <= 5;
 
                 //点击事件的回调
                 if (event.getX() > 0 && event.getX() < getWidth())
@@ -236,8 +232,6 @@ public class CardItemView extends RelativeLayout {
         mSpringY.setCurrentValue(getY());
         //设置离开的y坐标，根据当前手指的滑动计算
         double y;
-        if (mDistanceY == 0 || mDistanceX == 0)
-            y = getWidth();
         y = ((mDistanceY - mPosY) * (mPosX + getWidth()) / Math.abs(mDistanceX - mPosX));
         mSpringY.setEndValue(y);
     }
@@ -255,8 +249,6 @@ public class CardItemView extends RelativeLayout {
         mSpringY.setCurrentValue(getY());
         //设置离开的y坐标，根据当前手指的滑动计算
         double y;
-        if (mDistanceY == 0 || mDistanceX == 0)
-            y = getWidth();
         y = ((mDistanceY - mPosY) * (mPosX + getWidth()) / Math.abs(mDistanceX - mPosX));
         mSpringY.setEndValue(y);
 

@@ -1,8 +1,5 @@
 package com.bear.pocketask.view;
 
-import com.bear.pocketask.R;
-import com.bear.pocketask.utils.DipPxConversion;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -14,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bear.pocketask.R;
+import com.bear.pocketask.utils.DipPxConversion;
 
 /**
  * 标题栏

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="vertical">
+
+    <com.bear.pocketask.view.selectorbutton.SelectorGroup
+        android:id="@+id/selectorGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:selectorMode="RadioButton">
+
+        <com.bear.pocketask.view.selectorbutton.SelectorButton
+            android:id="@+id/selectButton1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:icon_padding="0dp"
+            app:icon_position="Left"
+            app:text_string="@string/app_name" />
+
+        <com.bear.pocketask.view.selectorbutton.SelectorButton
+            android:id="@+id/selectButton2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:icon_padding="0dp"
+            app:icon_position="Left"
+            app:text_string="@string/app_name" />
+
+        <com.bear.pocketask.view.selectorbutton.SelectorButton
+            android:id="@+id/selectButton3"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:icon_padding="0dp"
+            app:icon_position="Left"
+            app:text_string="@string/app_name" />
+
+        <com.bear.pocketask.view.selectorbutton.SelectorButton
+            android:id="@+id/selectButton4"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:icon_padding="0dp"
+            app:icon_position="Left"
+            app:text_string="@string/app_name" />
+
+    </com.bear.pocketask.view.selectorbutton.SelectorGroup>
+
+
+</LinearLayout>

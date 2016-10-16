@@ -27,10 +27,10 @@ import java.util.Observable;
 public class CardAdapter extends BaseAdapter implements View.OnClickListener {
     private static final String TAG = "CardAdapter";
     private List<CardItemInfo> list; //数据源列表
-    CardItemInfo info;
+    private CardItemInfo info;
     private LayoutInflater inflater;
 
-    Observable observable;
+    private Observable observable;
 
     public CardAdapter(Context context, List<CardItemInfo> list) {
         inflater = LayoutInflater.from(context);
@@ -65,7 +65,6 @@ public class CardAdapter extends BaseAdapter implements View.OnClickListener {
             viewHolder.ivHeadPic = (ImageView) convertView.findViewById(R.id.card_item_head_pic);
             viewHolder.tvQuestion = (TextView) convertView.findViewById(R.id.card_item_questions);
             viewHolder.tvUserName = (TextView) convertView.findViewById(R.id.card_item_user_name);
-            //			viewHolder.rvRecordView = (RecordView) convertView.findViewById(R.id.card_item_record);
 
             viewHolder.leReport = convertView.findViewById(R.id.card_item_report);
             viewHolder.btSend = convertView.findViewById(R.id.card_item_send);

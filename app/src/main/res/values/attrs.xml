@@ -1,33 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <declare-styleable name="RecordView">
-        <attr name="roundSize" format="dimension"/>
-        <attr name="backgroundColor" format="color|reference"/>
-        <attr name="strokeWidth" format="dimension"/>
+        <attr name="roundSize" format="dimension" />
+        <attr name="backgroundColor" format="color|reference" />
+        <attr name="strokeWidth" format="dimension" />
         <attr name="recordMode" format="enum">
-            <enum name="record" value="1"/>
-            <enum name="broadcast" value="0"/>
+            <enum name="record" value="1" />
+            <enum name="broadcast" value="0" />
         </attr>
     </declare-styleable>
 
     <declare-styleable name="AutoScaleLayout">
-        <attr name="scaleRate" format="float"/>
+        <attr name="scaleRate" format="float" />
     </declare-styleable>
 
     <declare-styleable name="SwipeFlingAdapterView">
-        <attr name="SwipeFlingStyle" format="reference"/>
-        <attr name="rotation_degrees" format="float"/>
-        <attr name="min_adapter_stack" format="integer"/>
-        <attr name="max_visible" format="integer"/>
+        <attr name="SwipeFlingStyle" format="reference" />
+        <attr name="rotation_degrees" format="float" />
+        <attr name="min_adapter_stack" format="integer" />
+        <attr name="max_visible" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="TitleView">
-        <attr name="titleText" format="string|reference"/>
-        <attr name="titleColor" format="color"/>
-        <attr name="titleSize" format="dimension"/>
+        <attr name="titleText" format="string|reference" />
+        <attr name="titleColor" format="color" />
+        <attr name="titleSize" format="dimension" />
         <attr name="titleMode" format="enum">
-            <enum name="PERSON_TITLE_EDIT" value="0"/>
-            <enum name="BACK_TITLE_GO" value="1"/>
+            <enum name="PERSON_TITLE_EDIT" value="0" />
+            <enum name="BACK_TITLE_GO" value="1" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="SelectorGroup">
+        <attr name="selectorMode" format="enum">
+            <enum name="CheckButton" value="0" />
+            <enum name="RadioButton" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SelectorButton">
+        <attr name="text_color" format="color|reference" />
+        <attr name="text_string" format="string|reference" />
+        <attr name="text_size" format="dimension|reference" />
+        <attr name="icon_padding" format="dimension|reference" />
+        <attr name="layout_padding" format="dimension|reference" />
+        <attr name="icon_position" format="enum">
+            <enum name="Left" value="0" />
+            <enum name="Top" value="1" />
+            <enum name="Right" value="2" />
+            <enum name="Bottom" value="3" />
+        </attr>
+    </declare-styleable>
+
 </resources>

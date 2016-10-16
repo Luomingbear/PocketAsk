@@ -1,6 +1,7 @@
 package com.bear.pocketask.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -103,6 +104,9 @@ public class MainActivity extends Activity implements CardAdapter.CardItemClickL
 
     @Override
     public void onClicked() {
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this, test.class);
+        startActivity(intent);
         Toast.makeText(this, "点击了卡片", Toast.LENGTH_SHORT).show();
     }
 

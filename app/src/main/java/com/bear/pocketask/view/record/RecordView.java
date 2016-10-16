@@ -1,11 +1,5 @@
 package com.bear.pocketask.view.record;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import com.bear.pocketask.R;
-import com.bear.pocketask.utils.DipPxConversion;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -20,13 +14,19 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.bear.pocketask.R;
+import com.bear.pocketask.utils.DipPxConversion;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * 录音view
  * 类似微信的语音播放按钮
  * 执行setRecordViewListener（）方法监听点击事件，返回当前是否处于播放状态
  * Created by luoming on 9/30/2016.
  */
-public class RecordView extends View implements RecordObserver {
+public class RecordView extends View implements RecordObservable.RecordObserver {
     private Paint mPaint; //画笔
     private float mRoundSize; //圆角值
     private float mStrokeWidth; //画笔的宽度
@@ -261,7 +261,6 @@ public class RecordView extends View implements RecordObserver {
 
     @Override
     public void onUpdate(int id, boolean isPlay) {
-        int i = getRecordId();
         if (getRecordId() == id)
             setPlay(isPlay);
     }
