@@ -20,4 +20,10 @@
     <dimen name="font_small">14sp</dimen>
     <dimen name="font_normal">18sp</dimen>
     <dimen name="font_big">22sp</dimen>
+
+    <!-- 默认CRadioButton大小 -->
+    <dimen name="cr_btn_width">61dp</dimen>
+    <dimen name="cr_btn_height">23dp</dimen>
+    <dimen name="cr_switch_width">16dp</dimen>
+    <dimen name="cr_btn_radius">5dp</dimen>
 </resources>
