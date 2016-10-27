@@ -62,8 +62,8 @@
         <attr name="btn_radius" format="dimension|reference"/>
         <attr name="cr_text_size" format="dimension|reference"/>
         <attr name="crb_mode" format="enum">
-            <enum name="Private" value="0"/>
-            <enum name="Near" value="1"/>
+            <enum name="Near" value="0"/>
+            <enum name="Private" value="1"/>
         </attr>
     </declare-styleable>
 
