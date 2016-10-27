@@ -53,4 +53,18 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="CRadioButton">
+        <attr name="left_padding" format="dimension|reference"/>
+        <attr name="top_padding" format="dimension|reference"/>
+        <attr name="btn_width" format="dimension|reference"/>
+        <attr name="btn_height" format="dimension|reference"/>
+        <attr name="switch_width" format="dimension|reference"/>
+        <attr name="btn_radius" format="dimension|reference"/>
+        <attr name="cr_text_size" format="dimension|reference"/>
+        <attr name="crb_mode" format="enum">
+            <enum name="Private" value="0"/>
+            <enum name="Near" value="1"/>
+        </attr>
+    </declare-styleable>
+
 </resources>

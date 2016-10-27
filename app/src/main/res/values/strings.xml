@@ -2,4 +2,8 @@
     <string name="app_name">口袋问</string>
     <string name="report">举报</string>
     <string name="send">发送</string>
+    <string name="anywhere">任意</string>
+    <string name="near">附近</string>
+    <string name="public_">公开</string>
+    <string name="private_">非公开</string>
 </resources>
