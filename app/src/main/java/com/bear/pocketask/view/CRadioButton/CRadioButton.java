@@ -60,6 +60,32 @@ public class CRadioButton extends View {
         this.listener=listener;
     }
 
+    private class CRadioState{
+        CRadioButton crbtn;
+        private int count=0;
+        public CRadioState(CRadioButton crbtn){
+            this.crbtn=crbtn;
+        }
+
+        public void changeCRState(){
+            count=(count+1)%2;
+            this.setCRState(count);
+        }
+
+        public void setCRState(int state){
+            crbtn.setApperance(state);
+            switch (state)
+            {
+                case 0:
+                    crbtn.listener.openState();
+                    break;
+                case 1:
+                    crbtn.listener.closeState();
+                    break;
+            }
+        }
+    }
+
     public CRadioButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         text_store=new String[2];
@@ -76,7 +102,7 @@ public class CRadioButton extends View {
                 break;
             case PRIVATE_PUBLIC:
                 text_store[0]="公开";
-                text_store[0]="非公开";
+                text_store[1]="非公开";
                 break;
         }
         text_show=text_store[1];
