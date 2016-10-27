@@ -120,11 +120,10 @@ public class CRadioButton extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                if(btn.contains(event.getX()+left_padding,event.getY()+top_padding)){
-                    state.changeCRState();
-                }
+        if(event.getAction()==MotionEvent.ACTION_DOWN){
+            if(btn.contains(event.getX()+left_padding,event.getY()+top_padding)){
+                state.changeCRState();
+            }
         }
         return super.onTouchEvent(event);
     }
