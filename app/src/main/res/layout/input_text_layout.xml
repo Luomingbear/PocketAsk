@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/title_height"
+              android:gravity="center_vertical"
+              android:orientation="horizontal">
+
+    <!-- 输入文本 -->
+    <EditText
+        android:id="@+id/card_item_record"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:textColor="@color/deepgray"
+        android:textSize="@dimen/font_small"/>
+
+    <!-- 发送 -->
+    <LinearLayout
+        android:id="@+id/card_item_send"
+        android:layout_width="@dimen/title_height"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/deepblue"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="@dimen/icon_large"
+            android:layout_height="@dimen/icon_large"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:src="@drawable/ok"/>
+    </LinearLayout>
+</LinearLayout>

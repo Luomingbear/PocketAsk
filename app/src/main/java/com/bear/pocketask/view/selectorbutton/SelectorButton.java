@@ -199,7 +199,7 @@ public class SelectorButton extends View
 	{
 		isChecked = checked;
 
-		postInvalidate();
+		invalidate();
 	}
 
 	public boolean isChecked()

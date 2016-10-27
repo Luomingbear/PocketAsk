@@ -133,25 +133,27 @@
                 android:layout_height="40dp"
                 android:orientation="horizontal">
 
-                <!-- 录音 -->
+                <!-- 输入文本 -->
                 <EditText
                     android:id="@+id/card_item_record"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/edit_round_bg"/>
+                    android:background="@drawable/edit_round_bg"
+                    android:textColor="@color/deepgray"
+                    android:textSize="@dimen/font_small"/>
 
                 <!-- 发送 -->
                 <TextView
                     android:id="@+id/card_item_send"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/font_normal"
                     android:layout_marginLeft="@dimen/margin_small"
                     android:background="@drawable/round_button"
                     android:gravity="center"
                     android:text="@string/send"
-                    android:textColor="#ffffff"/>
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/font_normal"/>
             </LinearLayout>
 
         </LinearLayout>
