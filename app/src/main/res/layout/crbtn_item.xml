@@ -4,11 +4,11 @@
               android:layout_height="match_parent"
               android:weightSum="1">
 
-    <com.bear.pocketask.view.CRadioButton.CRadioButton
+    <com.bear.pocketask.view.cradiobutton.CRadioButton
         android:id="@+id/crb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/deepgray">
-    </com.bear.pocketask.view.CRadioButton.CRadioButton>
+    </com.bear.pocketask.view.cradiobutton.CRadioButton>
 
 </LinearLayout>

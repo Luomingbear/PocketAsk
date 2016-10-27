@@ -3,6 +3,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/deepgray"
               android:baselineAligned="false"
               android:orientation="vertical">
 
@@ -23,6 +24,9 @@
 
             </com.bear.pocketask.view.selectorbutton.SelectorAdapterView>
 
+            <com.bear.pocketask.view.cradiobutton.CRadioButton
+                android:layout_width="80dp"
+                android:layout_height="40dp"/>
         </LinearLayout>
 
     </ScrollView>

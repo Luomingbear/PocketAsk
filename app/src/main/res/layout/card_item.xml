@@ -15,6 +15,7 @@
         android:layout_alignLeft="@+id/line1"
         android:layout_alignRight="@+id/line1"
         android:layout_alignTop="@+id/line1"
+        android:contentDescription="@string/app_name"
         android:scaleType="fitXY"
         android:src="@drawable/page_bg"/>
 
@@ -102,7 +103,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"></LinearLayout>
+                android:layout_weight="1">
+
+            </LinearLayout>
 
             <com.bear.pocketask.view.cardview.AutoScaleLayout
                 android:layout_width="match_parent"
@@ -143,6 +146,7 @@
                     android:id="@+id/card_item_send"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
+                    android:textSize="@dimen/font_normal"
                     android:layout_marginLeft="@dimen/margin_small"
                     android:background="@drawable/round_button"
                     android:gravity="center"

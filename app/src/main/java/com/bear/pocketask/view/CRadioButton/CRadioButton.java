@@ -1,4 +1,4 @@
-package com.bear.pocketask.view.CRadioButton;
+package com.bear.pocketask.view.cradiobutton;
 
 import com.bear.pocketask.R;
 
@@ -17,7 +17,6 @@ import android.view.View;
  * 定位开关
  * Created by LiXiaoJuan  on 2016/10/24.
  */
-
 public class CRadioButton extends View
 {
 	private Paint paint;
@@ -66,12 +65,39 @@ public class CRadioButton extends View
 		this.listener = listener;
 	}
 
+	private class CRadioState
+	{
+		private int count = 0;
+
+		public void changeCRState()
+		{
+			count = (count + 1) % 2;
+			this.setCRState(count);
+		}
+
+		public void setCRState(int state)
+		{
+			setApperance(state);
+			switch (state)
+			{
+			case 0:
+				if (listener != null)
+					listener.openState();
+				break;
+			case 1:
+				if (listener != null)
+					listener.closeState();
+				break;
+			}
+		}
+	}
+
 	public CRadioButton(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 		text_store = new String[2];
 		paint = new Paint();
-		state = new CRadioState(this);
+		state = new CRadioState();
 
 		TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CRadioButton);
 
@@ -106,15 +132,14 @@ public class CRadioButton extends View
 	@Override
 	public boolean onTouchEvent(MotionEvent event)
 	{
-		switch (event.getAction())
+		if (event.getAction() == MotionEvent.ACTION_DOWN)
 		{
-		case MotionEvent.ACTION_DOWN:
 			if (btn.contains(event.getX() + left_padding, event.getY() + top_padding))
 			{
 				state.changeCRState();
 			}
 		}
-		return super.onTouchEvent(event);
+		return true;
 	}
 
 	@Override
