@@ -1,56 +1,61 @@
 package com.bear.pocketask.activity;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.bear.pocketask.R;
 import com.bear.pocketask.adapter.SelectorAdapter;
 import com.bear.pocketask.info.SelectorInfo;
 import com.bear.pocketask.utils.AdapterViewUtil;
 import com.bear.pocketask.view.selectorbutton.SelectorAdapterView;
-import com.bear.pocketask.view.selectorbutton.SelectorGroup;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 /**
+ * 测试控件
  * Created by bear on 16/10/16.
  */
 
-public class test extends Activity implements SelectorGroup.SelectorCheckedListener {
-    private static final String TAG = "test";
-    private SelectorGroup selectorGroup;
+public class test extends Activity implements SelectorAdapterView.SelectorCheckListener
+{
+	private static final String TAG = "test";
+	private SelectorAdapterView selectorAdapterView;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.test);
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.test);
 
-        initView();
-    }
+		initView();
+	}
 
-    private void initView() {
-//        selectorGroup = (SelectorGroup) findViewById(R.id.selectorGroup);
-//        selectorGroup.setSelectorCheckedListener(this);
-        setAdaperView();
-    }
+	private void initView()
+	{
+		setAdapterView();
+	}
 
-    private void setAdaperView() {
-        List<SelectorInfo> selectorInfoList = new ArrayList<SelectorInfo>();
-        for (int i = 0; i < 10; i++) {
-            SelectorInfo info = new SelectorInfo("FuCK" + i);
-            selectorInfoList.add(info);
-        }
+	private void setAdapterView()
+	{
+		List<SelectorInfo> selectorInfoList = new ArrayList<SelectorInfo>();
+		for (int i = 0; i < 10; i++)
+		{
+			SelectorInfo info = new SelectorInfo("FuCK" + i);
+			selectorInfoList.add(info);
+		}
+		selectorAdapterView = (SelectorAdapterView) findViewById(R.id.selectorAdapterView);
+		SelectorAdapter selectorAdapter = new SelectorAdapter(this, selectorInfoList);
+		selectorAdapterView.init(selectorAdapter, this);
+		AdapterViewUtil.FixHeight(selectorAdapterView);
+	}
 
-        SelectorAdapterView selectorAdapterView = (SelectorAdapterView) findViewById(R.id.selectorAdapterView);
-        SelectorAdapter selectorAdapter = new SelectorAdapter(this, selectorInfoList);
-        selectorAdapterView.setAdapter(selectorAdapter);
-        AdapterViewUtil.FixHeight(selectorAdapterView);
-    }
-
-    @Override
-    public void onChecked(List<Integer> checkedIdList) {
-        Log.i(TAG, "onChecked: List" + checkedIdList);
-    }
+	@Override
+	public void onChecked(List<Integer> checkedIdList)
+	{
+		Log.i(TAG, "onChecked: List" + checkedIdList);
+		Toast.makeText(this, "您已选择" + checkedIdList.size(), Toast.LENGTH_SHORT).show();
+	}
 }

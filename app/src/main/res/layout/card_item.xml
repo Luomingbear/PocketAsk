@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.bear.pocketask.view.cardview.CardItemView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.bear.pocketask.view.cardview.CardItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_item_touch_layout"
     android:layout_width="match_parent"
@@ -15,7 +16,7 @@
         android:layout_alignRight="@+id/line1"
         android:layout_alignTop="@+id/line1"
         android:scaleType="fitXY"
-        android:src="@drawable/page_bg" />
+        android:src="@drawable/page_bg"/>
 
     <com.bear.pocketask.view.cardview.AutoScaleLayout
         android:id="@+id/line1"
@@ -33,8 +34,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -42,10 +43,11 @@
                     android:orientation="vertical">
 
                     <!-- 头像 -->
-                    <ImageView
+                    <com.bear.pocketask.view.RoundImageView
                         android:id="@+id/card_item_head_pic"
                         android:layout_width="@dimen/image_normal"
-                        android:layout_height="@dimen/image_normal" />
+                        android:layout_height="@dimen/image_normal"
+                        app:RoundType="circle"/>
 
                     <TextView
                         android:id="@+id/card_item_user_name"
@@ -53,9 +55,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_normal"
                         android:gravity="center"
-                        android:text="三九"
                         android:textColor="@color/grayblue"
-                        android:textSize="@dimen/font_min" />
+                        android:textSize="@dimen/font_min"/>
                 </LinearLayout>
 
                 <RelativeLayout
@@ -71,9 +72,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/margin_normal"
                         android:gravity="center_vertical"
-                        android:text="@string/app_name"
                         android:textColor="@color/grayblue"
-                        android:textSize="@dimen/font_small" />
+                        android:textSize="@dimen/font_small"/>
 
                     <!-- 举报-->
                     <LinearLayout
@@ -87,13 +87,13 @@
                             android:layout_height="wrap_content"
                             android:text="@string/report"
                             android:textColor="@color/deepgray"
-                            android:textSize="@dimen/font_min" />
+                            android:textSize="@dimen/font_min"/>
 
                         <ImageView
                             android:layout_width="@dimen/icon_small"
                             android:layout_height="@dimen/icon_small"
                             android:layout_marginLeft="5dp"
-                            android:src="@drawable/report" />
+                            android:src="@drawable/report"/>
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -114,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:background="@color/lightgray"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"/>
             </com.bear.pocketask.view.cardview.AutoScaleLayout>
 
             <LinearLayout
@@ -136,7 +136,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/edit_round_bg" />
+                    android:background="@drawable/edit_round_bg"/>
 
                 <!-- 发送 -->
                 <TextView
@@ -147,7 +147,7 @@
                     android:background="@drawable/round_button"
                     android:gravity="center"
                     android:text="@string/send"
-                    android:textColor="#ffffff" />
+                    android:textColor="#ffffff"/>
             </LinearLayout>
 
         </LinearLayout>

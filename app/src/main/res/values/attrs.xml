@@ -2,54 +2,79 @@
 <resources>
 
     <declare-styleable name="RecordView">
-        <attr name="roundSize" format="dimension" />
-        <attr name="backgroundColor" format="color|reference" />
-        <attr name="strokeWidth" format="dimension" />
+        <attr name="roundSize" format="dimension"/>
+        <attr name="backgroundColor" format="color|reference"/>
+        <attr name="strokeWidth" format="dimension"/>
         <attr name="recordMode" format="enum">
-            <enum name="record" value="1" />
-            <enum name="broadcast" value="0" />
+            <enum name="record" value="1"/>
+            <enum name="broadcast" value="0"/>
         </attr>
     </declare-styleable>
 
     <declare-styleable name="AutoScaleLayout">
-        <attr name="scaleRate" format="float" />
+        <attr name="scaleRate" format="float"/>
     </declare-styleable>
 
     <declare-styleable name="SwipeFlingAdapterView">
-        <attr name="SwipeFlingStyle" format="reference" />
-        <attr name="rotation_degrees" format="float" />
-        <attr name="min_adapter_stack" format="integer" />
-        <attr name="max_visible" format="integer" />
+        <attr name="SwipeFlingStyle" format="reference"/>
+        <attr name="rotation_degrees" format="float"/>
+        <attr name="min_adapter_stack" format="integer"/>
+        <attr name="max_visible" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="TitleView">
-        <attr name="titleText" format="string|reference" />
-        <attr name="titleColor" format="color" />
-        <attr name="titleSize" format="dimension" />
+        <attr name="titleText" format="string|reference"/>
+        <attr name="titleColor" format="color"/>
+        <attr name="titleSize" format="dimension"/>
         <attr name="titleMode" format="enum">
-            <enum name="PERSON_TITLE_EDIT" value="0" />
-            <enum name="BACK_TITLE_GO" value="1" />
+            <enum name="PERSON_TITLE_EDIT" value="0"/>
+            <enum name="BACK_TITLE_GO" value="1"/>
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="SelectorGroup">
+    <declare-styleable name="SelectorAdapterView">
         <attr name="selectorMode" format="enum">
-            <enum name="CheckButton" value="0" />
-            <enum name="RadioButton" value="1" />
+            <enum name="CheckButton" value="0"/>
+            <enum name="RadioButton" value="1"/>
         </attr>
     </declare-styleable>
 
     <declare-styleable name="SelectorButton">
-        <attr name="text_color" format="color|reference" />
-        <attr name="text_string" format="string|reference" />
-        <attr name="text_size" format="dimension|reference" />
-        <attr name="icon_padding" format="dimension|reference" />
-        <attr name="layout_padding" format="dimension|reference" />
+        <attr name="text_color" format="color|reference"/>
+        <attr name="text_string" format="string|reference"/>
+        <attr name="text_size" format="dimension|reference"/>
+        <attr name="icon_padding" format="dimension|reference"/>
+        <attr name="layout_padding" format="dimension|reference"/>
         <attr name="icon_position" format="enum">
-            <enum name="Left" value="0" />
-            <enum name="Top" value="1" />
-            <enum name="Right" value="2" />
-            <enum name="Bottom" value="3" />
+            <enum name="Left" value="0"/>
+            <enum name="Top" value="1"/>
+            <enum name="Right" value="2"/>
+            <enum name="Bottom" value="3"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CRadioButton">
+        <attr name="left_padding" format="dimension|reference"/>
+        <attr name="top_padding" format="dimension|reference"/>
+        <attr name="btn_width" format="dimension|reference"/>
+        <attr name="btn_height" format="dimension|reference"/>
+        <attr name="switch_width" format="dimension|reference"/>
+        <attr name="btn_radius" format="dimension|reference"/>
+        <attr name="cr_text_size" format="dimension|reference"/>
+        <attr name="crb_mode" format="enum">
+            <enum name="Private" value="0"/>
+            <enum name="Near" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="RoundImageView">
+        <attr name="Scale" format="float"/>
+        <attr name="BorderRadius" format="dimension|reference"/>
+        <attr name="RoundType">
+            <enum name="circle" value="0"/>
+            <enum name="round" value="1"/>
+            <enum name="round_top_left_top_right" value="2"/>
+            <enum name="round_bottom_left_bottom_right" value="3"/>
         </attr>
     </declare-styleable>
 

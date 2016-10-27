@@ -1,46 +1,47 @@
 package com.bear.pocketask.adapter;
 
-import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
+import java.util.List;
 
-import com.bear.pocketask.R;
 import com.bear.pocketask.adapter.base.IBaseAdapter;
 import com.bear.pocketask.info.SelectorInfo;
 import com.bear.pocketask.view.selectorbutton.SelectorButton;
 
-import java.util.List;
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 /**
  * 选项适配器
  * Created by bear on 16/10/20.
  */
 
-public class SelectorAdapter extends IBaseAdapter {
-    public SelectorAdapter(Context context, List<?> mList) {
-        super(context, mList);
-    }
+public class SelectorAdapter extends IBaseAdapter
+{
+	private Context mContext;
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            viewHold = new ViewHold();
+	public SelectorAdapter(Context context, List<?> mList)
+	{
+		super(context, mList);
+		mContext = context;
+	}
 
-            convertView = getInflater().inflate(R.layout.selector_item, null);
-            viewHold.selectorButton = (SelectorButton) convertView.findViewById(R.id.selectorItem);
-            convertView.setTag(viewHold);
-        } else
-            convertView.getTag();
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent)
+	{
+		SelectorButton selectorButton = new SelectorButton(mContext);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		selectorButton.setLayoutParams(params);
+		SelectorInfo info = (SelectorInfo) getItem(position);
+		selectorButton.setTextString(info.getContent());
 
-        SelectorInfo info = (SelectorInfo) getItem(position);
-        viewHold.selectorButton.setTextString(info.getContent());
+		return selectorButton;
+	}
 
-        return convertView;
-    }
+	private ViewHold viewHold;
 
-    private ViewHold viewHold;
-
-    private class ViewHold {
-        SelectorButton selectorButton;
-    }
+	private class ViewHold
+	{
+		SelectorButton selectorButton;
+	}
 }
