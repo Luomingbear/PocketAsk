@@ -1,6 +1,10 @@
 package com.bear.pocketask.activity.receiver;
 
-import java.util.ArrayList;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
 
 import com.bear.pocketask.R;
 import com.bear.pocketask.activity.test;
@@ -9,13 +13,12 @@ import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.tools.observable.EventObservable;
 import com.bear.pocketask.view.cardview.CardSlideAdapterView;
 import com.bear.pocketask.view.dialog.InputDialog;
+import com.bear.pocketask.view.inputview.ITextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
+import java.util.ArrayList;
 
 public class ReceiverActivity extends Activity implements CardAdapter.CardItemClickListener, CardSlideAdapterView.OnCardSlidingListener {
     private static final String TAG = "ReceiverActivity";
@@ -27,7 +30,7 @@ public class ReceiverActivity extends Activity implements CardAdapter.CardItemCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.receiver_activity);
 
         initImageViewLoader();
 
@@ -114,9 +117,13 @@ public class ReceiverActivity extends Activity implements CardAdapter.CardItemCl
 
             @Override
             public void onSendClick() {
-                inputDialog.dismiss();
                 mCardInfoList.get(0).setInputText(input.toString());
                 EventObservable.getInstance().notifyObservers(mCardInfoList.get(0).getQuestionId(), input.toString());
+
+                inputDialog.dismiss();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                // 隐藏软键盘
+                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
             }
         });
     }
@@ -125,6 +132,7 @@ public class ReceiverActivity extends Activity implements CardAdapter.CardItemCl
     public void onRemove() {
         //        Toast.makeText(this, "移除", Toast.LENGTH_SHORT).show();
         if (mCardInfoList.size() > 0) {
+            EventObservable.getInstance().deleteObserver((ITextView) cardSlideAdapterView.getSelectedView().findViewById(R.id.card_item_input));
             mCardInfoList.remove(0);
             cardAdapter.notifyDataSetChanged();
         }

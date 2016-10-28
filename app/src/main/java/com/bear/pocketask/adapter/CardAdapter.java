@@ -1,21 +1,23 @@
 package com.bear.pocketask.adapter;
 
-import java.util.List;
+import android.content.Context;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bear.pocketask.R;
 import com.bear.pocketask.adapter.base.IBaseAdapter;
 import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.tools.observable.EventObservable;
 import com.bear.pocketask.view.inputview.ITextView;
+import com.bear.pocketask.view.record.RecordObservable;
 import com.bear.pocketask.view.record.RecordView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import android.content.Context;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import java.util.List;
 
 /**
  * 卡片信息适配器
@@ -34,17 +36,20 @@ public class CardAdapter extends IBaseAdapter implements View.OnClickListener {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (getList().size() < 1)
             return null;
+
         if (convertView == null) {
             convertView = getInflater().inflate(R.layout.card_item, null);
 
             viewHolder = new ViewHolder();
             viewHolder.ivDetailPic = (ImageView) convertView.findViewById(R.id.card_item_detail_pic);
             viewHolder.ivHeadPic = (ImageView) convertView.findViewById(R.id.card_item_head_pic);
-            viewHolder.tvQuestion = (TextView) convertView.findViewById(R.id.card_item_questions);
+            viewHolder.tvQuestion = (TextView) convertView.findViewById(R.id.card_item_questions_text);
             viewHolder.tvUserName = (TextView) convertView.findViewById(R.id.card_item_user_name);
 
             viewHolder.leReport = convertView.findViewById(R.id.card_item_report);
-//            viewHolder.rvRecordView = (RecordView) convertView.findViewById(R.id.card_item_input);
+            viewHolder.rvRecordView = (RecordView) convertView.findViewById(R.id.card_item_questions_audio);
+            viewHolder.llSelectorLayout = convertView.findViewById(R.id.card_item_select_list_layout);
+            viewHolder.lvSelectorList = (ListView) convertView.findViewById(R.id.card_item_select_list);
             viewHolder.etInputView = (ITextView) convertView.findViewById(R.id.card_item_input);
             viewHolder.btSend = convertView.findViewById(R.id.card_item_send);
             convertView.setTag(viewHolder);
@@ -52,32 +57,95 @@ public class CardAdapter extends IBaseAdapter implements View.OnClickListener {
             viewHolder = (ViewHolder) convertView.getTag();
 
         //设置值
-        //		if (getList().size() > 0 && position < getList().size())
-        {
-            info = (CardItemInfo) getItem(position);
+        info = (CardItemInfo) getItem(position);
 
-            viewHolder.tvUserName.setText(info.getUserName());
-            viewHolder.tvQuestion.setText(info.getQuestions());
-            //设置id
-//            viewHolder.rvRecordView.setRecordId(info.getQuestionId());
-//            RecordObservable.getInstance().addObserver(viewHolder.rvRecordView);
-            viewHolder.etInputView.setQuestionId(info.getQuestionId());
-            viewHolder.etInputView.setText(info.getInputText());
-            EventObservable.getInstance().addObserver(viewHolder.etInputView);
-            //显示圆形的图像
-            ImageLoader.getInstance().displayImage(info.getHeadPic(), viewHolder.ivHeadPic);
-            //显示普通的矩形详情图片
-            ImageLoader.getInstance().displayImage(info.getDetailPic(), viewHolder.ivDetailPic);
+        //显示圆形的图像
+        ImageLoader.getInstance().displayImage(info.getHeadPic(), viewHolder.ivHeadPic);
+        //昵称
+        viewHolder.tvUserName.setText(info.getUserName());
+
+
+        viewHolder.tvQuestion.setText(info.getQuestions());
+        //设置id
+        viewHolder.rvRecordView.setRecordId(info.getQuestionId());
+        RecordObservable.getInstance().addObserver(viewHolder.rvRecordView);
+        viewHolder.etInputView.setQuestionId(info.getQuestionId());
+        viewHolder.etInputView.setText(info.getInputText());
+        EventObservable.getInstance().addObserver(viewHolder.etInputView);
+
+
+        initView(viewHolder, info);
+
+
+        return convertView;
+    }
+
+    /**
+     * 初始化view
+     *
+     * @param viewHolder
+     * @param info
+     */
+    private void initView(ViewHolder viewHolder, CardItemInfo info) {
+        switch (info.getCardMode()) {
+            case TopAudioBottomImage: {
+                viewHolder.llSelectorLayout.setVisibility(View.GONE);
+                viewHolder.tvQuestion.setVisibility(View.GONE);
+
+                viewHolder.ivDetailPic.setVisibility(View.VISIBLE);
+                viewHolder.rvRecordView.setVisibility(View.VISIBLE);
+
+                //显示普通的矩形详情图片
+                ImageLoader.getInstance().displayImage(info.getDetailPic(), viewHolder.ivDetailPic);
+                //设置语音
+                //// TODO: 16/10/28  语音
+                break;
+            }
+            case TopAudioBottomSelector: {
+                viewHolder.llSelectorLayout.setVisibility(View.VISIBLE);
+                viewHolder.tvQuestion.setVisibility(View.GONE);
+
+                viewHolder.ivDetailPic.setVisibility(View.GONE);
+                viewHolder.rvRecordView.setVisibility(View.VISIBLE);
+
+                //
+                //// TODO: 16/10/28  语音,选项
+                break;
+            }
+            case TopTextBottomImage: {
+                viewHolder.llSelectorLayout.setVisibility(View.GONE);
+                viewHolder.tvQuestion.setVisibility(View.VISIBLE);
+
+                viewHolder.ivDetailPic.setVisibility(View.VISIBLE);
+                viewHolder.rvRecordView.setVisibility(View.GONE);
+
+                //
+                viewHolder.tvQuestion.setText(info.getQuestions());
+                ImageLoader.getInstance().displayImage(info.getDetailPic(), viewHolder.ivDetailPic);
+                break;
+            }
+            case TopTextBottomSelector: {
+                viewHolder.llSelectorLayout.setVisibility(View.VISIBLE);
+                viewHolder.tvQuestion.setVisibility(View.VISIBLE);
+
+                viewHolder.ivDetailPic.setVisibility(View.GONE);
+                viewHolder.rvRecordView.setVisibility(View.GONE);
+
+                //
+                viewHolder.tvQuestion.setText(info.getQuestions());
+                //// TODO: 16/10/28 选项 
+                break;
+            }
         }
 
         //添加点击事件
         viewHolder.leReport.setOnClickListener(this);
-        viewHolder.ivDetailPic.setOnClickListener(this);
         viewHolder.ivHeadPic.setOnClickListener(this);
         viewHolder.btSend.setOnClickListener(this);
         viewHolder.etInputView.setOnClickListener(this);
 
-        return convertView;
+        viewHolder.ivDetailPic.setOnClickListener(this);
+
     }
 
     private ViewHolder viewHolder;
@@ -129,6 +197,8 @@ public class CardAdapter extends IBaseAdapter implements View.OnClickListener {
         View leReport;
         ITextView etInputView;
         RecordView rvRecordView;
+        View llSelectorLayout;
+        ListView lvSelectorList;
     }
 
     private CardItemClickListener cardItemClickListener;
@@ -158,4 +228,5 @@ public class CardAdapter extends IBaseAdapter implements View.OnClickListener {
         INPUT_BUTTON,
 
     }
+
 }

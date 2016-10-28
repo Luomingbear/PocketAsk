@@ -1,7 +1,7 @@
 package com.bear.pocketask.activity;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.app.Activity;
+import android.os.Bundle;
 
 import com.bear.pocketask.R;
 import com.bear.pocketask.adapter.SelectorAdapter;
@@ -9,10 +9,8 @@ import com.bear.pocketask.info.SelectorInfo;
 import com.bear.pocketask.utils.AdapterViewUtil;
 import com.bear.pocketask.view.selectorbutton.SelectorAdapterView;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 测试控件
@@ -55,7 +53,7 @@ public class test extends Activity implements SelectorAdapterView.SelectorCheckL
 	@Override
 	public void onChecked(List<Integer> checkedIdList)
 	{
-		Log.i(TAG, "onChecked: List" + checkedIdList);
-		Toast.makeText(this, "您已选择" + checkedIdList.size(), Toast.LENGTH_SHORT).show();
+//		Log.i(TAG, "onChecked: List" + checkedIdList);
+//		Toast.makeText(this, "您已选择" + checkedIdList.size(), Toast.LENGTH_SHORT).show();
 	}
 }

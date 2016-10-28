@@ -13,11 +13,31 @@ public class CardItemInfo {
     private String questions; //问题描述
     private int questionId; //问题id+
     private String inputText; //输入的文本
+    private CardMode cardMode = CardMode.TopTextBottomImage; //卡片的类型
+
+
+    /**
+     * 卡片的类型
+     */
+    public enum CardMode {
+        //上面是语音 下面图片
+        TopAudioBottomImage,
+
+        //上面 文字 ,下面 选项
+        TopTextBottomImage,
+
+        //上面语音 ,下面选项
+        TopAudioBottomSelector,
+
+        //上面文字 ,下面选项
+        TopTextBottomSelector,
+
+    }
 
     public CardItemInfo() {
     }
 
-    public CardItemInfo(String headPic, String userName, String detailPic, String detailUrl, String questions, int questionId,String inputText) {
+    public CardItemInfo(String headPic, String userName, String detailPic, String detailUrl, String questions, int questionId, String inputText, CardMode cardMode) {
         this.headPic = headPic;
         this.userName = userName;
         this.detailPic = detailPic;
@@ -25,6 +45,15 @@ public class CardItemInfo {
         this.questions = questions;
         this.questionId = questionId;
         this.inputText = inputText;
+        this.cardMode = cardMode;
+    }
+
+    public CardMode getCardMode() {
+        return cardMode;
+    }
+
+    public void setCardMode(CardMode cardMode) {
+        this.cardMode = cardMode;
     }
 
     public String getInputText() {
