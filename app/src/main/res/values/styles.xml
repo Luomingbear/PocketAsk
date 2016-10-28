@@ -1,8 +1,6 @@
 <resources>
+        <style name="popDialogTheme" parent="android:Theme.Dialog">
+            <item name="android:windowBackground">@color/white</item>
+        </style>
 
-    <style name="SwipeFling">
-        <item name="rotation_degrees">15</item>
-        <item name="min_adapter_stack">6</item>
-        <item name="max_visible">4</item>
-    </style>
 </resources>

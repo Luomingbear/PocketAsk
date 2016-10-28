@@ -11,18 +11,28 @@ public class CardItemInfo {
     private String detailPic; //卡片详情图片
     private String detailUrl; //卡片详细的链接
     private String questions; //问题描述
-    private int questionId; //问题id
+    private int questionId; //问题id+
+    private String inputText; //输入的文本
 
     public CardItemInfo() {
     }
 
-    public CardItemInfo(String headPic, String userName, String detailPic, String detailUrl, String questions, int questionId) {
+    public CardItemInfo(String headPic, String userName, String detailPic, String detailUrl, String questions, int questionId,String inputText) {
         this.headPic = headPic;
         this.userName = userName;
         this.detailPic = detailPic;
         this.detailUrl = detailUrl;
         this.questions = questions;
         this.questionId = questionId;
+        this.inputText = inputText;
+    }
+
+    public String getInputText() {
+        return inputText;
+    }
+
+    public void setInputText(String inputText) {
+        this.inputText = inputText;
     }
 
     public int getQuestionId() {

@@ -24,11 +24,11 @@
 
             </com.bear.pocketask.view.selectorbutton.SelectorAdapterView>
 
-            <com.bear.pocketask.view.InputView
+            <com.bear.pocketask.view.inputview.InputView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/title_height">
 
-            </com.bear.pocketask.view.InputView>
+            </com.bear.pocketask.view.inputview.InputView>
         </LinearLayout>
 
     </ScrollView>

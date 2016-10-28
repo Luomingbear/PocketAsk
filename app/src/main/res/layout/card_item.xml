@@ -134,12 +134,16 @@
                 android:orientation="horizontal">
 
                 <!-- 输入文本 -->
-                <EditText
-                    android:id="@+id/card_item_record"
+                <com.bear.pocketask.view.inputview.ITextView
+                    android:id="@+id/card_item_input"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/edit_round_bg"
+                    android:gravity="center_vertical"
+                    android:hint="@string/app_name"
+                    android:paddingLeft="@dimen/margin_small"
+                    android:paddingRight="@dimen/margin_small"
                     android:textColor="@color/deepgray"
                     android:textSize="@dimen/font_small"/>
 

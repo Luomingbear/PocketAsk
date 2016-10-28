@@ -5,7 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              tools:context=".activity.MainActivity">
+              tools:context=".activity.receiver.ReceiverActivity">
 
     <com.bear.pocketask.view.TitleView
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
     </com.bear.pocketask.view.TitleView>
 
     <com.bear.pocketask.view.cardview.CardSlideAdapterView
-        android:id="@+id/flingView"
+        android:id="@+id/cardSlideView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/lightblue">

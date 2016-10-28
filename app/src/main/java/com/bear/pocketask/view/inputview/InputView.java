@@ -1,4 +1,4 @@
-package com.bear.pocketask.view;
+package com.bear.pocketask.view.inputview;
 
 import com.bear.pocketask.R;
 
