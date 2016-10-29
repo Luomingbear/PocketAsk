@@ -1,4 +1,4 @@
-package com.bear.pocketask.widget;
+package com.bear.pocketask.widget.titleview;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -5,15 +5,16 @@ import android.os.Bundle;
 
 import com.bear.pocketask.R;
 import com.bear.pocketask.activity.base.BaseActivity;
+import com.bear.pocketask.activity.login.LoginActivity;
 import com.bear.pocketask.activity.person.PersonActivity;
 import com.bear.pocketask.activity.test;
 import com.bear.pocketask.adapter.CardAdapter;
 import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.tools.observable.EventObservable;
-import com.bear.pocketask.widget.TitleView;
 import com.bear.pocketask.widget.cardview.CardSlideAdapterView;
 import com.bear.pocketask.widget.inputview.ITextView;
 import com.bear.pocketask.widget.inputview.InputDialog;
+import com.bear.pocketask.widget.titleview.TitleView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -63,6 +64,7 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
 
             @Override
             public void onRightButton() {
+                intentTo(LoginActivity.class);
 
             }
         });

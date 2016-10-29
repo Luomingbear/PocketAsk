@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.bear.pocketask.R;
 import com.bear.pocketask.activity.base.BaseActivity;
-import com.bear.pocketask.widget.TitleView;
+import com.bear.pocketask.widget.titleview.TitleView;
 
 /**
  * 个人中心

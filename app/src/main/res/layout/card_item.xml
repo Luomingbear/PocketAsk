@@ -43,7 +43,7 @@
                     android:orientation="vertical">
 
                     <!-- 头像 -->
-                    <com.bear.pocketask.widget.RoundImageView
+                    <com.bear.pocketask.widget.imageview.RoundImageView
                         android:id="@+id/card_item_head_pic"
                         android:src="@drawable/dfhead"
                         android:layout_width="@dimen/image_normal"

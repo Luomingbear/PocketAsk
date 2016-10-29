@@ -4,7 +4,9 @@
     <dimen name="icon_normal">24dp</dimen>
     <dimen name="icon_large">32dp</dimen>
     <!-- 图片大小 -->
+    <dimen name="image_small">48dp</dimen>
     <dimen name="image_normal">63dp</dimen>
+    <dimen name="image_big">83dp</dimen>
 
     <!-- 标题栏 -->
     <dimen name="title_height">48dp</dimen>

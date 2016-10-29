@@ -16,4 +16,11 @@
     <string name="person_about_us">关于我们</string>
     <string name="person_logout">退出登陆</string>
 
+    <!--登陆 -->
+    <string name="login_skip_login">随便答答 Skip -></string>
+    <string name="login_username">登录名：</string>
+    <string name="login_password">密 码：</string>
+    <string name="login_no_register">没有注册？</string>
+    <string name="login_forgot_password">忘记密码？</string>
+
 </resources>

@@ -22,6 +22,8 @@
         <activity android:name=".activity.test"></activity>
 
         <activity android:name=".activity.person.PersonActivity"></activity>
+
+        <activity android:name=".activity.login.LoginActivity"></activity>
     </application>
 
 </manifest>
