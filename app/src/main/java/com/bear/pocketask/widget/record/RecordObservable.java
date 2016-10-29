@@ -1,4 +1,4 @@
-package com.bear.pocketask.view.record;
+package com.bear.pocketask.widget.record;
 
 import java.util.ArrayList;
 import java.util.List;

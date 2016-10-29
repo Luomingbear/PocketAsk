@@ -12,9 +12,9 @@ import com.bear.pocketask.R;
 import com.bear.pocketask.adapter.base.IBaseAdapter;
 import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.tools.observable.EventObservable;
-import com.bear.pocketask.view.inputview.ITextView;
-import com.bear.pocketask.view.record.RecordObservable;
-import com.bear.pocketask.view.record.RecordView;
+import com.bear.pocketask.widget.inputview.ITextView;
+import com.bear.pocketask.widget.record.RecordObservable;
+import com.bear.pocketask.widget.record.RecordView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;

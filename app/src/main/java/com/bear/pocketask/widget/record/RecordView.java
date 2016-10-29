@@ -1,4 +1,4 @@
-package com.bear.pocketask.view.record;
+package com.bear.pocketask.widget.record;
 
 import android.content.Context;
 import android.content.res.TypedArray;

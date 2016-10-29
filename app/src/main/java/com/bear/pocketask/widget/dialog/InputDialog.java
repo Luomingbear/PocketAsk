@@ -1,6 +1,4 @@
-package com.bear.pocketask.view.dialog;
-
-import com.bear.pocketask.R;
+package com.bear.pocketask.widget.dialog;
 
 import android.content.Context;
 import android.text.Editable;
@@ -11,6 +9,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import com.bear.pocketask.R;
 
 /**
  * 输入框弹窗

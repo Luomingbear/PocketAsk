@@ -1,7 +1,4 @@
-package com.bear.pocketask.view;
-
-import com.bear.pocketask.R;
-import com.bear.pocketask.utils.DipPxConversion;
+package com.bear.pocketask.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -18,6 +15,9 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
+import com.bear.pocketask.R;
+import com.bear.pocketask.utils.DipPxConversion;
 
 /**
  * 圆角图片,可以指定某个角为圆角，其他不变

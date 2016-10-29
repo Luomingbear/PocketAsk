@@ -1,6 +1,4 @@
-package com.bear.pocketask.view.cradiobutton;
-
-import com.bear.pocketask.R;
+package com.bear.pocketask.widget.cradiobutton;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,6 +10,8 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.bear.pocketask.R;
 
 /**
  * 定位开关

@@ -1,4 +1,4 @@
-package com.bear.pocketask.view.dialog;
+package com.bear.pocketask.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

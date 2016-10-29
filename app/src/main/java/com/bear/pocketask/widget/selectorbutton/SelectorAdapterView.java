@@ -1,9 +1,4 @@
-package com.bear.pocketask.view.selectorbutton;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import com.bear.pocketask.R;
+package com.bear.pocketask.widget.selectorbutton;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,6 +7,11 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+
+import com.bear.pocketask.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 单选个多选的adapterView

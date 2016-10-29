@@ -1,4 +1,4 @@
-package com.bear.pocketask.view.cardview;
+package com.bear.pocketask.widget.cardview;
 
 import android.content.Context;
 import android.database.DataSetObserver;

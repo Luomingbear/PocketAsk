@@ -1,15 +1,15 @@
 package com.bear.pocketask.adapter;
 
-import java.util.List;
-
-import com.bear.pocketask.adapter.base.IBaseAdapter;
-import com.bear.pocketask.info.SelectorInfo;
-import com.bear.pocketask.view.selectorbutton.SelectorButton;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.bear.pocketask.adapter.base.IBaseAdapter;
+import com.bear.pocketask.info.SelectorInfo;
+import com.bear.pocketask.widget.selectorbutton.SelectorButton;
+
+import java.util.List;
 
 /**
  * 选项适配器

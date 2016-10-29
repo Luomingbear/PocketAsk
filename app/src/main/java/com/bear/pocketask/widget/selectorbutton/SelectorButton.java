@@ -1,4 +1,4 @@
-package com.bear.pocketask.view.selectorbutton;
+package com.bear.pocketask.widget.selectorbutton;
 
 import android.content.Context;
 import android.content.res.TypedArray;

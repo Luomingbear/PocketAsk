@@ -1,14 +1,14 @@
-package com.bear.pocketask.view.cardview;
-
-import com.facebook.rebound.Spring;
-import com.facebook.rebound.SpringConfig;
-import com.facebook.rebound.SpringListener;
-import com.facebook.rebound.SpringSystem;
+package com.bear.pocketask.widget.cardview;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
+
+import com.facebook.rebound.Spring;
+import com.facebook.rebound.SpringConfig;
+import com.facebook.rebound.SpringListener;
+import com.facebook.rebound.SpringSystem;
 
 /**
  * 卡片布局

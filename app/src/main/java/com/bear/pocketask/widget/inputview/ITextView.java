@@ -1,13 +1,10 @@
-package com.bear.pocketask.view.inputview;
-
-import static android.content.ContentValues.TAG;
-
-import com.bear.pocketask.tools.observable.EventObserver;
+package com.bear.pocketask.widget.inputview;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.TextView;
+
+import com.bear.pocketask.tools.observable.EventObserver;
 
 /**
  * 增加观察者通知的文本框
