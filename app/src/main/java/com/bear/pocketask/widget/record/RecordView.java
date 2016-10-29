@@ -67,13 +67,13 @@ public class RecordView extends View implements RecordObservable.RecordObserver
 
 		TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RecordView);
 		mRoundSize = typedArray.getDimension(R.styleable.RecordView_roundSize, 0);
-		mBackgroundColor = typedArray.getColor(R.styleable.RecordView_backgroundColor, getResources().getColor(R.color.lightblue));
+		mBackgroundColor = typedArray.getColor(R.styleable.RecordView_backgroundColor, getResources().getColor(R.color.grayblue));
 		mStrokeWidth = typedArray.getDimension(R.styleable.RecordView_strokeWidth, DipPxConversion.dip2px(context, 2));
 		mRecordMode = typedArray.getInt(R.styleable.RecordView_recordMode, 0) == 1 ? RecordMode.RECORD : RecordMode.BROADCAST;
 		typedArray.recycle();
 
 		mRecordingColor = Color.WHITE;
-		mRecordedColor = getResources().getColor(R.color.lightblue);
+		mRecordedColor = getResources().getColor(R.color.grayblue);
 	}
 
 	@Override

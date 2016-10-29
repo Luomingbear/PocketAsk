@@ -20,6 +20,8 @@
         </activity>
 
         <activity android:name=".activity.test"></activity>
+
+        <activity android:name=".activity.person.PersonActivity"></activity>
     </application>
 
 </manifest>

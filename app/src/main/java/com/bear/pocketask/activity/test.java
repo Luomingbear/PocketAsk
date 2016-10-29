@@ -7,7 +7,7 @@ import com.bear.pocketask.R;
 import com.bear.pocketask.adapter.SelectorAdapter;
 import com.bear.pocketask.info.SelectorInfo;
 import com.bear.pocketask.utils.AdapterViewUtil;
-import com.bear.pocketask.view.selectorbutton.SelectorAdapterView;
+import com.bear.pocketask.widget.selectorbutton.SelectorAdapterView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,26 +1,26 @@
 package com.bear.pocketask.activity.receiver;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.inputmethod.InputMethodManager;
 
 import com.bear.pocketask.R;
+import com.bear.pocketask.activity.base.BaseActivity;
+import com.bear.pocketask.activity.person.PersonActivity;
 import com.bear.pocketask.activity.test;
 import com.bear.pocketask.adapter.CardAdapter;
 import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.tools.observable.EventObservable;
-import com.bear.pocketask.view.cardview.CardSlideAdapterView;
-import com.bear.pocketask.view.dialog.InputDialog;
-import com.bear.pocketask.view.inputview.ITextView;
+import com.bear.pocketask.widget.TitleView;
+import com.bear.pocketask.widget.cardview.CardSlideAdapterView;
+import com.bear.pocketask.widget.inputview.ITextView;
+import com.bear.pocketask.widget.inputview.InputDialog;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
 
-public class ReceiverActivity extends Activity implements CardAdapter.CardItemClickListener, CardSlideAdapterView.OnCardSlidingListener {
+public class ReceiverActivity extends BaseActivity implements CardAdapter.CardItemClickListener, CardSlideAdapterView.OnCardSlidingListener {
     private static final String TAG = "ReceiverActivity";
     private ArrayList<CardItemInfo> mCardInfoList; //数据集
     private CardAdapter cardAdapter; //卡片适配器
@@ -48,6 +48,30 @@ public class ReceiverActivity extends Activity implements CardAdapter.CardItemCl
     }
 
     private void initView() {
+        initCards();
+
+        initTitleView();
+    }
+
+    private void initTitleView() {
+        TitleView titleView = (TitleView) findViewById(R.id.title_view);
+        titleView.setOnTitleViewListener(new TitleView.OnTitleViewListener() {
+            @Override
+            public void onLeftButton() {
+                intentTo(PersonActivity.class);
+            }
+
+            @Override
+            public void onRightButton() {
+
+            }
+        });
+    }
+
+    /**
+     * 初始化卡片
+     */
+    private void initCards() {
         mCardInfoList = new ArrayList<CardItemInfo>();
         for (int i = 0; i < 5; i++) {
             CardItemInfo cardItemInfo = new CardItemInfo();
@@ -117,13 +141,14 @@ public class ReceiverActivity extends Activity implements CardAdapter.CardItemCl
 
             @Override
             public void onSendClick() {
-                mCardInfoList.get(0).setInputText(input.toString());
-                EventObservable.getInstance().notifyObservers(mCardInfoList.get(0).getQuestionId(), input.toString());
+                if (input != null) {
+                    mCardInfoList.get(0).setInputText(input.toString());
+                    EventObservable.getInstance().notifyObservers(mCardInfoList.get(0).getQuestionId(), input.toString());
+                }
 
                 inputDialog.dismiss();
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                // 隐藏软键盘
-                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+
+                inputDialog.hideKeyboard();
             }
         });
     }

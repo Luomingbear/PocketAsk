@@ -7,20 +7,21 @@
               android:orientation="vertical"
               tools:context=".activity.receiver.ReceiverActivity">
 
-    <com.bear.pocketask.view.TitleView
+    <com.bear.pocketask.widget.TitleView
+        android:id="@+id/title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleMode="PERSON_TITLE_EDIT"
         app:titleText="@string/app_name">
 
-    </com.bear.pocketask.view.TitleView>
+    </com.bear.pocketask.widget.TitleView>
 
-    <com.bear.pocketask.view.cardview.CardSlideAdapterView
+    <com.bear.pocketask.widget.cardview.CardSlideAdapterView
         android:id="@+id/cardSlideView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightblue">
+        android:background="@color/grayblue">
 
-    </com.bear.pocketask.view.cardview.CardSlideAdapterView>
+    </com.bear.pocketask.widget.cardview.CardSlideAdapterView>
 
 </LinearLayout>

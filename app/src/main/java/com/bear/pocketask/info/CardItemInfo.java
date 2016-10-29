@@ -1,5 +1,7 @@
 package com.bear.pocketask.info;
 
+import java.util.List;
+
 /**
  * 卡片信息类
  * Created by bear on 16/10/1.
@@ -13,6 +15,7 @@ public class CardItemInfo {
     private String questions; //问题描述
     private int questionId; //问题id+
     private String inputText; //输入的文本
+    private List<SelectorInfo> selectorList; //选项的数据源
     private CardMode cardMode = CardMode.TopTextBottomImage; //卡片的类型
 
 
@@ -37,7 +40,7 @@ public class CardItemInfo {
     public CardItemInfo() {
     }
 
-    public CardItemInfo(String headPic, String userName, String detailPic, String detailUrl, String questions, int questionId, String inputText, CardMode cardMode) {
+    public CardItemInfo(String headPic, String userName, String detailPic, String detailUrl, String questions, int questionId, String inputText, List<SelectorInfo> selectorList, CardMode cardMode) {
         this.headPic = headPic;
         this.userName = userName;
         this.detailPic = detailPic;
@@ -45,7 +48,16 @@ public class CardItemInfo {
         this.questions = questions;
         this.questionId = questionId;
         this.inputText = inputText;
+        this.selectorList = selectorList;
         this.cardMode = cardMode;
+    }
+
+    public List<SelectorInfo> getSelectorList() {
+        return selectorList;
+    }
+
+    public void setSelectorList(List<SelectorInfo> selectorList) {
+        this.selectorList = selectorList;
     }
 
     public CardMode getCardMode() {

@@ -16,13 +16,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.bear.pocketask.view.selectorbutton.SelectorAdapterView
+            <com.bear.pocketask.widget.selectorbutton.SelectorAdapterView
                 android:id="@+id/selectorAdapterView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:selectorMode="RadioButton">
 
-            </com.bear.pocketask.view.selectorbutton.SelectorAdapterView>
+            </com.bear.pocketask.widget.selectorbutton.SelectorAdapterView>
 
         </LinearLayout>
 

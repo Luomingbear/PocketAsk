@@ -6,4 +6,14 @@
     <string name="near">附近</string>
     <string name="public_">公开</string>
     <string name="private_">非公开</string>
+
+    <!--个人中心 -->
+    <string name="person_title">个人中心</string>
+    <string name="person_qb_count">%1$d 问币</string>
+    <string name="person_my_respond">我的回答</string>
+    <string name="person_my_questions">我的提问</string>
+    <string name="person_feedback">反馈</string>
+    <string name="person_about_us">关于我们</string>
+    <string name="person_logout">退出登陆</string>
+
 </resources>

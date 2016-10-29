@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.bear.pocketask.R;
 import com.bear.pocketask.adapter.base.IBaseAdapter;
 import com.bear.pocketask.info.CardItemInfo;
+import com.bear.pocketask.info.SelectorInfo;
 import com.bear.pocketask.tools.observable.EventObservable;
 import com.bear.pocketask.widget.inputview.ITextView;
 import com.bear.pocketask.widget.record.RecordObservable;
@@ -110,6 +112,7 @@ public class CardAdapter extends IBaseAdapter implements View.OnClickListener {
 
                 //
                 //// TODO: 16/10/28  语音,选项
+                initList(viewHolder.lvSelectorList,info.getSelectorList());
                 break;
             }
             case TopTextBottomImage: {
@@ -133,7 +136,7 @@ public class CardAdapter extends IBaseAdapter implements View.OnClickListener {
 
                 //
                 viewHolder.tvQuestion.setText(info.getQuestions());
-                //// TODO: 16/10/28 选项 
+                initList(viewHolder.lvSelectorList,info.getSelectorList());
                 break;
             }
         }
@@ -145,6 +148,16 @@ public class CardAdapter extends IBaseAdapter implements View.OnClickListener {
         viewHolder.etInputView.setOnClickListener(this);
 
         viewHolder.ivDetailPic.setOnClickListener(this);
+
+    }
+
+    /**
+     * 设置选项数据
+     * @param listView
+     * @param selectorList
+     */
+    private void initList(AdapterView listView, List<SelectorInfo> selectorList) {
+        //// TODO: 16/10/29 按钮列表
 
     }
 
