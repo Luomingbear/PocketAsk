@@ -26,7 +26,9 @@ public class TitleView extends LinearLayout {
     private int mTitleHeight;//标题栏高度
 
 
-    private TextView mmTitleTextView;
+    private TextView mTitleTextView;
+    private LinearLayout mLeftLayout; //左边的按钮
+    private LinearLayout mRightLayout; //右边的按钮
     private ImageView mLeftImageView;
     private ImageView mRightImageView;
 
@@ -51,7 +53,7 @@ public class TitleView extends LinearLayout {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TitleView);
         mTitleMode = TitleMode.values()[typedArray.getInt(R.styleable.TitleView_titleMode, 0)];
         mTitleText = typedArray.getString(R.styleable.TitleView_titleText);
-        mTitleColor = typedArray.getColor(R.styleable.TitleView_titleColor, getResources().getColor(R.color.grayblue));
+        mTitleColor = typedArray.getColor(R.styleable.TitleView_titleColor, getResources().getColor(R.color.deepblue));
         mTitleSize = typedArray.getDimension(R.styleable.TitleView_titleSize, getResources().getDimension(R.dimen.font_normal));
         typedArray.recycle();
 
@@ -77,26 +79,32 @@ public class TitleView extends LinearLayout {
                 addLeftButton(R.drawable.back);
                 addTitle();
                 addRightButton(R.drawable.goon);
+                break;
+            }
+            case BACK_TITLE: {
+                addLeftButton(R.drawable.back);
+                addTitle();
+                break;
             }
         }
     }
 
     private void addTitle() {
-        mmTitleTextView = newTextView(mTitleText, mTitleColor, mTitleSize);
-        mmTitleTextView.setGravity(Gravity.CENTER);
-        addView(mmTitleTextView);
+        mTitleTextView = newTextView(mTitleText, mTitleColor, mTitleSize);
+        mTitleTextView.setGravity(Gravity.CENTER);
+        addView(mTitleTextView);
     }
 
     private void addLeftButton(int drawableId) {
-        LinearLayout leftLayout = new LinearLayout(getContext());
+        mLeftLayout = new LinearLayout(getContext());
         LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, mTitleHeight);
-        leftLayout.setLayoutParams(params);
-        leftLayout.setGravity(Gravity.CENTER);
+        mLeftLayout.setLayoutParams(params);
+        mLeftLayout.setGravity(Gravity.CENTER);
         mLeftImageView = newImageView();
         mLeftImageView.setImageResource(drawableId);
-        leftLayout.addView(mLeftImageView);
-        addView(leftLayout);
-        leftLayout.setOnClickListener(new OnClickListener() {
+        mLeftLayout.addView(mLeftImageView);
+        addView(mLeftLayout);
+        mLeftLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mTitleViewListener != null)
@@ -106,15 +114,15 @@ public class TitleView extends LinearLayout {
     }
 
     private void addRightButton(int drawableId) {
-        LinearLayout rightLayout = new LinearLayout(getContext());
+        mRightLayout = new LinearLayout(getContext());
         LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, mTitleHeight);
-        rightLayout.setLayoutParams(params);
-        rightLayout.setGravity(Gravity.CENTER);
+        mRightLayout.setLayoutParams(params);
+        mRightLayout.setGravity(Gravity.CENTER);
         mRightImageView = newImageView();
         mRightImageView.setImageResource(drawableId);
-        rightLayout.addView(mRightImageView);
-        addView(rightLayout);
-        rightLayout.setOnClickListener(new OnClickListener() {
+        mRightLayout.addView(mRightImageView);
+        addView(mRightLayout);
+        mRightLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mTitleViewListener != null)
@@ -175,14 +183,30 @@ public class TitleView extends LinearLayout {
         return imageView;
     }
 
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        if (mTitleTextView != null) {
+            int leftWidth = 0, rightWidth = 0;
+            if (mLeftLayout != null)
+                leftWidth = mLeftLayout.getWidth();
+            if (mRightLayout != null)
+                rightWidth = mRightLayout.getWidth();
+            if (leftWidth > rightWidth)
+                mTitleTextView.setPadding(0, 0, leftWidth - rightWidth, 0);
+            else
+                mTitleTextView.setPadding(rightWidth - leftWidth, 0, 0, 0);
+        }
+    }
+
     /**
      * 设置标题文字
      *
      * @param s
      */
     public void setmTitleText(String s) {
-        if (mmTitleTextView != null)
-            mmTitleTextView.setText(s);
+        if (mTitleTextView != null)
+            mTitleTextView.setText(s);
     }
 
     /**
@@ -191,8 +215,8 @@ public class TitleView extends LinearLayout {
      * @param color
      */
     public void setmTitleColor(int color) {
-        if (mmTitleTextView != null)
-            mmTitleTextView.setTextColor(color);
+        if (mTitleTextView != null)
+            mTitleTextView.setTextColor(color);
     }
 
     /**
@@ -201,8 +225,8 @@ public class TitleView extends LinearLayout {
      * @param size
      */
     public void setmTitleSize(float size) {
-        if (mmTitleTextView != null)
-            mmTitleTextView.setTextSize(size);
+        if (mTitleTextView != null)
+            mTitleTextView.setTextSize(size);
     }
 
     /**
@@ -232,16 +256,19 @@ public class TitleView extends LinearLayout {
         PERSON_TITLE_EDIT,
 
         //返回 - 标题 - 前进
-        BACK_TITLE_GO
+        BACK_TITLE_GO,
+
+        //返回 - 标题
+        BACK_TITLE
     }
 
-    private TitleViewListener mTitleViewListener;
+    private OnTitleViewListener mTitleViewListener;
 
-    public void setTitleViewListener(TitleViewListener mTitleViewListener) {
+    public void setOnTitleViewListener(OnTitleViewListener mTitleViewListener) {
         this.mTitleViewListener = mTitleViewListener;
     }
 
-    public interface TitleViewListener {
+    public interface OnTitleViewListener {
         //点击了左边的按钮执行
         void onLeftButton();
 
