@@ -53,8 +53,8 @@ public class TitleView extends LinearLayout {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TitleView);
         mTitleMode = TitleMode.values()[typedArray.getInt(R.styleable.TitleView_titleMode, 0)];
         mTitleText = typedArray.getString(R.styleable.TitleView_titleText);
-        mTitleColor = typedArray.getColor(R.styleable.TitleView_titleColor, getResources().getColor(R.color.deepblue));
-        mTitleSize = typedArray.getDimension(R.styleable.TitleView_titleSize, getResources().getDimension(R.dimen.font_normal));
+        mTitleColor = typedArray.getColor(R.styleable.TitleView_titleColor, getResources().getColor(R.color.lightblue));
+        mTitleSize = typedArray.getDimension(R.styleable.TitleView_titleSize, getResources().getDimension(R.dimen.font_big));
         typedArray.recycle();
 
         mTitleHeight = (int) getResources().getDimension(R.dimen.title_height);

@@ -31,7 +31,7 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.receiver_activity);
+        setContentView(R.layout.receiver_layout);
 
         initImageViewLoader();
 

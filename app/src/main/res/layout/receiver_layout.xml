@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.receiver.ReceiverActivity">
+
+    <com.bear.pocketask.widget.titleview.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleMode="PERSON_TITLE_EDIT"
+        app:titleText="@string/app_name">
+
+    </com.bear.pocketask.widget.titleview.TitleView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grayblue">
+
+        <com.bear.pocketask.widget.cardview.AutoScaleLayout
+            android:id="@+id/card_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            app:scaleRate="1.225">
+
+        </com.bear.pocketask.widget.cardview.AutoScaleLayout>
+
+        <com.bear.pocketask.widget.cradiobutton.CRadioButton
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_above="@id/card_layout" />
+
+
+        <com.bear.pocketask.widget.cardview.CardSlideAdapterView
+            android:id="@+id/cardSlideView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.bear.pocketask.widget.cardview.CardSlideAdapterView>
+
+    </RelativeLayout>
+
+</LinearLayout>

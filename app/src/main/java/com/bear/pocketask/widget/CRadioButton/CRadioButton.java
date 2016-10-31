@@ -17,161 +17,155 @@ import com.bear.pocketask.R;
  * 定位开关
  * Created by LiXiaoJuan  on 2016/10/24.
  */
-public class CRadioButton extends View
-{
-	private Paint paint;
+public class CRadioButton extends View {
+    private Paint paint;
 
-	private enum CRMode
-	{
-		//定位
-		NEAR_ANYWHERE,
-		//私密与否
-		PRIVATE_PUBLIC
-	}
+    private enum CRMode {
+        //定位
+        NEAR_ANYWHERE,
+        //私密与否
+        PRIVATE_PUBLIC
+    }
 
-	private CRMode crMode;
+    private CRMode crMode;
 
-	//按钮位置
-	private int left_padding;
-	private int top_padding;
+    //按钮位置
+    private int left_padding; //左边距
+    private int top_padding;
 
-	//按钮大小及内部组件
-	private int btn_width;
-	private int btn_height;
-	private int switch_width;
-	private int btn_radius;
-	private int text_size;
-	// public Typeface text_font;
-	private String text_store[];
-	private String text_show;
-	int text_x;
+    //按钮大小及内部组件
+    private int btn_width;
+    private int btn_height;
+    private int switch_width;
+    private int btn_radius;
+    private int text_size;
+    // public Typeface text_font;
+    private String text_store[];
+    private String text_show;
+    int text_x;
 
-	private RectF select;
-	private RectF btn;
+    private RectF select;
+    private RectF btn;
 
-	//==================*不同状态对应不同方法*===========================================
-	public CRListener listener;
-	CRadioState state;
+    //==================*不同状态对应不同方法*===========================================
+    public CRListener listener;
+    CRadioState state;
 
-	public interface CRListener
-	{
-		void openState();
+    public interface CRListener {
+        void openState();
 
-		void closeState();
-	}
+        void closeState();
+    }
 
-	public void setCRListener(CRListener listener)
-	{
-		this.listener = listener;
-	}
+    public void setCRListener(CRListener listener) {
+        this.listener = listener;
+    }
 
-	private class CRadioState
-	{
-		private int count = 0;
+    private class CRadioState {
+        private int count = 0;
 
-		public void changeCRState()
-		{
-			count = (count + 1) % 2;
-			this.setCRState(count);
-		}
+        public void changeCRState() {
+            count = (count + 1) % 2;
+            this.setCRState(count);
+        }
 
-		public void setCRState(int state)
-		{
-			setApperance(state);
-			switch (state)
-			{
-			case 0:
-				if (listener != null)
-					listener.openState();
-				break;
-			case 1:
-				if (listener != null)
-					listener.closeState();
-				break;
-			}
-		}
-	}
+        public void setCRState(int state) {
+            setApperance(state);
+            switch (state) {
+                case 0:
+                    if (listener != null)
+                        listener.openState();
+                    break;
+                case 1:
+                    if (listener != null)
+                        listener.closeState();
+                    break;
+            }
+        }
+    }
 
-	public CRadioButton(Context context, AttributeSet attrs)
-	{
-		super(context, attrs);
-		text_store = new String[2];
-		paint = new Paint();
-		state = new CRadioState();
+    public CRadioButton(Context context) {
+        this(context, null);
+    }
 
-		TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CRadioButton);
+    public CRadioButton(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
 
-		crMode = CRMode.values()[ta.getInt(R.styleable.CRadioButton_crb_mode, 0)];
-		switch (crMode)
-		{
-		case NEAR_ANYWHERE:
-			text_store[0] = "任意";
-			text_store[1] = "附近";
-			break;
-		case PRIVATE_PUBLIC:
-			text_store[0] = "公开";
-			text_store[0] = "非公开";
-			break;
-		}
-		text_show = text_store[1];
+    }
 
-		left_padding = ta.getDimensionPixelSize(R.styleable.CRadioButton_left_padding, 0);
-		top_padding = ta.getDimensionPixelSize(R.styleable.CRadioButton_top_padding, 0);
-		btn_width = ta.getDimensionPixelSize(R.styleable.CRadioButton_btn_width, getResources().getDimensionPixelSize(R.dimen.cr_btn_width));
-		btn_height = ta.getDimensionPixelSize(R.styleable.CRadioButton_btn_height, getResources().getDimensionPixelSize(R.dimen.cr_btn_height));
-		switch_width = ta.getDimensionPixelSize(R.styleable.CRadioButton_switch_width, getResources().getDimensionPixelSize(R.dimen.cr_switch_width));
-		btn_radius = ta.getDimensionPixelSize(R.styleable.CRadioButton_btn_radius, getResources().getDimensionPixelSize(R.dimen.cr_btn_radius));
+    public CRadioButton(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        text_store = new String[2];
+        paint = new Paint();
+        state = new CRadioState();
 
-		text_size = ta.getDimensionPixelSize(R.styleable.CRadioButton_cr_text_size, getResources().getDimensionPixelSize(R.dimen.font_min));
-		text_x = left_padding + (btn_width - switch_width) / 2;
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CRadioButton);
 
-		btn = new RectF(left_padding, top_padding, left_padding + btn_width, top_padding + btn_height);
-		select = new RectF(left_padding + btn_width - switch_width, top_padding, left_padding + btn_width, top_padding + btn_height);
-	}
+        crMode = CRMode.values()[ta.getInt(R.styleable.CRadioButton_crb_mode, 0)];
+        switch (crMode) {
+            case NEAR_ANYWHERE:
+                text_store[0] = "任意";
+                text_store[1] = "附近";
+                break;
+            case PRIVATE_PUBLIC:
+                text_store[0] = "公开";
+                text_store[0] = "非公开";
+                break;
+        }
+        text_show = text_store[1];
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event)
-	{
-		if (event.getAction() == MotionEvent.ACTION_DOWN)
-		{
-			if (btn.contains(event.getX() + left_padding, event.getY() + top_padding))
-			{
-				state.changeCRState();
-			}
-		}
-		return true;
-	}
+        left_padding = ta.getDimensionPixelSize(R.styleable.CRadioButton_left_padding, 0);
+        top_padding = ta.getDimensionPixelSize(R.styleable.CRadioButton_top_padding, 0);
+        btn_width = ta.getDimensionPixelSize(R.styleable.CRadioButton_btn_width, getResources().getDimensionPixelSize(R.dimen.cr_btn_width));
+        btn_height = ta.getDimensionPixelSize(R.styleable.CRadioButton_btn_height, getResources().getDimensionPixelSize(R.dimen.cr_btn_height));
+        switch_width = ta.getDimensionPixelSize(R.styleable.CRadioButton_switch_width, getResources().getDimensionPixelSize(R.dimen.cr_switch_width));
+        btn_radius = ta.getDimensionPixelSize(R.styleable.CRadioButton_btn_radius, getResources().getDimensionPixelSize(R.dimen.cr_btn_radius));
 
-	@Override
-	public void onDraw(Canvas canvas)
-	{
-		//super.draw(canvas);
+        text_size = ta.getDimensionPixelSize(R.styleable.CRadioButton_cr_text_size, getResources().getDimensionPixelSize(R.dimen.font_min));
+        text_x = left_padding + (btn_width - switch_width) / 2;
 
-		paint.setStyle(Paint.Style.FILL);
-		paint.setAntiAlias(true);
+        btn = new RectF(left_padding, top_padding, left_padding + btn_width, top_padding + btn_height);
+        select = new RectF(left_padding + btn_width - switch_width, top_padding, left_padding + btn_width, top_padding + btn_height);
+    }
 
-		paint.setColor(getResources().getColor(R.color.grayblue));
-		canvas.drawRoundRect(btn, btn_radius, btn_radius, paint);
-		paint.setColor(Color.WHITE);
-		canvas.drawRoundRect(select, btn_radius, btn_radius, paint);
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (btn.contains(event.getX() + left_padding, event.getY() + top_padding)) {
+                state.changeCRState();
+            }
+        }
+        return true;
+    }
 
-		paint.setColor(Color.WHITE);
-		paint.setTextAlign(Paint.Align.LEFT);
-		paint.setTextSize(text_size);
-		Rect bound = new Rect();
-		paint.getTextBounds(text_show, 0, text_show.length(), bound);//字符串形成的长方形
-		Paint.FontMetricsInt fontMetrics = paint.getFontMetricsInt();//字体测量
-		int baseline = (btn_height - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top + top_padding;
-		canvas.drawText(text_show, text_x - bound.width() / 2, baseline, paint);
-	}
+    @Override
+    public void onDraw(Canvas canvas) {
+        //super.draw(canvas);
 
-	public void setApperance(int state)
-	{
-		text_show = text_store[state];
-		text_x = left_padding + (state + 1) % 2 * switch_width + (btn_width - switch_width) / 2;
+        paint.setStyle(Paint.Style.FILL);
+        paint.setAntiAlias(true);
 
-		select.left = left_padding + state * (btn_width - switch_width);
-		select.right = select.left + switch_width;
-		this.invalidate();
-	}
+        paint.setColor(getResources().getColor(R.color.lightblue));
+        canvas.drawRoundRect(btn, btn_radius, btn_radius, paint);
+        paint.setColor(Color.WHITE);
+        canvas.drawRoundRect(select, btn_radius, btn_radius, paint);
+
+        paint.setColor(Color.WHITE);
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.setTextSize(text_size);
+        Rect bound = new Rect();
+        paint.getTextBounds(text_show, 0, text_show.length(), bound);//字符串形成的长方形
+        Paint.FontMetricsInt fontMetrics = paint.getFontMetricsInt();//字体测量
+        int baseline = (btn_height - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top + top_padding;
+        canvas.drawText(text_show, text_x - bound.width() / 2, baseline, paint);
+    }
+
+    public void setApperance(int state) {
+        text_show = text_store[state];
+        text_x = left_padding + (state + 1) % 2 * switch_width + (btn_width - switch_width) / 2;
+
+        select.left = left_padding + state * (btn_width - switch_width);
+        select.right = select.left + switch_width;
+        this.invalidate();
+    }
 }

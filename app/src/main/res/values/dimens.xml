@@ -12,12 +12,12 @@
     <dimen name="title_height">48dp</dimen>
 
     <!-- 外边距 -->
-    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_small">10dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
     <dimen name="margin_big">26dp</dimen>
     <dimen name="margin_large">46dp</dimen>
 
-     <!--内边距 -->
+    <!--内边距 -->
     <dimen name="padding_normal">6dp</dimen>
     <dimen name="padding_small">3dp</dimen>
 
@@ -26,6 +26,7 @@
     <dimen name="font_small">14sp</dimen>
     <dimen name="font_normal">18sp</dimen>
     <dimen name="font_big">22sp</dimen>
+    <dimen name="text_space_extra">9sp</dimen>
 
     <!-- 默认CRadioButton大小 -->
     <dimen name="cr_btn_width">61dp</dimen>

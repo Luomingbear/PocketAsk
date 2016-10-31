@@ -44,6 +44,8 @@ public class SelectorButton extends View {
     private float mIconPadding; //图标与文本的距离
     private float mLayoutPadding; //图标与边界的距离
 
+    private boolean isClicking = false; //是否正在点击
+
     public SelectorButton(Context context) {
         this(context, null);
     }
@@ -88,7 +90,7 @@ public class SelectorButton extends View {
             centerY = getHeight() / 2;
         }
         //设置背景色
-        mBackgroundColor = isChecked ? mCheckedColor : mUnCheckColor;
+        mBackgroundColor = isClicking ? mCheckedColor : mUnCheckColor;
         setBackgroundColor(mBackgroundColor);
         //绘制图标
         initIconPosition(canvas);
@@ -147,7 +149,6 @@ public class SelectorButton extends View {
             mPaint.setShader(null);
         }
 
-
     }
 
     /**
@@ -192,7 +193,7 @@ public class SelectorButton extends View {
     public void setChecked(boolean checked) {
         isChecked = checked;
 
-        invalidate();
+        postInvalidate();
     }
 
     public boolean isChecked() {
@@ -216,9 +217,13 @@ public class SelectorButton extends View {
             case MotionEvent.ACTION_DOWN:
                 touchX = event.getX();
                 touchY = event.getY();
+                isClicking = true;
+                invalidate();
                 break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
+
+                isClicking = false;
 
                 float move = Math.max(Math.abs(event.getX() - touchX), Math.abs(event.getY() - touchY));
                 if (move < 4) {

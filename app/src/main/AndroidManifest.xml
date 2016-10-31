@@ -11,19 +11,41 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar">
-        <activity android:name=".activity.receiver.ReceiverActivity">
+
+        <activity
+            android:name=".activity.login.LoginActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.test"></activity>
+        <activity
+            android:name=".activity.receiver.ReceiverActivity"
+            android:screenOrientation="portrait">
 
-        <activity android:name=".activity.person.PersonActivity"></activity>
+        </activity>
 
-        <activity android:name=".activity.login.LoginActivity"></activity>
+        <activity
+            android:name=".activity.test"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".activity.person.PersonActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".activity.edit.CreateQuestionActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
     </application>
 
 </manifest>

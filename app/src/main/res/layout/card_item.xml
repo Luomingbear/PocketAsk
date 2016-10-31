@@ -4,8 +4,7 @@
     android:id="@+id/card_item_touch_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:padding="@dimen/margin_normal">
+    android:layout_gravity="center">
 
     <ImageView
         android:layout_width="match_parent"
@@ -21,7 +20,8 @@
     <com.bear.pocketask.widget.cardview.AutoScaleLayout
         android:id="@+id/line1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:scaleRate="1.225">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:orientation="vertical"
             android:padding="@dimen/margin_big"
             android:paddingLeft="@dimen/margin_small"
-            android:paddingRight="@dimen/margin_large">
+            android:paddingRight="@dimen/margin_small">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,9 +45,9 @@
                     <!-- 头像 -->
                     <com.bear.pocketask.widget.imageview.RoundImageView
                         android:id="@+id/card_item_head_pic"
-                        android:src="@drawable/dfhead"
                         android:layout_width="@dimen/image_normal"
                         android:layout_height="@dimen/image_normal"
+                        android:src="@drawable/dfhead"
                         app:RoundType="circle" />
 
                     <TextView
@@ -66,26 +66,6 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/margin_normal">
-
-                    <TextView
-                        android:id="@+id/card_item_questions_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/margin_normal"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/deepblue"
-                        android:textSize="@dimen/font_small" />
-
-                    <com.bear.pocketask.widget.record.RecordView
-                        android:id="@+id/card_item_questions_audio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/record_height"
-                        android:layout_centerInParent="true"
-                        android:layout_marginRight="@dimen/margin_normal"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/grayblue"
-                        android:textSize="@dimen/font_small"
-                        app:roundSize="5dp" />
 
                     <!-- 举报-->
                     <LinearLayout
@@ -107,6 +87,32 @@
                             android:layout_marginLeft="5dp"
                             android:src="@drawable/report" />
                     </LinearLayout>
+
+                    <!--问题描述文本 -->
+                    <TextView
+                        android:id="@+id/card_item_questions_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/card_item_report"
+                        android:layout_marginRight="@dimen/margin_normal"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:lineSpacingExtra="@dimen/text_space_extra"
+                        android:maxLines="3"
+                        android:textColor="@color/deepblue"
+                        android:textSize="@dimen/font_small" />
+
+                    <com.bear.pocketask.widget.record.RecordView
+                        android:id="@+id/card_item_questions_audio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/record_height"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="@dimen/margin_normal"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/grayblue"
+                        android:textSize="@dimen/font_small"
+                        app:roundSize="5dp" />
+
                 </RelativeLayout>
 
             </LinearLayout>
@@ -121,6 +127,8 @@
             <com.bear.pocketask.widget.cardview.AutoScaleLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
                 app:scaleRate="0.618">
 
                 <ImageView
@@ -169,10 +177,12 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/edit_round_bg"
+                    android:ellipsize="end"
                     android:gravity="center_vertical"
+                    android:maxLines="1"
                     android:paddingLeft="@dimen/margin_small"
                     android:paddingRight="@dimen/margin_small"
-                    android:textColor="@color/deepgray"
+                    android:textColor="@color/deepblue"
                     android:textSize="@dimen/font_small" />
 
                 <!-- 发送 -->

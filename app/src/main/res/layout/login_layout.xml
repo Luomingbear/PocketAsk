@@ -53,6 +53,7 @@
                     android:textSize="@dimen/font_normal" />
 
                 <EditText
+                    android:id="@+id/login_et_username"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
@@ -68,11 +69,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/login_username"
+                    android:text="@string/login_password"
                     android:textColor="@color/deepblue"
                     android:textSize="@dimen/font_normal" />
 
                 <EditText
+                    android:id="@+id/login_et_password"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
@@ -85,6 +87,7 @@
                 android:layout_marginTop="@dimen/margin_normal">
 
                 <TextView
+                    android:id="@+id/login_no_register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -93,6 +96,7 @@
                     android:textSize="@dimen/font_small" />
 
                 <TextView
+                    android:id="@+id/login_forgot_password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -112,18 +116,21 @@
             android:layout_marginRight="@dimen/margin_normal">
 
             <ImageView
+                android:id="@+id/login_qq"
                 android:layout_width="@dimen/image_small"
                 android:layout_height="@dimen/image_small"
                 android:layout_alignParentLeft="true"
                 android:src="@drawable/qq" />
 
             <ImageView
+                android:id="@+id/login_wechat"
                 android:layout_width="@dimen/image_small"
                 android:layout_height="@dimen/image_small"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/wechat" />
 
             <ImageView
+                android:id="@+id/login_webo"
                 android:layout_width="@dimen/image_small"
                 android:layout_height="@dimen/image_small"
                 android:layout_alignParentRight="true"
