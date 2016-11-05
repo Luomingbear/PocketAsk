@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="77dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:layout_marginTop="@dimen/padding_normal"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.bear.pocketask.widget.imageview.RoundImageView
+            android:id="@+id/respond_head_portrait"
+            android:layout_width="@dimen/icon_large"
+            android:layout_height="@dimen/icon_large"
+            android:src="@drawable/dfhead"
+            app:RoundType="circle" />
+
+        <TextView
+            android:id="@+id/respond_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_normal"
+            android:textColor="@color/grayblue"
+            android:textSize="@dimen/font_small" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/respond_respond_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="44dp"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginTop="44dp"
+        android:maxLines="3"
+        android:textColor="@color/deepblue"
+        android:textSize="@dimen/font_small" />
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.bear.pocketask.activity.edit;
+package com.bear.pocketask.activity.comment;
 
 import android.os.Bundle;
 
@@ -7,15 +7,15 @@ import com.bear.pocketask.activity.base.BaseActivity;
 import com.bear.pocketask.widget.titleview.TitleView;
 
 /**
- * 创建问题
- * Created by bear on 16/10/31.
+ * 问题详情页 评论页
+ * Created by bear on 16/11/1.
  */
 
-public class CreateQuestionActivity extends BaseActivity {
+public class CommentActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_question_layout);
+        setContentView(R.layout.question_detail_layout);
 
         initView();
     }
@@ -27,6 +27,7 @@ public class CreateQuestionActivity extends BaseActivity {
 
     private void initTitleView() {
         TitleView titleView = (TitleView) findViewById(R.id.title_view);
+        titleView.setmTitleText("XXX");
         titleView.setOnTitleViewListener(new TitleView.OnTitleViewListener() {
             @Override
             public void onLeftButton() {

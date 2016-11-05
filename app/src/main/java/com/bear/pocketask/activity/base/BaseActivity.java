@@ -10,11 +10,19 @@ import android.content.Intent;
 public class BaseActivity extends Activity {
     /**
      * 页面跳转
+     *
      * @param cls
      */
     public void intentTo(Class<?> cls) {
         Intent intent = new Intent();
         intent.setClass(this, cls);
+        startActivity(intent);
+    }
+
+    public void intentWithFlag(Class<?> cls, int flag) {
+        Intent intent = new Intent();
+        intent.setClass(this, cls);
+        intent.setFlags(flag);
         startActivity(intent);
     }
 }

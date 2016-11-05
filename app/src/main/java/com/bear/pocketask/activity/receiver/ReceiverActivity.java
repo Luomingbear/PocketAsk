@@ -1,13 +1,15 @@
 package com.bear.pocketask.activity.receiver;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.bear.pocketask.R;
 import com.bear.pocketask.activity.base.BaseActivity;
+import com.bear.pocketask.activity.comment.CommentActivity;
+import com.bear.pocketask.activity.edit.CreateQuestionActivity;
 import com.bear.pocketask.activity.login.LoginActivity;
 import com.bear.pocketask.activity.person.PersonActivity;
-import com.bear.pocketask.activity.test;
 import com.bear.pocketask.adapter.CardAdapter;
 import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.tools.observable.EventObservable;
@@ -28,14 +30,30 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
     private CardSlideAdapterView cardSlideAdapterView; //卡片自动生成
     private CharSequence input; //输入框的值
 
+    private boolean isLogin = false; //是否登录帐号
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        checkIsLogin();
+
         setContentView(R.layout.receiver_layout);
 
         initImageViewLoader();
 
         initView();
+    }
+
+    /**
+     * 是否已经登录
+     */
+    private void checkIsLogin() {
+        SharedPreferences sharedPreferences = getSharedPreferences("loginLog", MODE_PRIVATE);
+        isLogin = sharedPreferences.getBoolean("isLogin", false);
+        boolean isTourist = sharedPreferences.getBoolean("isTourist", false);
+        if (!isLogin && !isTourist)
+            intentWithFlag(LoginActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
 
     /**
@@ -64,7 +82,7 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
 
             @Override
             public void onRightButton() {
-                intentTo(LoginActivity.class);
+                intentTo(CreateQuestionActivity.class);
 
             }
         });
@@ -106,8 +124,9 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
                 break;
             }
             case HEAD_PIC: {
-                //                Toast.makeText(this, "点击了头像", Toast.LENGTH_SHORT).show();
-
+                //点击了头像，如果没有登录帐号则跳转到登录界面
+                if (!isLogin)
+                    intentTo(LoginActivity.class);
                 break;
             }
             case Report_BUTTON: {
@@ -168,7 +187,7 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
     @Override
     public void onClicked() {
         Intent intent = new Intent();
-        intent.setClass(ReceiverActivity.this, test.class);
+        intent.setClass(ReceiverActivity.this, CommentActivity.class);
         startActivity(intent);
         //        Toast.makeText(this, "点击了卡片", Toast.LENGTH_SHORT).show();
     }

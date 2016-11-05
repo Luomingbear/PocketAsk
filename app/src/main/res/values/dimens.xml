@@ -15,7 +15,8 @@
     <dimen name="margin_small">10dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
     <dimen name="margin_big">26dp</dimen>
-    <dimen name="margin_large">46dp</dimen>
+    <dimen name="margin_large">36dp</dimen>
+    <dimen name="margin_large_more">46dp</dimen>
 
     <!--内边距 -->
     <dimen name="padding_normal">6dp</dimen>

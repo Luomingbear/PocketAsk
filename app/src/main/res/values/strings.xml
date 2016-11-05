@@ -23,4 +23,6 @@
     <string name="login_no_register">没有注册？</string>
     <string name="login_forgot_password">忘记密码？</string>
 
+    <!--创建问题 -->
+    <string name="create_title">新建问题</string>
 </resources>
