@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.bear.pocketask.R;
 import com.bear.pocketask.activity.base.BaseActivity;
@@ -148,7 +149,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             intentWithFlag(ReceiverActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
 
-
     }
 
     /**
@@ -212,6 +212,35 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         animator.setInterpolator(al);
         animator.setDuration(200);
         animator.start();
+    }
+
+    /**
+     * 显示错误的提示
+     *
+     * @param loginFailedType 错误类型 LOGIN_FAILED：登录错误 REGISTER_FAILED注册错误
+     */
+    private void showLoginFaildWarning(LoginFailedType loginFailedType) {
+        View loginFailedWarningLayout = findViewById(R.id.login_warning_layout);
+        TextView loginFailedWarningTextView = (TextView) findViewById(R.id.login_warning_text);
+
+        switch (loginFailedType) {
+            case LOGIN_FAILED:
+                loginFailedWarningLayout.setVisibility(View.VISIBLE);
+                loginFailedWarningTextView.setText(getString(R.string.login_login_failed));
+                break;
+            case REGISTER_FAILED:
+                loginFailedWarningLayout.setVisibility(View.VISIBLE);
+                loginFailedWarningTextView.setText(getString(R.string.login_register_failed));
+                break;
+        }
+    }
+
+    private enum LoginFailedType {
+        //登录错误
+        LOGIN_FAILED,
+
+        //注册错误
+        REGISTER_FAILED
     }
 
     /**

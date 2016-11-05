@@ -6,6 +6,7 @@
     <string name="near">附近</string>
     <string name="public_">公开</string>
     <string name="private_">非公开</string>
+    <string name="secret">私密</string>
 
     <!--个人中心 -->
     <string name="person_title">个人中心</string>
@@ -22,7 +23,17 @@
     <string name="login_password">密  码：</string>
     <string name="login_no_register">没有注册？</string>
     <string name="login_forgot_password">忘记密码？</string>
+    <string name="login_login_failed">登录名或密码错误</string>
+    <string name="login_register_failed">确认密码错误</string>
 
     <!--创建问题 -->
     <string name="create_title">新建问题</string>
+
+    <!--我的提问 -->
+    <string name="my_questions_remind_count">%1$d 回答</string>
+    <string name="my_questions_title">我的提问</string>
+
+     <!--我的回答 -->
+    <string name="my_reminds_title">我的回答</string>
+
 </resources>

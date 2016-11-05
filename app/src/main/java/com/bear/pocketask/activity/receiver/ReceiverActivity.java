@@ -53,7 +53,7 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
         isLogin = sharedPreferences.getBoolean("isLogin", false);
         boolean isTourist = sharedPreferences.getBoolean("isTourist", false);
         if (!isLogin && !isTourist)
-            intentWithFlag(LoginActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intentWithFlag(LoginActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK); //清除之前的activity堆栈
     }
 
     /**

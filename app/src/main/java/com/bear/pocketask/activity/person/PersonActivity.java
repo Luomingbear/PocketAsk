@@ -7,6 +7,8 @@ import android.view.View;
 import com.bear.pocketask.R;
 import com.bear.pocketask.activity.base.BaseActivity;
 import com.bear.pocketask.activity.login.LoginActivity;
+import com.bear.pocketask.activity.my.MyQuestionsActivity;
+import com.bear.pocketask.activity.my.MyRemindsActivity;
 import com.bear.pocketask.widget.titleview.TitleView;
 
 /**
@@ -64,8 +66,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.person_my_questions:
+                intentTo(MyQuestionsActivity.class);
                 break;
             case R.id.person_my_respond:
+                intentTo(MyRemindsActivity.class);
+
                 break;
             case R.id.person_feedback:
                 break;

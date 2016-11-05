@@ -14,10 +14,16 @@ import java.util.List;
 public abstract class IBaseAdapter extends BaseAdapter {
     private List<?> mList;
     private LayoutInflater mInflater;
+    private Context mContext;
 
     public IBaseAdapter(Context context, List<?> mList) {
+        this.mContext = context;
         mInflater = LayoutInflater.from(context);
         this.mList = mList;
+    }
+
+    public Context getmContext() {
+        return mContext;
     }
 
     public List<?> getList() {

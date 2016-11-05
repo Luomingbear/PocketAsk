@@ -54,6 +54,16 @@
 
         </activity>
 
+        <activity
+            android:name=".activity.my.MyQuestionsActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".activity.my.MyRemindsActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
 
     </application>
 
