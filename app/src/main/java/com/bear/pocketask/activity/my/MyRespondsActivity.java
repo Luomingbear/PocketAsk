@@ -1,8 +1,10 @@
 package com.bear.pocketask.activity.my;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ import java.util.List;
  * Created by bear on 16/11/5.
  */
 
-public class MyRemindsActivity extends BaseActivity {
+public class MyRespondsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,26 +66,41 @@ public class MyRemindsActivity extends BaseActivity {
             myQuestionInfoList.add(info);
         }
 
-        MyQuestionsAdapter myQuestionsAdapter = new MyQuestionsAdapter(this, myQuestionInfoList);
+        MyQuestionsAdapter myRespondsAdapter = new MyQuestionsAdapter(this, myQuestionInfoList);
 
-        //ListView
-        ListView lv_question = (ListView) findViewById(R.id.my_questions_list_view);
-        lv_question.setAdapter(myQuestionsAdapter);
-        lv_question.setDividerHeight(DipPxConversion.dip2px(this, 3));
-//        ColorDrawable drawable = new ColorDrawable(getResources().getColor(R.color.grayblue));
-//        lv_question.setDivider(drawable);
+        //listView外面的linearLayout
+        LinearLayout listLayout = (LinearLayout) findViewById(R.id.my_questions_list_layout);
+
+        listLayout.addView(createListView(myRespondsAdapter, "- 一周内 -"));
+    }
+
+    /**
+     * 创建listview
+     * @param adapter adapter
+     * @param headerText header的文本，如果为null则不显示
+     * @return
+     */
+    private ListView createListView(BaseAdapter adapter, String headerText) {
+        ListView listView = new ListView(this);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        listView.setLayoutParams(p);
+
+        listView.setAdapter(adapter);
+        listView.setDividerHeight(DipPxConversion.dip2px(this, 3));
 
         //时间
-        TextView tv_createTime = new TextView(this);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DipPxConversion.dip2px(this, 30));
-        tv_createTime.setLayoutParams(params);
-        tv_createTime.setGravity(Gravity.CENTER);
-        tv_createTime.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.font_normal));
-        tv_createTime.setTextColor(getResources().getColor(R.color.white));
-        tv_createTime.setText("- 一周内 -");
+        if (!TextUtils.isEmpty(headerText)) {
+            TextView tv_createTime = new TextView(this);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DipPxConversion.dip2px(this, 30));
+            tv_createTime.setLayoutParams(params);
+            tv_createTime.setGravity(Gravity.CENTER);
+            tv_createTime.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.font_normal));
+            tv_createTime.setTextColor(getResources().getColor(R.color.white));
+            tv_createTime.setText(headerText);
+            listView.addHeaderView(tv_createTime);
+        }
 
-        lv_question.addHeaderView(tv_createTime);
-        AdapterViewUtil.FixHeight(lv_question);
-
+        AdapterViewUtil.FixHeight(listView);
+        return listView;
     }
 }

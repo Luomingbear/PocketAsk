@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -133,7 +134,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.login_skip_login:
                 setLoginPreferences(UserMode.TOURIST);
-                intentWithFlag(ReceiverActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intentWithFlag(ReceiverActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 break;
         }
     }
@@ -146,7 +147,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         if (checkInputAccount()) {
             setLoginPreferences(UserMode.USER);
-            intentWithFlag(ReceiverActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intentWithFlag(ReceiverActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         }
 
     }
@@ -172,8 +173,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             return true;
         }
 
+        //登录名或者密码错误
         //// TODO: 16/10/31 请求服务器的账号数据
-//        Toast.makeText(this, "账号或者密码错误", Toast.LENGTH_SHORT).show();
+
+
+        //登录名或者密码为空
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password))
+            showLoginFaildWarning(LoginFailedType.EMPTY_INPUT);
+
+        //没有注册
+
+
         return false;
     }
 
@@ -232,6 +242,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 loginFailedWarningLayout.setVisibility(View.VISIBLE);
                 loginFailedWarningTextView.setText(getString(R.string.login_register_failed));
                 break;
+            case EMPTY_INPUT:
+                loginFailedWarningLayout.setVisibility(View.VISIBLE);
+                loginFailedWarningTextView.setText(getString(R.string.login_empty_input));
+                break;
         }
     }
 
@@ -240,7 +254,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         LOGIN_FAILED,
 
         //注册错误
-        REGISTER_FAILED
+        REGISTER_FAILED,
+
+        //登录名或密码为空
+        EMPTY_INPUT
     }
 
     /**

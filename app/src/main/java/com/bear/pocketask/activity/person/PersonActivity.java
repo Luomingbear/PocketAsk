@@ -1,5 +1,6 @@
 package com.bear.pocketask.activity.person;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +9,7 @@ import com.bear.pocketask.R;
 import com.bear.pocketask.activity.base.BaseActivity;
 import com.bear.pocketask.activity.login.LoginActivity;
 import com.bear.pocketask.activity.my.MyQuestionsActivity;
-import com.bear.pocketask.activity.my.MyRemindsActivity;
+import com.bear.pocketask.activity.my.MyRespondsActivity;
 import com.bear.pocketask.widget.titleview.TitleView;
 
 /**
@@ -69,7 +70,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 intentTo(MyQuestionsActivity.class);
                 break;
             case R.id.person_my_respond:
-                intentTo(MyRemindsActivity.class);
+                intentTo(MyRespondsActivity.class);
 
                 break;
             case R.id.person_feedback:
@@ -95,7 +96,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         editor.apply();
 
-        intentTo(LoginActivity.class);
+        intentWithFlag(LoginActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
     }
 }

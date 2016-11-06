@@ -28,7 +28,7 @@ public class AdapterViewUtil {
         ViewGroup.LayoutParams params = adapterView.getLayoutParams();
         params.height = totalHeight;
         if (adapterView instanceof ListView)
-            params.height = totalHeight + (((ListView) adapterView).getDividerHeight() * adapter.getCount() - 1);
+            params.height = totalHeight + (((ListView) adapterView).getDividerHeight() * adapter.getCount());
         adapterView.setLayoutParams(params);
     }
 }
