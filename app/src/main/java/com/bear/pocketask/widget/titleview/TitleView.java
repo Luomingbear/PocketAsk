@@ -3,6 +3,7 @@ package com.bear.pocketask.widget.titleview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -92,6 +93,8 @@ public class TitleView extends LinearLayout {
     private void addTitle() {
         mTitleTextView = newTextView(mTitleText, mTitleColor, mTitleSize);
         mTitleTextView.setGravity(Gravity.CENTER);
+        mTitleTextView.setSingleLine();
+        mTitleTextView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
         addView(mTitleTextView);
     }
 

@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.bear.pocketask"
         minSdkVersion 14
-        targetSdkVersion 14
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -24,4 +24,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.facebook.rebound:rebound:0.3.8'
+    compile files('libs/AMap_Location_V3.1.0_20161027.jar')
 }

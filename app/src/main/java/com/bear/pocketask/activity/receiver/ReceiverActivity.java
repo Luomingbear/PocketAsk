@@ -3,7 +3,9 @@ package com.bear.pocketask.activity.receiver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
 import com.bear.pocketask.R;
 import com.bear.pocketask.activity.base.BaseActivity;
 import com.bear.pocketask.activity.comment.CommentActivity;
@@ -12,6 +14,7 @@ import com.bear.pocketask.activity.login.LoginActivity;
 import com.bear.pocketask.activity.person.PersonActivity;
 import com.bear.pocketask.adapter.CardAdapter;
 import com.bear.pocketask.info.CardItemInfo;
+import com.bear.pocketask.model.location.LocationManager;
 import com.bear.pocketask.tools.observable.EventObservable;
 import com.bear.pocketask.widget.cardview.CardSlideAdapterView;
 import com.bear.pocketask.widget.inputview.ITextView;
@@ -26,11 +29,12 @@ import java.util.ArrayList;
 public class ReceiverActivity extends BaseActivity implements CardAdapter.CardItemClickListener, CardSlideAdapterView.OnCardSlidingListener {
     private static final String TAG = "ReceiverActivity";
     private ArrayList<CardItemInfo> mCardInfoList; //数据集
-    private CardAdapter cardAdapter; //卡片适配器
-    private CardSlideAdapterView cardSlideAdapterView; //卡片自动生成
+    private CardAdapter mCardAdapter; //卡片适配器
+    private CardSlideAdapterView mCardSlideAdapterView; //卡片自动生成
     private CharSequence input; //输入框的值
 
     private boolean isLogin = false; //是否登录帐号
+    private LocationManager mLocationManager; //定位管理器
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,9 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
         initImageViewLoader();
 
         initView();
+
+
+        startLocation();
     }
 
     /**
@@ -104,11 +111,11 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
             mCardInfoList.add(cardItemInfo);
         }
 
-        cardSlideAdapterView = (CardSlideAdapterView) findViewById(R.id.cardSlideView);
+        mCardSlideAdapterView = (CardSlideAdapterView) findViewById(R.id.cardSlideView);
 
-        cardAdapter = new CardAdapter(this, mCardInfoList);
-        cardAdapter.setCardItemClickListener(this);
-        cardSlideAdapterView.init(this, cardAdapter);
+        mCardAdapter = new CardAdapter(this, mCardInfoList);
+        mCardAdapter.setCardItemClickListener(this);
+        mCardSlideAdapterView.init(this, mCardAdapter);
 
     }
 
@@ -178,9 +185,9 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
     public void onRemove() {
         //        Toast.makeText(this, "移除", Toast.LENGTH_SHORT).show();
         if (mCardInfoList.size() > 0) {
-            EventObservable.getInstance().deleteObserver((ITextView) cardSlideAdapterView.getSelectedView().findViewById(R.id.card_item_input));
+            EventObservable.getInstance().deleteObserver((ITextView) mCardSlideAdapterView.getSelectedView().findViewById(R.id.card_item_input));
             mCardInfoList.remove(0);
-            cardAdapter.notifyDataSetChanged();
+            mCardAdapter.notifyDataSetChanged();
         }
     }
 
@@ -194,11 +201,33 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
 
     @Override
     public void onExitLeft() {
-
+        //卡片左移
     }
 
     @Override
     public void onExitRight() {
+        //卡片右移
 
+    }
+
+    /**
+     * 定位
+     */
+    private void startLocation() {
+        //初始化定位
+        mLocationManager = new LocationManager(getApplicationContext(), new LocationManager.OnLocationListener() {
+            @Override
+            public void onLocationSucceed(AMapLocation amapLocation) {
+                Toast.makeText(getApplication(),amapLocation.getAoiName(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLocationManager.destroyLocationClient();
     }
 }
