@@ -101,6 +101,8 @@ public class TitleView extends RelativeLayout {
         mLeftLayout = new LinearLayout(getContext());
         LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, mTitleHeight);
         params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        int margin = (int) getResources().getDimension(R.dimen.margin_normal);
+        params.setMargins(margin, 0, margin, 0);
         mLeftLayout.setLayoutParams(params);
         mLeftLayout.setGravity(Gravity.CENTER);
         mLeftImageView = newImageView();
@@ -120,6 +122,8 @@ public class TitleView extends RelativeLayout {
         mRightLayout = new LinearLayout(getContext());
         LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, mTitleHeight);
         params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        int margin = (int) getResources().getDimension(R.dimen.margin_normal);
+        params.setMargins(margin, 0, margin, 0);
         mRightLayout.setLayoutParams(params);
         mRightLayout.setGravity(Gravity.CENTER);
         mRightImageView = newImageView();
@@ -179,9 +183,9 @@ public class TitleView extends RelativeLayout {
     private ImageView newImageView() {
         ImageView imageView = new ImageView(getContext());
         LayoutParams params = new LayoutParams(DipPxConversion.dip2px(getContext(), 32), DipPxConversion.dip2px(getContext(), 32));
-        int margin = (int) getResources().getDimension(R.dimen.margin_normal);
-        //设置外边距
-        params.setMargins(margin, 0, margin, 0);
+//        int margin = (int) getResources().getDimension(R.dimen.margin_normal);
+//        //设置外边距
+//        params.setMargins(margin, 0, margin, 0);
         imageView.setLayoutParams(params);
 
         //设置裁剪属性

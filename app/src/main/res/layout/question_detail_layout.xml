@@ -131,15 +131,15 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_large_more"
                         android:layout_marginRight="@dimen/margin_large_more"
-                        android:layout_marginTop="@dimen/margin_big"
+                        android:layout_marginTop="@dimen/margin_normal"
                         app:scaleRate="0.68">
 
                         <ImageView
                             android:id="@+id/card_item_detail_pic"
                             android:layout_width="match_parent"
-                            android:layout_height="200dp"
+                            android:layout_height="match_parent"
                             android:background="@color/lightgray"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="centerCrop"/>
 
                         <ScrollView
                             android:id="@+id/card_item_select_list_layout"
