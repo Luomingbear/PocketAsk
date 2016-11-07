@@ -48,7 +48,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_large"
-                        android:layout_marginRight="@dimen/margin_big"
+                        android:layout_marginRight="@dimen/margin_large"
                         android:layout_marginTop="@dimen/margin_big"
                         android:baselineAligned="false"
                         android:orientation="horizontal">
@@ -90,17 +90,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/report"
-                                    android:textColor="@color/deepgray"
-                                    android:textSize="@dimen/font_min" />
-
                                 <ImageView
                                     android:layout_width="@dimen/icon_small"
                                     android:layout_height="@dimen/icon_small"
-                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginLeft="@dimen/margin_small"
                                     android:src="@drawable/report" />
                             </LinearLayout>
 
@@ -136,9 +129,9 @@
                     <com.bear.pocketask.widget.cardview.AutoScaleLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_large_more"
+                        android:layout_marginRight="@dimen/margin_large_more"
                         android:layout_marginTop="@dimen/margin_normal"
-                        android:layout_marginLeft="@dimen/margin_large"
-                        android:layout_marginRight="@dimen/margin_large"
                         app:scaleRate="0.618">
 
                         <ImageView

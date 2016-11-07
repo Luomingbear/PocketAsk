@@ -1,5 +1,6 @@
 <resources>
     <!-- 图标大小 -->
+    <dimen name="icon_min">10dp</dimen>
     <dimen name="icon_small">16dp</dimen>
     <dimen name="icon_normal">24dp</dimen>
     <dimen name="icon_large">32dp</dimen>
@@ -13,6 +14,7 @@
 
     <!--列表选项的高度 -->
     <dimen name="item_height">63dp</dimen>
+    <dimen name="item_height_small">30dp</dimen>
 
     <!-- 外边距 -->
     <dimen name="margin_small">10dp</dimen>

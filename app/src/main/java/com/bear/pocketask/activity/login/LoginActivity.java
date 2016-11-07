@@ -27,15 +27,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private EditText mUserName; //用户名
     private EditText mPassWord; //密码
+    private EditText mVerfiyPassWord; //确认密码
+    private View mVerfiyPassWordLayout; //确认密码区
 
+    private View mHintLayout; //提示区
     private View mNoRegister; //没有注册
     private View mForgotPassword; //忘记密码
 
+    private View mThirdParty; //第三方登录布局
     private View mLoginQQ, mLoginWechat, mLoginWebo; //登录qq，微信，微博
 
     private View mLoginFlag; //登录按钮
 
     private View mSkiLogin; //跳过登录
+
+    private boolean isRegisterLayout = false; //当前是否是注册账号页面
 
 
     @Override
@@ -88,8 +94,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mUserName.addTextChangedListener(usernameEditListener);
         mPassWord = (EditText) findViewById(R.id.login_et_password);
         mPassWord.addTextChangedListener(passwordEditListener);
+        mVerfiyPassWord = (EditText) findViewById(R.id.login_et_verify_password);
+        //确认密码区
+        mVerfiyPassWordLayout = findViewById(R.id.login_verify_password_layout);
 
         //注册和找回密码
+        mHintLayout = findViewById(R.id.login_hint_layout);
+
         mNoRegister = findViewById(R.id.login_no_register);
         mNoRegister.setOnClickListener(this);
         mForgotPassword = findViewById(R.id.login_forgot_password);
@@ -97,6 +108,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
 
         //第三方登录
+        mThirdParty = findViewById(R.id.login_third_party);
+
         mLoginQQ = findViewById(R.id.login_qq);
         mLoginWechat = findViewById(R.id.login_wechat);
         mLoginWebo = findViewById(R.id.login_webo);
@@ -120,6 +133,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_no_register:
+                isRegisterLayout = true;
+                showRegisterLayout(isRegisterLayout);
                 break;
             case R.id.login_forgot_password:
                 break;
@@ -136,6 +151,23 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 setLoginPreferences(UserMode.TOURIST);
                 intentWithFlag(ReceiverActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 break;
+        }
+    }
+
+    /**
+     * 设置显示注册账号的页面
+     *
+     * @param isShow 是否显示 真：注册账号 假：登录
+     */
+    private void showRegisterLayout(boolean isShow) {
+        if (isShow) {
+            mVerfiyPassWordLayout.setVisibility(View.VISIBLE);
+            mHintLayout.setVisibility(View.GONE);
+            mThirdParty.setVisibility(View.GONE);
+        } else {
+            mVerfiyPassWordLayout.setVisibility(View.GONE);
+            mHintLayout.setVisibility(View.VISIBLE);
+            mThirdParty.setVisibility(View.VISIBLE);
         }
     }
 
@@ -162,7 +194,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         /**
          *
          */
-        String username, password;
+        String username, password, verifyPassword = "";
 
         username = mUserName.getText().toString();
 
@@ -173,13 +205,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             return true;
         }
 
+        //注册账号的验证密码
+        if (isRegisterLayout)
+            verifyPassword = mVerfiyPassWord.getText().toString();
+
+        //
+        if (!password.equals(verifyPassword)) {
+            showLoginFailedWarning(LoginFailedType.REGISTER_FAILED);
+        }
         //登录名或者密码错误
         //// TODO: 16/10/31 请求服务器的账号数据
 
 
         //登录名或者密码为空
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password))
-            showLoginFaildWarning(LoginFailedType.EMPTY_INPUT);
+            showLoginFailedWarning(LoginFailedType.EMPTY_INPUT);
 
         //没有注册
 
@@ -229,7 +269,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      *
      * @param loginFailedType 错误类型 LOGIN_FAILED：登录错误 REGISTER_FAILED注册错误
      */
-    private void showLoginFaildWarning(LoginFailedType loginFailedType) {
+    private void showLoginFailedWarning(LoginFailedType loginFailedType) {
         View loginFailedWarningLayout = findViewById(R.id.login_warning_layout);
         TextView loginFailedWarningTextView = (TextView) findViewById(R.id.login_warning_text);
 

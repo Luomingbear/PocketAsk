@@ -21,6 +21,7 @@
     <string name="login_skip_login">随便答答 Skip -></string>
     <string name="login_username">登录名：</string>
     <string name="login_password">密&#8201;&#8201;&#8201;&#8201;&#8201;码：</string>
+    <string name="login_verify_password">确认密码:</string>
     <string name="login_no_register">没有注册？</string>
     <string name="login_forgot_password">忘记密码？</string>
     <string name="login_login_failed">登录名或密码错误</string>
@@ -29,12 +30,13 @@
 
     <!--创建问题 -->
     <string name="create_title">新建问题</string>
+    <string name="create_selector_hint">输入描述</string>
 
     <!--我的提问 -->
     <string name="my_questions_remind_count">%1$d 回答</string>
     <string name="my_questions_title">我的提问</string>
 
-     <!--我的回答 -->
+    <!--我的回答 -->
     <string name="my_reminds_title">我的回答</string>
 
 </resources>

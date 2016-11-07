@@ -14,4 +14,105 @@
         app:titleText="@string/create_title">
 
     </com.bear.pocketask.widget.titleview.TitleView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal">
+
+        <com.bear.pocketask.widget.cradiobutton.CRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" />
+
+        <com.bear.pocketask.widget.cradiobutton.CRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:crb_mode="Private" />
+    </RelativeLayout>
+
+    <com.bear.pocketask.widget.cardview.AutoScaleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_small"
+        app:scaleRate="0.68">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/pageback" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/create_view_pager_top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+        <RadioGroup
+            android:id="@+id/create_points_layout_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="@dimen/icon_min"
+                android:layout_height="@dimen/icon_min"
+                android:background="@drawable/circle_point"
+                android:button="@null"
+                android:checked="true" />
+
+            <RadioButton
+                android:layout_width="@dimen/icon_min"
+                android:layout_height="@dimen/icon_min"
+                android:layout_marginLeft="@dimen/icon_small"
+                android:background="@drawable/circle_point"
+                android:button="@null"/>
+        </RadioGroup>
+    </com.bear.pocketask.widget.cardview.AutoScaleLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/create_view_pager_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+        <RadioGroup
+            android:id="@+id/create_points_layout_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="@dimen/icon_min"
+                android:layout_height="@dimen/icon_min"
+                android:background="@drawable/circle_point"
+                android:button="@null"
+                android:checked="true"  />
+
+            <RadioButton
+                android:layout_width="@dimen/icon_min"
+                android:layout_height="@dimen/icon_min"
+                android:layout_marginLeft="@dimen/icon_small"
+                android:background="@drawable/circle_point"
+                android:button="@null"/>
+        </RadioGroup>
+    </RelativeLayout>
+
+
 </LinearLayout>

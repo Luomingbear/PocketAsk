@@ -115,7 +115,7 @@ public class CRadioButton extends View {
                 break;
             case PRIVATE_PUBLIC:
                 text_store[0] = "公开";
-                text_store[1] = "非公开";
+                text_store[1] = "私密";
                 break;
         }
         text_show = text_store[1];

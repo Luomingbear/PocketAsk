@@ -107,8 +107,33 @@
                     android:gravity="center" />
             </LinearLayout>
 
+            <!-- 确认密码 -->
+            <LinearLayout
+                android:id="@+id/login_verify_password_layout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_verify_password"
+                    android:textColor="@color/deepblue"
+                    android:textSize="@dimen/font_normal" />
+
+                <EditText
+                    android:id="@+id/login_et_verify_password"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+            </LinearLayout>
+
             <!--提示 -->
             <RelativeLayout
+                android:id="@+id/login_hint_layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="@dimen/margin_normal">
@@ -135,6 +160,7 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/login_third_party"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -169,8 +195,8 @@
 
     <com.bear.pocketask.widget.imageview.RoundImageView
         android:id="@+id/login_head_portrait"
-        android:layout_width="@dimen/image_normal"
-        android:layout_height="@dimen/image_normal"
+        android:layout_width="@dimen/image_big"
+        android:layout_height="@dimen/image_big"
         android:layout_above="@+id/card"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/margin_big"
