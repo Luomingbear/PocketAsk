@@ -23,4 +23,6 @@ left_padding 相对于父物体的左边距
 top_padding 相对于父物体的上边距
 。开关事件：
 调用setCRListener
-重写CRListener openState() closeState方法
+重写CRListener openState() closeState方
+##定位管理 LocationManager
+new的时候就会自动开始定位，使用destory销毁，不用的时候必须销毁
