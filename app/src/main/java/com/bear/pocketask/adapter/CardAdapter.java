@@ -44,7 +44,7 @@ public class CardAdapter extends IBaseAdapter implements View.OnClickListener {
 
             viewHolder = new ViewHolder();
             viewHolder.ivDetailPic = (ImageView) convertView.findViewById(R.id.card_item_detail_pic);
-            viewHolder.ivHeadPic = (ImageView) convertView.findViewById(R.id.card_item_head_pic);
+            viewHolder.ivHeadPic = (ImageView) convertView.findViewById(R.id.card_item_head_portrait);
             viewHolder.tvQuestion = (TextView) convertView.findViewById(R.id.card_item_questions_text);
             viewHolder.tvUserName = (TextView) convertView.findViewById(R.id.card_item_user_name);
 
@@ -166,7 +166,7 @@ public class CardAdapter extends IBaseAdapter implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.card_item_head_pic: {
+            case R.id.card_item_head_portrait: {
                 if (cardItemClickListener != null)
                     cardItemClickListener.onClickedObject(info.getQuestionId(), CardItemClickMode.HEAD_PIC);
                 Log.i(TAG, "onTouch: down head pic");

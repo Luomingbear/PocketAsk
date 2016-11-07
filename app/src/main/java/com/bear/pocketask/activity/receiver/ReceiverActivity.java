@@ -8,13 +8,13 @@ import android.widget.Toast;
 import com.amap.api.location.AMapLocation;
 import com.bear.pocketask.R;
 import com.bear.pocketask.activity.base.BaseActivity;
-import com.bear.pocketask.activity.comment.CommentActivity;
-import com.bear.pocketask.activity.edit.CreateQuestionActivity;
+import com.bear.pocketask.activity.create.CreateQuestionActivity;
 import com.bear.pocketask.activity.login.LoginActivity;
 import com.bear.pocketask.activity.person.PersonActivity;
+import com.bear.pocketask.activity.question.QuestionDetailActivity;
 import com.bear.pocketask.adapter.CardAdapter;
 import com.bear.pocketask.info.CardItemInfo;
-import com.bear.pocketask.model.location.LocationManager;
+import com.bear.pocketask.model.location.ILocationManager;
 import com.bear.pocketask.tools.observable.EventObservable;
 import com.bear.pocketask.widget.cardview.CardSlideAdapterView;
 import com.bear.pocketask.widget.inputview.ITextView;
@@ -34,7 +34,7 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
     private CharSequence input; //输入框的值
 
     private boolean isLogin = false; //是否登录帐号
-    private LocationManager mLocationManager; //定位管理器
+    private ILocationManager mLocationManager; //定位管理器
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +111,17 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
             mCardInfoList.add(cardItemInfo);
         }
 
+        mCardInfoList.get(1).setUserName("Joy");
+        mCardInfoList.get(1).setHeadPic("http://www.ld12.com/upimg358/allimg/c150731/143R5L1393260-LR0.jpg");
+        mCardInfoList.get(1).setQuestions("谈恋爱会增加智商吗？？萌妹子求问");
+        mCardInfoList.get(1).setDetailPic("http://img1.3lian.com/img013/v1/32/d/110.jpg");
+
+        mCardInfoList.get(3).setUserName("小秃子");
+        mCardInfoList.get(3).setHeadPic("http://imgsrc.baidu.com/forum/w%3D580/sign=c0c2b15a7af0f736d8fe4c093a54b382/ab5f251f95cad1c8cc207b027d3e6709c93d5109.jpg");
+        mCardInfoList.get(3).setQuestions("我不想动脑子，我只想睡觉 ＝ ＝");
+        mCardInfoList.get(3).setDetailPic("http://article.fd.zol-img.com.cn/t_s501x2000/g5/M00/03/0B/ChMkJlffwK6IeiLEAADwMoZllIYAAWL6QEHuDQAAPBK608.jpg");
+
+
         mCardSlideAdapterView = (CardSlideAdapterView) findViewById(R.id.cardSlideView);
 
         mCardAdapter = new CardAdapter(this, mCardInfoList);
@@ -174,8 +185,6 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
                     EventObservable.getInstance().notifyObservers(mCardInfoList.get(0).getQuestionId(), input.toString());
                 }
 
-                inputDialog.dismiss();
-
                 inputDialog.hideKeyboard();
             }
         });
@@ -193,10 +202,7 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
 
     @Override
     public void onClicked() {
-        Intent intent = new Intent();
-        intent.setClass(ReceiverActivity.this, CommentActivity.class);
-        startActivity(intent);
-        //        Toast.makeText(this, "点击了卡片", Toast.LENGTH_SHORT).show();
+        intentWithParcelable(QuestionDetailActivity.class, "card", mCardInfoList.get(0));
     }
 
     @Override
@@ -215,10 +221,10 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
      */
     private void startLocation() {
         //初始化定位
-        mLocationManager = new LocationManager(getApplicationContext(), new LocationManager.OnLocationListener() {
+        mLocationManager = new ILocationManager(getApplicationContext(), new ILocationManager.OnLocationListener() {
             @Override
             public void onLocationSucceed(AMapLocation amapLocation) {
-                Toast.makeText(getApplication(),amapLocation.getAoiName(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication(), amapLocation.getAoiName(), Toast.LENGTH_SHORT).show();
             }
         });
 

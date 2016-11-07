@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <!-- 输入文本 -->
-    <EditText
-        android:id="@+id/input_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:lineSpacingExtra="@dimen/text_space_extra"
-        android:maxLines="3"
-        android:paddingLeft="@dimen/margin_small"
-        android:paddingRight="@dimen/margin_small"
-        android:textColor="@color/deepgray"
-        android:textSize="@dimen/font_normal" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentTop="true"
+        android:background="@color/grayblue" />
 
-    <!-- 发送 -->
     <LinearLayout
-        android:id="@+id/input_send"
-        android:layout_width="@dimen/title_height"
-        android:layout_height="match_parent"
-        android:background="@color/grayblue"
-        android:gravity="center">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="@dimen/icon_large"
-            android:layout_height="@dimen/icon_large"
-            android:src="@drawable/ok" />
+        <!-- 输入文本 -->
+        <EditText
+            android:id="@+id/input_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:lineSpacingExtra="@dimen/text_space_extra"
+            android:maxLines="3"
+            android:paddingLeft="@dimen/margin_small"
+            android:paddingRight="@dimen/margin_small"
+            android:textColor="@color/deepgray"
+            android:textSize="@dimen/font_normal" />
+
+        <!-- 发送 -->
+        <LinearLayout
+            android:id="@+id/input_send"
+            android:layout_width="@dimen/title_height"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/grayblue"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/icon_large"
+                android:layout_height="@dimen/icon_large"
+                android:src="@drawable/ok" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+</RelativeLayout>

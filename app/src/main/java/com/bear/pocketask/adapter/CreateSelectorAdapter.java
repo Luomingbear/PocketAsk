@@ -24,7 +24,8 @@ public class CreateSelectorAdapter extends IBaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
+
         if (convertView == null) {
             convertView = getInflater().inflate(R.layout.selector_item, null);
 
@@ -36,8 +37,8 @@ public class CreateSelectorAdapter extends IBaseAdapter {
         } else convertView.getTag();
 
         if (position != getCount() - 1 || position == max - 1)
-            viewHolder.add.setVisibility(View.GONE);
-        else viewHolder.add.setVisibility(View.VISIBLE);
+            viewHolder.add.setBackgroundResource(R.drawable.button_sub);
+        else viewHolder.add.setBackgroundResource(R.drawable.button_add);
 
         Object object = getItem(position);
         if (object instanceof String) {
@@ -48,12 +49,17 @@ public class CreateSelectorAdapter extends IBaseAdapter {
         viewHolder.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 16/11/7 点击之后添加选项
+                if (onAddSelectorListener != null) {
+                    if (position == getCount() - 1 && position != max - 1)
+                        onAddSelectorListener.onAddClicked();
+                    else onAddSelectorListener.onSubClicked(position);
+                }
             }
         });
 
         return convertView;
     }
+
 
     private String getIndex(int position) {
         switch (position) {
@@ -77,5 +83,20 @@ public class CreateSelectorAdapter extends IBaseAdapter {
         TextView textview; // 显示文本
 
         View add; //添加按钮
+    }
+
+    private OnAddSelectorListener onAddSelectorListener;
+
+    public void setOnAddSelectorListener(OnAddSelectorListener onAddSelectorListener) {
+        this.onAddSelectorListener = onAddSelectorListener;
+    }
+
+    /**
+     * 添加选项的监听器
+     */
+    public interface OnAddSelectorListener {
+        void onAddClicked();
+
+        void onSubClicked(int position);
     }
 }

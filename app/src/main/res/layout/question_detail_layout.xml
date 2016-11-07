@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_normal"
-                app:scaleRate="1">
+                app:scaleRate="0.98">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -60,7 +60,7 @@
 
                             <!-- 头像 -->
                             <com.bear.pocketask.widget.imageview.RoundImageView
-                                android:id="@+id/card_item_head_pic"
+                                android:id="@+id/card_item_head_portrait"
                                 android:layout_width="@dimen/image_normal"
                                 android:layout_height="@dimen/image_normal"
                                 android:src="@drawable/dfhead"
@@ -131,8 +131,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_large_more"
                         android:layout_marginRight="@dimen/margin_large_more"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        app:scaleRate="0.618">
+                        android:layout_marginTop="@dimen/margin_big"
+                        app:scaleRate="0.68">
 
                         <ImageView
                             android:id="@+id/card_item_detail_pic"
@@ -170,6 +170,7 @@
                 android:id="@+id/question_detail_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
                 android:divider="@color/grayblue"
                 android:dividerHeight="@dimen/padding_normal">
 

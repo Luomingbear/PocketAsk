@@ -81,8 +81,10 @@
                     android:id="@+id/login_et_username"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
                     android:layout_weight="1"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textColor="@color/deepblue" />
             </LinearLayout>
 
             <!-- 密码 -->
@@ -104,7 +106,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:inputType="textPassword"
+                    android:textColor="@color/deepblue" />
             </LinearLayout>
 
             <!-- 确认密码 -->
@@ -128,7 +132,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:inputType="textPassword"
+                    android:textColor="@color/deepblue" />
             </LinearLayout>
 
             <!--提示 -->

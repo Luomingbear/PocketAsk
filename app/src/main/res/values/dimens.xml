@@ -1,6 +1,6 @@
 <resources>
     <!-- 图标大小 -->
-    <dimen name="icon_min">10dp</dimen>
+    <dimen name="icon_min">8dp</dimen>
     <dimen name="icon_small">16dp</dimen>
     <dimen name="icon_normal">24dp</dimen>
     <dimen name="icon_large">32dp</dimen>

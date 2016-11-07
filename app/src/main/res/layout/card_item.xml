@@ -42,7 +42,7 @@
 
                     <!-- 头像 -->
                     <com.bear.pocketask.widget.imageview.RoundImageView
-                        android:id="@+id/card_item_head_pic"
+                        android:id="@+id/card_item_head_portrait"
                         android:layout_width="@dimen/image_normal"
                         android:layout_height="@dimen/image_normal"
                         android:src="@drawable/dfhead"

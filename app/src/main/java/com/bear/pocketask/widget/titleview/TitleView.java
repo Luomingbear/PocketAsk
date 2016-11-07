@@ -8,9 +8,9 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bear.pocketask.R;
@@ -20,7 +20,7 @@ import com.bear.pocketask.utils.DipPxConversion;
  * 标题栏
  * Created by luoming on 10/9/2016.
  */
-public class TitleView extends LinearLayout {
+public class TitleView extends RelativeLayout {
     private static final String TAG = "TitleView";
 
     private TitleMode mTitleMode;
@@ -47,7 +47,6 @@ public class TitleView extends LinearLayout {
 
     public TitleView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        setOrientation(HORIZONTAL);
         setGravity(Gravity.CENTER_VERTICAL);
         setBackgroundColor(Color.WHITE);
 
@@ -101,6 +100,7 @@ public class TitleView extends LinearLayout {
     private void addLeftButton(int drawableId) {
         mLeftLayout = new LinearLayout(getContext());
         LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, mTitleHeight);
+        params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         mLeftLayout.setLayoutParams(params);
         mLeftLayout.setGravity(Gravity.CENTER);
         mLeftImageView = newImageView();
@@ -119,6 +119,7 @@ public class TitleView extends LinearLayout {
     private void addRightButton(int drawableId) {
         mRightLayout = new LinearLayout(getContext());
         LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, mTitleHeight);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         mRightLayout.setLayoutParams(params);
         mRightLayout.setGravity(Gravity.CENTER);
         mRightImageView = newImageView();
@@ -164,7 +165,9 @@ public class TitleView extends LinearLayout {
         textView.setTextColor(color);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
 
-        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        params.setMargins((int) getResources().getDimension(R.dimen.margin_large_more), 0, (int) getResources().getDimension(R.dimen.margin_large_more), 0);
         textView.setLayoutParams(params);
 
         return textView;
@@ -189,17 +192,17 @@ public class TitleView extends LinearLayout {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        if (mTitleTextView != null) {
-            int leftWidth = 0, rightWidth = 0;
-            if (mLeftLayout != null)
-                leftWidth = mLeftLayout.getWidth();
-            if (mRightLayout != null)
-                rightWidth = mRightLayout.getWidth();
-            if (leftWidth > rightWidth)
-                mTitleTextView.setPadding(0, 0, leftWidth - rightWidth, 0);
-            else
-                mTitleTextView.setPadding(rightWidth - leftWidth, 0, 0, 0);
-        }
+//        if (mTitleTextView != null) {
+//            int leftWidth = 0, rightWidth = 0;
+//            if (mLeftLayout != null)
+//                leftWidth = mLeftLayout.getWidth();
+//            if (mRightLayout != null)
+//                rightWidth = mRightLayout.getWidth();
+//            if (leftWidth > rightWidth)
+//                mTitleTextView.setPadding(0, 0, leftWidth - rightWidth, 0);
+//            else
+//                mTitleTextView.setPadding(rightWidth - leftWidth, 0, 0, 0);
+//        }
     }
 
     /**

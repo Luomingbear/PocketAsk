@@ -49,6 +49,7 @@
             android:src="@drawable/pageback" />
 
         <android.support.v4.view.ViewPager
+            android:layout_margin="@dimen/margin_normal"
             android:id="@+id/create_view_pager_top"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -64,6 +65,7 @@
             android:orientation="horizontal">
 
             <RadioButton
+                android:id="@+id/create_top_point1"
                 android:layout_width="@dimen/icon_min"
                 android:layout_height="@dimen/icon_min"
                 android:background="@drawable/circle_point"
@@ -71,12 +73,29 @@
                 android:checked="true" />
 
             <RadioButton
+                android:id="@+id/create_top_point2"
                 android:layout_width="@dimen/icon_min"
                 android:layout_height="@dimen/icon_min"
                 android:layout_marginLeft="@dimen/icon_small"
                 android:background="@drawable/circle_point"
-                android:button="@null"/>
+                android:button="@null" />
         </RadioGroup>
+
+        <ImageView
+            android:layout_width="@dimen/margin_large"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_normal"
+            android:src="@drawable/white_gradient_left" />
+
+        <ImageView
+            android:layout_width="@dimen/margin_large"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_normal"
+            android:src="@drawable/white_gradient_right" />
     </com.bear.pocketask.widget.cardview.AutoScaleLayout>
 
     <RelativeLayout
@@ -99,18 +118,20 @@
             android:orientation="horizontal">
 
             <RadioButton
+                android:id="@+id/create_bottom_point1"
                 android:layout_width="@dimen/icon_min"
                 android:layout_height="@dimen/icon_min"
-                android:background="@drawable/circle_point"
+                android:background="@drawable/circle_point_white"
                 android:button="@null"
-                android:checked="true"  />
+                android:checked="true" />
 
             <RadioButton
+                android:id="@+id/create_bottom_point2"
                 android:layout_width="@dimen/icon_min"
                 android:layout_height="@dimen/icon_min"
                 android:layout_marginLeft="@dimen/icon_small"
-                android:background="@drawable/circle_point"
-                android:button="@null"/>
+                android:background="@drawable/circle_point_white"
+                android:button="@null" />
         </RadioGroup>
     </RelativeLayout>
 

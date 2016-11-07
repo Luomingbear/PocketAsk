@@ -8,19 +8,17 @@
     <com.bear.pocketask.widget.cardview.AutoScaleLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/margin_normal"
-        android:layout_marginRight="@dimen/margin_normal"
         app:scaleRate="0.68">
 
         <TextView
-            android:id="@+id/create_et_question"
+            android:id="@+id/create_tv_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login_register_failed"
+            android:hint="@string/create_question_hint"
             android:layout_centerInParent="true"
             android:layout_marginLeft="@dimen/margin_large"
+            android:lineSpacingExtra="@dimen/text_space_extra"
             android:layout_marginRight="@dimen/margin_large"
-            android:maxLines="3"
             android:textColor="@color/deepblue"
             android:textSize="@dimen/font_normal" />
     </com.bear.pocketask.widget.cardview.AutoScaleLayout>

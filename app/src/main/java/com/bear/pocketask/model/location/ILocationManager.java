@@ -13,7 +13,7 @@ import com.amap.api.location.AMapLocationListener;
  * Created by bear on 16/11/6.
  */
 
-public class LocationManager {
+public class ILocationManager {
     //声明AMapLocationClient类对象
     private AMapLocationClient mLocationClient = null;
     //声明AMapLocationClientOption对象
@@ -26,7 +26,7 @@ public class LocationManager {
      * @param applicationContext ApplicationContext
      * @param onLocationListener OnLocationListener 返回定位成功的接口
      */
-    public LocationManager(Context applicationContext, OnLocationListener onLocationListener) {
+    public ILocationManager(Context applicationContext, OnLocationListener onLocationListener) {
         this.mApplicationContext = applicationContext;
         this.onLocationListener = onLocationListener;
         initLocation();

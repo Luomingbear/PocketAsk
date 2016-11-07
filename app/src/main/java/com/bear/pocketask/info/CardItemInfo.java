@@ -1,5 +1,9 @@
 package com.bear.pocketask.info;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,7 +11,7 @@ import java.util.List;
  * Created by bear on 16/10/1.
  */
 
-public class CardItemInfo {
+public class CardItemInfo implements Parcelable {
     private String headPic; //头像
     private String userName; //用户名
     private String detailPic; //卡片详情图片
@@ -123,4 +127,48 @@ public class CardItemInfo {
     public void setDetailUrl(String detailUrl) {
         this.detailUrl = detailUrl;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.headPic);
+        dest.writeString(this.userName);
+        dest.writeString(this.detailPic);
+        dest.writeString(this.detailUrl);
+        dest.writeString(this.questions);
+        dest.writeInt(this.questionId);
+        dest.writeString(this.inputText);
+        dest.writeList(this.selectorList);
+        dest.writeInt(this.cardMode == null ? -1 : this.cardMode.ordinal());
+    }
+
+    protected CardItemInfo(Parcel in) {
+        this.headPic = in.readString();
+        this.userName = in.readString();
+        this.detailPic = in.readString();
+        this.detailUrl = in.readString();
+        this.questions = in.readString();
+        this.questionId = in.readInt();
+        this.inputText = in.readString();
+        this.selectorList = new ArrayList<SelectorInfo>();
+        in.readList(this.selectorList, SelectorInfo.class.getClassLoader());
+        int tmpCardMode = in.readInt();
+        this.cardMode = tmpCardMode == -1 ? null : CardMode.values()[tmpCardMode];
+    }
+
+    public static final Parcelable.Creator<CardItemInfo> CREATOR = new Parcelable.Creator<CardItemInfo>() {
+        @Override
+        public CardItemInfo createFromParcel(Parcel source) {
+            return new CardItemInfo(source);
+        }
+
+        @Override
+        public CardItemInfo[] newArray(int size) {
+            return new CardItemInfo[size];
+        }
+    };
 }

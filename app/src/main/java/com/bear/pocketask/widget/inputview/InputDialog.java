@@ -43,9 +43,9 @@ public class InputDialog extends IBaseDialog {
      * @param onInputChangeListener
      */
     public void init(OnInputChangeListener onInputChangeListener) {
-        showKeyboard();
-
         this.show();
+
+        showKeyboard();
 
         setOnInputChangeListener(onInputChangeListener);
     }
@@ -66,7 +66,7 @@ public class InputDialog extends IBaseDialog {
         mEditText.setFocusable(true);
         mEditText.requestFocus();
         InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.RESULT_SHOWN,InputMethodManager.RESULT_HIDDEN);
+        inputMethodManager.toggleSoftInput(InputMethodManager.RESULT_SHOWN, InputMethodManager.RESULT_HIDDEN);
 //        inputMethodManager.showSoftInput(getWindow().getDecorView(), InputMethodManager.SHOW_FORCED);
     }
 
@@ -76,7 +76,7 @@ public class InputDialog extends IBaseDialog {
     public void hideKeyboard() {
         //// TODO: 16/10/29 隐藏键盘 
         InputMethodManager im = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        im.toggleSoftInput(InputMethodManager.RESULT_UNCHANGED_SHOWN,InputMethodManager.RESULT_HIDDEN);
+        im.toggleSoftInput(InputMethodManager.RESULT_UNCHANGED_SHOWN, InputMethodManager.RESULT_HIDDEN);
         im.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.RESULT_UNCHANGED_HIDDEN);
     }
 
@@ -118,6 +118,7 @@ public class InputDialog extends IBaseDialog {
         mSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputDialog.this.dismiss();
                 if (onInputChangeListener != null)
                     onInputChangeListener.onSendClick();
             }

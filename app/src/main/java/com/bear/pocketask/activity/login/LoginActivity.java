@@ -210,12 +210,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             verifyPassword = mVerfiyPassWord.getText().toString();
 
         //
-        if (!password.equals(verifyPassword)) {
+        if (!password.equals(verifyPassword) && isRegisterLayout) {
             showLoginFailedWarning(LoginFailedType.REGISTER_FAILED);
         }
         //登录名或者密码错误
         //// TODO: 16/10/31 请求服务器的账号数据
-
 
         //登录名或者密码为空
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password))

@@ -63,14 +63,14 @@
         </activity>
 
         <activity
-            android:name=".activity.edit.CreateQuestionActivity"
+            android:name=".activity.create.CreateQuestionActivity"
             android:screenOrientation="portrait">
 
         </activity>
 
 
         <activity
-            android:name=".activity.comment.CommentActivity"
+            android:name=".activity.question.QuestionDetailActivity"
             android:screenOrientation="portrait">
 
         </activity>
