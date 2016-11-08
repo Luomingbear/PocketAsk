@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.bear.pocketask.R;
 import com.bear.pocketask.activity.base.BaseActivity;
-import com.bear.pocketask.adapter.MyQuestionsAdapter;
-import com.bear.pocketask.info.MyQuestionInfo;
+import com.bear.pocketask.adapter.MyQAAdapter;
+import com.bear.pocketask.info.MyQAInfo;
 import com.bear.pocketask.utils.AdapterViewUtil;
 import com.bear.pocketask.utils.DipPxConversion;
 import com.bear.pocketask.widget.titleview.TitleView;
@@ -37,7 +37,7 @@ public class MyRespondsActivity extends BaseActivity {
     private void initView() {
         initTitleView();
 
-        setQuestionsList();
+        setRespondList();
     }
 
     private void initTitleView() {
@@ -57,16 +57,16 @@ public class MyRespondsActivity extends BaseActivity {
     }
 
     /**
-     * 设置问题列表
+     * 设置回答列表
      */
-    private void setQuestionsList() {
-        List<MyQuestionInfo> myQuestionInfoList = new ArrayList<MyQuestionInfo>();
+    private void setRespondList() {
+        List<MyQAInfo> myQAInfoList = new ArrayList<MyQAInfo>();
         for (int i = 0; i < 5; i++) {
-            MyQuestionInfo info = new MyQuestionInfo("你喜欢吃冰淇淋吗？", i, 0, new Date());
-            myQuestionInfoList.add(info);
+            MyQAInfo info = new MyQAInfo("你喜欢吃冰淇淋吗？", i, 0, new Date(), MyQAInfo.QAType.RESPOND);
+            myQAInfoList.add(info);
         }
 
-        MyQuestionsAdapter myRespondsAdapter = new MyQuestionsAdapter(this, myQuestionInfoList);
+        MyQAAdapter myRespondsAdapter = new MyQAAdapter(this, myQAInfoList);
 
         //listView外面的linearLayout
         LinearLayout listLayout = (LinearLayout) findViewById(R.id.my_questions_list_layout);
@@ -76,7 +76,8 @@ public class MyRespondsActivity extends BaseActivity {
 
     /**
      * 创建listview
-     * @param adapter adapter
+     *
+     * @param adapter    adapter
      * @param headerText header的文本，如果为null则不显示
      * @return
      */

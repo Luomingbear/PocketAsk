@@ -8,10 +8,10 @@
     android:paddingLeft="@dimen/margin_small">
 
     <ImageView
+        android:id="@+id/question_item_icon"
         android:layout_width="@dimen/icon_large"
         android:layout_height="@dimen/icon_large"
-        android:layout_marginTop="@dimen/padding_small"
-        android:src="@drawable/question" />
+        android:layout_marginTop="@dimen/padding_small" />
 
     <LinearLayout
         android:layout_width="wrap_content"

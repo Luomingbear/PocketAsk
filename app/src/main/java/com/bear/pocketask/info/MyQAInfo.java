@@ -7,18 +7,36 @@ import java.util.Date;
  * Created by bear on 16/11/5.
  */
 
-public class MyQuestionInfo {
+public class MyQAInfo {
 
     private String question; //回答
     private int remindCount; //回答数
     private int isPrivate; //是否私密
     private Date date; //创建日期
 
-    public MyQuestionInfo(String question, int remindCount, int isPrivate, Date date) {
+    private QAType qaType = QAType.QUESTION;
+
+    public MyQAInfo(String question, int remindCount, int isPrivate, Date date, QAType qaType) {
         this.question = question;
         this.remindCount = remindCount;
         this.isPrivate = isPrivate;
         this.date = date;
+        this.qaType = qaType;
+    }
+
+    public MyQAInfo(String question, int remindCount, int isPrivate, Date date) {
+        this.question = question;
+        this.remindCount = remindCount;
+        this.isPrivate = isPrivate;
+        this.date = date;
+    }
+
+    public QAType getQaType() {
+        return qaType;
+    }
+
+    public void setQaType(QAType qaType) {
+        this.qaType = qaType;
     }
 
     public String getQuestion() {
@@ -51,5 +69,11 @@ public class MyQuestionInfo {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public enum QAType {
+        QUESTION,
+
+        RESPOND
     }
 }
