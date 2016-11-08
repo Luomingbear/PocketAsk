@@ -139,7 +139,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/lightgray"
-                            android:scaleType="centerCrop"/>
+                            android:scaleType="centerCrop" />
 
                         <ScrollView
                             android:id="@+id/card_item_select_list_layout"
@@ -150,12 +150,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
-                                <ListView
+                                <com.bear.pocketask.widget.selectorbutton.SelectorAdapterView
                                     android:id="@+id/card_item_select_list"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content">
 
-                                </ListView>
+                                </com.bear.pocketask.widget.selectorbutton.SelectorAdapterView>
                             </LinearLayout>
                         </ScrollView>
                     </com.bear.pocketask.widget.cardview.AutoScaleLayout>

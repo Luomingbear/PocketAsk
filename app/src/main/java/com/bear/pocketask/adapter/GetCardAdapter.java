@@ -1,6 +1,7 @@
 package com.bear.pocketask.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,7 +14,6 @@ import com.bear.pocketask.adapter.base.IBaseAdapter;
 import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.info.SelectorInfo;
 import com.bear.pocketask.tools.observable.EventObservable;
-import com.bear.pocketask.utils.AdapterViewUtil;
 import com.bear.pocketask.widget.inputview.ITextView;
 import com.bear.pocketask.widget.record.RecordObservable;
 import com.bear.pocketask.widget.record.RecordView;
@@ -22,21 +22,25 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 /**
- * 生成没有输入框的卡片
- * Created by bear on 16/11/9.
+ * 卡片信息适配器
+ * Created by bear on 16/10/7.
  */
 
-public class CardAdapter extends IBaseAdapter {
-    private ViewHolder viewHolder;
+public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener {
+    private static final String TAG = "GetCardAdapter";
+    private CardItemInfo info;
 
-    public CardAdapter(Context context, List<?> mList) {
-        super(context, mList);
+    public GetCardAdapter(Context context, List<CardItemInfo> list) {
+        super(context, list);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        if (getList().size() < 1)
+            return null;
+
         if (convertView == null) {
-            convertView = getInflater().inflate(R.layout.card_item, null);
+            convertView = getInflater().inflate(R.layout.get_card_item, null);
 
             viewHolder = new ViewHolder();
             viewHolder.ivDetailPic = (ImageView) convertView.findViewById(R.id.card_item_detail_pic);
@@ -55,7 +59,7 @@ public class CardAdapter extends IBaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
 
         //设置值
-        CardItemInfo info = (CardItemInfo) getItem(position);
+        info = (CardItemInfo) getItem(position);
 
         //显示圆形的图像
         ImageLoader.getInstance().displayImage(info.getHeadPic(), viewHolder.ivHeadPic);
@@ -108,7 +112,7 @@ public class CardAdapter extends IBaseAdapter {
 
                 //
                 //// TODO: 16/10/28  语音,选项
-                initList(viewHolder.lvSelectorList, info.getSelectorList());
+                initList(viewHolder.lvSelectorList,info.getSelectorList());
                 break;
             }
             case TopTextBottomImage: {
@@ -132,23 +136,69 @@ public class CardAdapter extends IBaseAdapter {
 
                 //
                 viewHolder.tvQuestion.setText(info.getQuestions());
-                initList(viewHolder.lvSelectorList, info.getSelectorList());
+                initList(viewHolder.lvSelectorList,info.getSelectorList());
                 break;
             }
         }
+
+        //添加点击事件
+        viewHolder.leReport.setOnClickListener(this);
+        viewHolder.ivHeadPic.setOnClickListener(this);
+        viewHolder.btSend.setOnClickListener(this);
+        viewHolder.etInputView.setOnClickListener(this);
+
+        viewHolder.ivDetailPic.setOnClickListener(this);
+
     }
 
     /**
      * 设置选项数据
-     *
      * @param listView
      * @param selectorList
      */
     private void initList(AdapterView listView, List<SelectorInfo> selectorList) {
-        SelectorAdapter selectorAdapter = new SelectorAdapter(getmContext(), selectorList);
-        listView.setAdapter(selectorAdapter);
-        AdapterViewUtil.FixHeight(listView);
+        //// TODO: 16/10/29 按钮列表
 
+    }
+
+    private ViewHolder viewHolder;
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.card_item_head_portrait: {
+                if (cardItemClickListener != null)
+                    cardItemClickListener.onClickedObject(info.getQuestionId(), CardItemClickMode.HEAD_PIC);
+                Log.i(TAG, "onTouch: down head pic");
+                break;
+            }
+            case R.id.card_item_detail_pic: {
+                if (cardItemClickListener != null)
+                    cardItemClickListener.onClickedObject(info.getQuestionId(), CardItemClickMode.DETAIL_PIC);
+                Log.i(TAG, "onTouch: down detail pic");
+                break;
+
+            }
+            case R.id.card_item_report: {
+                if (cardItemClickListener != null)
+                    cardItemClickListener.onClickedObject(info.getQuestionId(), CardItemClickMode.Report_BUTTON);
+                Log.i(TAG, "onClick: leReport");
+                break;
+
+            }
+            case R.id.card_item_send: {
+                if (cardItemClickListener != null)
+                    cardItemClickListener.onClickedObject(info.getQuestionId(), CardItemClickMode.SEND_BUTTON);
+                Log.i(TAG, "onClick: send");
+                break;
+            }
+            case R.id.card_item_input: {
+                if (cardItemClickListener != null)
+                    cardItemClickListener.onClickedObject(info.getQuestionId(), CardItemClickMode.INPUT_BUTTON);
+                Log.i(TAG, "onClick: record");
+                break;
+            }
+        }
     }
 
     private class ViewHolder {
@@ -162,6 +212,34 @@ public class CardAdapter extends IBaseAdapter {
         RecordView rvRecordView;
         View llSelectorLayout;
         ListView lvSelectorList;
+    }
+
+    private CardItemClickListener cardItemClickListener;
+
+    public interface CardItemClickListener {
+        void onClickedObject(int questionId, CardItemClickMode clickMode);
+    }
+
+    public void setCardItemClickListener(CardItemClickListener cardItemClickListener) {
+        this.cardItemClickListener = cardItemClickListener;
+    }
+
+    public enum CardItemClickMode {
+        //头像
+        HEAD_PIC,
+
+        //问题图片详情
+        DETAIL_PIC,
+
+        ///举报按钮
+        Report_BUTTON,
+
+        //发送按钮
+        SEND_BUTTON,
+
+        //输入框
+        INPUT_BUTTON,
+
     }
 
 }

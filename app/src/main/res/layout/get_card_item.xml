@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.bear.pocketask.widget.cardview.CardItemView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_item_touch_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/line1"
+        android:layout_alignLeft="@+id/line1"
+        android:layout_alignRight="@+id/line1"
+        android:layout_alignTop="@+id/line1"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitXY"
+        android:src="@drawable/page_bg" />
 
     <com.bear.pocketask.widget.cardview.AutoScaleLayout
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_normal"
-        app:scaleRate="0.98">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/page_bg" />
+        app:scaleRate="1.225">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/margin_large">
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_large"
-                android:layout_marginRight="@dimen/margin_large"
-                android:layout_marginTop="@dimen/margin_big"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
@@ -106,18 +108,24 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </LinearLayout>
+
             <com.bear.pocketask.widget.cardview.AutoScaleLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_large_more"
-                android:layout_marginRight="@dimen/margin_large_more"
-                android:layout_marginTop="@dimen/margin_normal"
-                app:scaleRate="0.68">
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                app:scaleRate="0.618">
 
                 <ImageView
                     android:id="@+id/card_item_detail_pic"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="200dp"
                     android:background="@color/lightgray"
                     android:scaleType="centerCrop" />
 
@@ -139,7 +147,49 @@
                     </LinearLayout>
                 </ScrollView>
             </com.bear.pocketask.widget.cardview.AutoScaleLayout>
-        </LinearLayout>
-    </com.bear.pocketask.widget.cardview.AutoScaleLayout>
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </LinearLayout>
+
+            <!-- 底部按钮 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <!-- 输入文本 -->
+                <com.bear.pocketask.widget.inputview.ITextView
+                    android:id="@+id/card_item_input"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/edit_round_bg"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:paddingLeft="@dimen/margin_small"
+                    android:paddingRight="@dimen/margin_small"
+                    android:textColor="@color/deepblue"
+                    android:textSize="@dimen/font_small" />
+
+                <!-- 发送 -->
+                <TextView
+                    android:id="@+id/card_item_send"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:background="@drawable/round_button"
+                    android:gravity="center"
+                    android:text="@string/send"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/font_normal" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.bear.pocketask.widget.cardview.AutoScaleLayout>
+</com.bear.pocketask.widget.cardview.CardItemView>

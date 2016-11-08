@@ -67,6 +67,11 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity
+            android:name=".activity.create.PreviewActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
 
 
         <activity

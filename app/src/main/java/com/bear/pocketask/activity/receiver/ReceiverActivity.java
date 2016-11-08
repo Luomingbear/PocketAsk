@@ -12,7 +12,7 @@ import com.bear.pocketask.activity.create.CreateQuestionActivity;
 import com.bear.pocketask.activity.login.LoginActivity;
 import com.bear.pocketask.activity.person.PersonActivity;
 import com.bear.pocketask.activity.question.QuestionDetailActivity;
-import com.bear.pocketask.adapter.CardAdapter;
+import com.bear.pocketask.adapter.GetCardAdapter;
 import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.model.location.ILocationManager;
 import com.bear.pocketask.tools.observable.EventObservable;
@@ -26,10 +26,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
 
-public class ReceiverActivity extends BaseActivity implements CardAdapter.CardItemClickListener, CardSlideAdapterView.OnCardSlidingListener {
+public class ReceiverActivity extends BaseActivity implements GetCardAdapter.CardItemClickListener, CardSlideAdapterView.OnCardSlidingListener {
     private static final String TAG = "ReceiverActivity";
     private ArrayList<CardItemInfo> mCardInfoList; //数据集
-    private CardAdapter mCardAdapter; //卡片适配器
+    private GetCardAdapter mCardAdapter; //卡片适配器
     private CardSlideAdapterView mCardSlideAdapterView; //卡片自动生成
     private CharSequence input; //输入框的值
 
@@ -124,7 +124,7 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
 
         mCardSlideAdapterView = (CardSlideAdapterView) findViewById(R.id.cardSlideView);
 
-        mCardAdapter = new CardAdapter(this, mCardInfoList);
+        mCardAdapter = new GetCardAdapter(this, mCardInfoList);
         mCardAdapter.setCardItemClickListener(this);
         mCardSlideAdapterView.init(this, mCardAdapter);
 
@@ -133,7 +133,7 @@ public class ReceiverActivity extends BaseActivity implements CardAdapter.CardIt
     private boolean isPlay = false;
 
     @Override
-    public void onClickedObject(int questionId, final CardAdapter.CardItemClickMode clickMode) {
+    public void onClickedObject(int questionId, final GetCardAdapter.CardItemClickMode clickMode) {
         final int id = questionId;
         switch (clickMode) {
             case DETAIL_PIC: {

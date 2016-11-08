@@ -3,7 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grayblue"
     android:orientation="vertical">
+
+    <com.bear.pocketask.widget.titleview.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleMode="BACK_TITLE_GO"
+        app:titleText="@string/app_name">
+
+    </com.bear.pocketask.widget.titleview.TitleView>
 
     <com.bear.pocketask.widget.cardview.AutoScaleLayout
         android:id="@+id/line1"
@@ -130,16 +140,111 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ListView
-                            android:id="@+id/card_item_select_list"
+                        <com.bear.pocketask.widget.selectorbutton.SelectorAdapterView
+                            android:id="@+id/card_item_select_adapter_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                        </ListView>
+                        </com.bear.pocketask.widget.selectorbutton.SelectorAdapterView>
                     </LinearLayout>
                 </ScrollView>
             </com.bear.pocketask.widget.cardview.AutoScaleLayout>
         </LinearLayout>
     </com.bear.pocketask.widget.cardview.AutoScaleLayout>
 
+    <!--打赏 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_big"
+            android:text="@string/preview_pay_hint"
+            android:textColor="@color/lightblue"
+            android:textSize="@dimen/font_normal" />
+
+        <LinearLayout
+            android:id="@+id/preview_cost_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:layout_marginLeft="64dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/icon_large"
+                android:layout_height="@dimen/icon_large"
+                android:layout_marginRight="@dimen/padding_small"
+                android:src="@drawable/money" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="50"
+                android:textColor="@color/lightblue"
+                android:textSize="@dimen/font_small" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/preview_cost_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/icon_large"
+                android:layout_height="@dimen/icon_large"
+                android:layout_marginRight="@dimen/padding_small"
+                android:src="@drawable/money" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="100"
+                android:textColor="@color/lightblue"
+                android:textSize="@dimen/font_small" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/preview_cost_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:layout_marginRight="64dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/icon_large"
+                android:layout_height="@dimen/icon_large"
+                android:layout_marginRight="@dimen/padding_small"
+                android:src="@drawable/money" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="1000"
+                android:textColor="@color/lightblue"
+                android:textSize="@dimen/font_small" />
+        </LinearLayout>
+
+    </RelativeLayout>
 </LinearLayout>

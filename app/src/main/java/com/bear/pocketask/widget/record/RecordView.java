@@ -262,7 +262,7 @@ public class RecordView extends View implements RecordObservable.RecordObserver 
             //取消定时器
             mTimer.cancel();
             //恢复到波纹全部高亮显示
-            mRecordNum = 3;
+            mRecordNum = 1;
         }
         invalidate();
     }

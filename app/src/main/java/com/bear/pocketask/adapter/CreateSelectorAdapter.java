@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.bear.pocketask.R;
 import com.bear.pocketask.adapter.base.IBaseAdapter;
+import com.bear.pocketask.info.SelectorInfo;
 
 import java.util.List;
 
@@ -41,9 +42,9 @@ public class CreateSelectorAdapter extends IBaseAdapter {
         else viewHolder.add.setBackgroundResource(R.drawable.button_add);
 
         Object object = getItem(position);
-        if (object instanceof String) {
-            String info = (String) object;
-            viewHolder.textview.setText(info);
+        if (object instanceof SelectorInfo) {
+            SelectorInfo info = (SelectorInfo) object;
+            viewHolder.textview.setText(info.getContent());
             viewHolder.index.setText(getIndex(position));
         }
         viewHolder.add.setOnClickListener(new View.OnClickListener() {

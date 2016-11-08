@@ -1,18 +1,17 @@
-package com.bear.pocketask.activity.question;
+package com.bear.pocketask.activity.create;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bear.pocketask.R;
 import com.bear.pocketask.activity.base.BaseActivity;
-import com.bear.pocketask.adapter.CommentAdapter;
+import com.bear.pocketask.activity.receiver.ReceiverActivity;
 import com.bear.pocketask.adapter.SelectorAdapter;
 import com.bear.pocketask.info.CardItemInfo;
-import com.bear.pocketask.info.CommentInfo;
 import com.bear.pocketask.info.SelectorInfo;
 import com.bear.pocketask.utils.AdapterViewUtil;
 import com.bear.pocketask.widget.inputview.ITextView;
@@ -21,44 +20,34 @@ import com.bear.pocketask.widget.selectorbutton.SelectorAdapterView;
 import com.bear.pocketask.widget.titleview.TitleView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 问题详情页 评论页
- * Created by bear on 16/11/1.
+ * 预览页面
+ * Created by bear on 16/11/8.
  */
 
-public class QuestionDetailActivity extends BaseActivity implements View.OnClickListener {
-    private ListView mLvComment; //评论列表
-    private ViewHolder viewHolder;
-    private CardItemInfo cardItemInfo; //卡片数据
+public class PreviewActivity extends BaseActivity {
+    private CardItemInfo mCardInfo; //数据来源
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.question_detail_layout);
-
+        setContentView(R.layout.preview_layout);
         initView();
     }
 
     private void initView() {
-        cardItemInfo = getIntent().getParcelableExtra("card");
+        mCardInfo = getIntent().getParcelableExtra("preview");
 
-        //title
         initTitleView();
 
-        //comment listView
-        initCommentListView();
-
-        //设置问题卡片的数据
-        initCard();
-
+        initCardDate();
     }
+
 
     private void initTitleView() {
         TitleView titleView = (TitleView) findViewById(R.id.title_view);
-        titleView.setmTitleText(cardItemInfo.getQuestions());
         titleView.setOnTitleViewListener(new TitleView.OnTitleViewListener() {
             @Override
             public void onLeftButton() {
@@ -67,35 +56,14 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onRightButton() {
+                intentWithFlag(ReceiverActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
             }
         });
     }
 
-    private void initCommentListView() {
-        mLvComment = (ListView) findViewById(R.id.question_detail_list_view);
-        setCommentList();
-    }
-
-    /**
-     * 设置评论数据
-     */
-    private void setCommentList() {
-
-        List<CommentInfo> commentInfoList = new ArrayList<CommentInfo>();
-        for (int i = 0; i < 5; i++) {
-            CommentInfo commentInfo = new CommentInfo(i, "http://www.ld12.com/upimg358/allimg/c150627/14353W345a130-Q2B.jpg",
-                    "JoyWang", "重庆的鸡公煲最好吃了重庆的鸡公煲最好吃了重庆的鸡公煲最好吃了＝ ＝ ＋" + i);
-            commentInfoList.add(commentInfo);
-        }
-
-        CommentAdapter commentAdapter = new CommentAdapter(this, commentInfoList);
-        mLvComment.setAdapter(commentAdapter);
-        AdapterViewUtil.FixHeight(mLvComment);
-    }
-
-    private void initCard() {
-
+    private void initCardDate() {
+        ViewHolder viewHolder;
         viewHolder = new ViewHolder();
         viewHolder.ivDetailPic = (ImageView) findViewById(R.id.card_item_detail_pic);
         viewHolder.ivHeadPic = (ImageView) findViewById(R.id.card_item_head_portrait);
@@ -105,16 +73,17 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
         viewHolder.leReport = findViewById(R.id.card_item_report);
         viewHolder.rvRecordView = (RecordView) findViewById(R.id.card_item_questions_audio);
         viewHolder.llSelectorLayout = findViewById(R.id.card_item_select_list_layout);
-        viewHolder.lvSelectorList = (SelectorAdapterView) findViewById(R.id.card_item_select_list);
-        //
-        //显示圆形的图像
-        ImageLoader.getInstance().displayImage(cardItemInfo.getHeadPic(), viewHolder.ivHeadPic);
-        //昵称
-        viewHolder.tvUserName.setText(cardItemInfo.getUserName());
-        setCardDate(viewHolder, cardItemInfo);
+        viewHolder.lvSelectorList = (SelectorAdapterView) findViewById(R.id.card_item_select_adapter_view);
+        initView(viewHolder, mCardInfo);
     }
 
-    private void setCardDate(ViewHolder viewHolder, CardItemInfo info) {
+    /**
+     * 初始化view
+     *
+     * @param viewHolder
+     * @param info
+     */
+    private void initView(ViewHolder viewHolder, CardItemInfo info) {
         switch (info.getCardMode()) {
             case TopAudioBottomImage: {
                 viewHolder.llSelectorLayout.setVisibility(View.GONE);
@@ -124,7 +93,7 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
                 viewHolder.rvRecordView.setVisibility(View.VISIBLE);
 
                 //显示普通的矩形详情图片
-                ImageLoader.getInstance().displayImage(info.getDetailPic(), viewHolder.ivDetailPic);
+                ImageLoader.getInstance().displayImage("file:/" + info.getDetailPic(), viewHolder.ivDetailPic);
                 //设置语音
                 //// TODO: 16/10/28  语音
                 break;
@@ -138,7 +107,7 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
 
                 //
                 //// TODO: 16/10/28  语音,选项
-//                initList(viewHolder.lvSelectorList, info.getSelectorList());
+                initList(viewHolder.lvSelectorList, info.getSelectorList());
                 break;
             }
             case TopTextBottomImage: {
@@ -150,7 +119,7 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
 
                 //
                 viewHolder.tvQuestion.setText(info.getQuestions());
-                ImageLoader.getInstance().displayImage(info.getDetailPic(), viewHolder.ivDetailPic);
+                ImageLoader.getInstance().displayImage("file:/" + info.getDetailPic(), viewHolder.ivDetailPic);
                 break;
             }
             case TopTextBottomSelector: {
@@ -166,12 +135,6 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
                 break;
             }
         }
-
-        //添加点击事件
-        viewHolder.leReport.setOnClickListener(this);
-        viewHolder.ivHeadPic.setOnClickListener(this);
-        viewHolder.ivDetailPic.setOnClickListener(this);
-
     }
 
     /**
@@ -182,26 +145,10 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
      */
     private void initList(AdapterView listView, List<SelectorInfo> selectorList) {
         SelectorAdapter selectorAdapter = new SelectorAdapter(this, selectorList);
+
         listView.setAdapter(selectorAdapter);
         AdapterViewUtil.FixHeight(listView);
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.card_item_head_portrait: {
-                break;
-            }
-            case R.id.card_item_detail_pic: {
-                break;
-
-            }
-            case R.id.card_item_report: {
-                break;
-
-            }
-        }
+        //
     }
 
     private class ViewHolder {
@@ -216,6 +163,5 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
         View llSelectorLayout;
         SelectorAdapterView lvSelectorList;
     }
+
 }
-
-

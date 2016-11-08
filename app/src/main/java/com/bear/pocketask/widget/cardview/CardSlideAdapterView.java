@@ -50,7 +50,7 @@ public class CardSlideAdapterView extends AdapterView implements CardItemView.on
 	 * 初始化
 	 *
 	 * @param context     必须实现OnCardSlidingListener接口
-	 * @param cardAdapter CardAdapter 数据适配器
+	 * @param cardAdapter GetCardAdapter 数据适配器
 	 */
 	public void init(Context context, Adapter cardAdapter)
 	{

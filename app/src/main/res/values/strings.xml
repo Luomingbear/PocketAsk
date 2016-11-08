@@ -35,6 +35,9 @@
     <string name="create_selector_max_hint">选项文字不能超过16个字</string>
     <string name="create_question_max_hint">提问内容不能超过50个字</string>
 
+    <!--预览问题 -->
+    <string name="preview_pay_hint">支付问币让更多的人看到你的新信封哦</string>
+
     <!--我的提问 -->
     <string name="my_questions_remind_count">%1$d 回答</string>
     <string name="my_questions_title">我的提问</string>

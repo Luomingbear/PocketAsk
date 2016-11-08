@@ -56,46 +56,6 @@ public class CardItemInfo implements Parcelable {
         this.cardMode = cardMode;
     }
 
-    public List<SelectorInfo> getSelectorList() {
-        return selectorList;
-    }
-
-    public void setSelectorList(List<SelectorInfo> selectorList) {
-        this.selectorList = selectorList;
-    }
-
-    public CardMode getCardMode() {
-        return cardMode;
-    }
-
-    public void setCardMode(CardMode cardMode) {
-        this.cardMode = cardMode;
-    }
-
-    public String getInputText() {
-        return inputText;
-    }
-
-    public void setInputText(String inputText) {
-        this.inputText = inputText;
-    }
-
-    public int getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(int questionId) {
-        this.questionId = questionId;
-    }
-
-    public String getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(String questions) {
-        this.questions = questions;
-    }
-
     public String getHeadPic() {
         return headPic;
     }
@@ -126,6 +86,50 @@ public class CardItemInfo implements Parcelable {
 
     public void setDetailUrl(String detailUrl) {
         this.detailUrl = detailUrl;
+    }
+
+    public String getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(String questions) {
+        this.questions = questions;
+    }
+
+    public int getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
+    }
+
+    public String getInputText() {
+        return inputText;
+    }
+
+    public void setInputText(String inputText) {
+        this.inputText = inputText;
+    }
+
+    public List<SelectorInfo> getSelectorList() {
+        return selectorList;
+    }
+
+    public void setSelectorList(List<SelectorInfo> selectorList) {
+        this.selectorList = selectorList;
+    }
+
+    public CardMode getCardMode() {
+        return cardMode;
+    }
+
+    public void setCardMode(CardMode cardMode) {
+        this.cardMode = cardMode;
+    }
+
+    public static Creator<CardItemInfo> getCREATOR() {
+        return CREATOR;
     }
 
     @Override
@@ -160,7 +164,7 @@ public class CardItemInfo implements Parcelable {
         this.cardMode = tmpCardMode == -1 ? null : CardMode.values()[tmpCardMode];
     }
 
-    public static final Parcelable.Creator<CardItemInfo> CREATOR = new Parcelable.Creator<CardItemInfo>() {
+    public static final Creator<CardItemInfo> CREATOR = new Creator<CardItemInfo>() {
         @Override
         public CardItemInfo createFromParcel(Parcel source) {
             return new CardItemInfo(source);

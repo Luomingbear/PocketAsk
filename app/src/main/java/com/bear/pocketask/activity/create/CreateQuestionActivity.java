@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,6 +27,8 @@ import com.bear.pocketask.R;
 import com.bear.pocketask.activity.base.BaseActivity;
 import com.bear.pocketask.adapter.CreateSelectorAdapter;
 import com.bear.pocketask.adapter.IViewPagerAdapter;
+import com.bear.pocketask.info.CardItemInfo;
+import com.bear.pocketask.info.SelectorInfo;
 import com.bear.pocketask.utils.AdapterViewUtil;
 import com.bear.pocketask.widget.inputview.InputDialog;
 import com.bear.pocketask.widget.record.RecordView;
@@ -45,12 +48,13 @@ import java.util.Locale;
 
 public class CreateQuestionActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "CreateQuestionActivity";
-
+    private ViewPager viewPagerTop; //
     private TextView mTextQuestion; //文本的问题标题
     private RecordView mRecordView; //播放语音按钮
     private static int maxQuestionTextNum = 50; //文本的最大字数
 
-    private List<String> mSelectorList; //选项数据
+    private ViewPager viewPagerBottom;
+    private List<SelectorInfo> mSelectorList; //选项数据
     private ListView mLv_question; //选项列表
     private CreateSelectorAdapter mSelectoradapter; //选项适配器
     private static int maxSelectorTextNum = 16; //选项文本的最大字数
@@ -62,6 +66,8 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
     private View mCamera; //相机
     private View mImage; //相册
 
+    private CardItemInfo mCardInfo; //卡片的数据
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +77,7 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
     }
 
     private void initView() {
+        mCardInfo = new CardItemInfo();
 
         initTitleView();
 
@@ -87,7 +94,7 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onRightButton() {
-
+                previewCard();
             }
         });
     }
@@ -161,7 +168,7 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
         mRecordView.setOnTouchListener(boastTouchListener);
 
         IViewPagerAdapter viewPagerAdapter = new IViewPagerAdapter(viewList);
-        ViewPager viewPagerTop = (ViewPager) findViewById(R.id.create_view_pager_top);
+        viewPagerTop = (ViewPager) findViewById(R.id.create_view_pager_top);
         viewPagerTop.setAdapter(viewPagerAdapter);
 
         //设置圆点的显示
@@ -234,7 +241,7 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
         viewList.add(imageQuestion);
 
         IViewPagerAdapter viewPagerAdapter = new IViewPagerAdapter(viewList);
-        ViewPager viewPagerBottom = (ViewPager) findViewById(R.id.create_view_pager_bottom);
+        viewPagerBottom = (ViewPager) findViewById(R.id.create_view_pager_bottom);
         viewPagerBottom.setAdapter(viewPagerAdapter);
 
         //设置圆点的显示
@@ -299,7 +306,7 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
      * @param listView
      */
     private void initSelector(ListView listView) {
-        mSelectorList = new ArrayList<String>();
+        mSelectorList = new ArrayList<SelectorInfo>();
 
         addSelector();
 
@@ -320,7 +327,7 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
     private void showInputDialog(final int position) {
         final int i = position;
         InputDialog inputDialog = new InputDialog(this);
-        inputDialog.setShowText(mSelectorList.get(position));
+        inputDialog.setShowText(mSelectorList.get(position).getContent());
         inputDialog.init(new InputDialog.OnInputChangeListener() {
             @Override
             public void onTextChange(CharSequence s, int start, int before, int count) {
@@ -331,7 +338,7 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
                     s = s.subSequence(0, maxSelectorTextNum);
                     Toast.makeText(getBaseContext(), getString(R.string.create_selector_max_hint), Toast.LENGTH_SHORT).show();
                 }
-                mSelectorList.set(i, s.toString());
+                mSelectorList.get(position).setContent(s.toString());
                 invalidateSelectorListView();
             }
 
@@ -347,7 +354,7 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
      */
     private void addSelector() {
         if (mSelectorList.size() < maxSelectorNum) {
-            mSelectorList.add("");
+            mSelectorList.add(new SelectorInfo());
             invalidateSelectorListView();
         }
     }
@@ -417,7 +424,7 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
             Cursor c = getContentResolver().query(selectedImage, filePathColumns, null, null, null);
             c.moveToFirst();
             int columnIndex = c.getColumnIndex(filePathColumns[0]);
-            String imagePath = c.getString(columnIndex);
+            imagePath = c.getString(columnIndex);
             Toast.makeText(this, imagePath, Toast.LENGTH_SHORT).show();
             showImage(imagePath);
             c.close();
@@ -442,9 +449,49 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
      * @param path
      */
     private void showImage(String path) {
+        if (TextUtils.isEmpty(imagePath))
+            return;
         mChoosedImageView.setVisibility(View.VISIBLE);
         mCamera.setVisibility(View.GONE);
         mImage.setVisibility(View.GONE);
         ImageLoader.getInstance().displayImage("file://" + path, mChoosedImageView);
+    }
+
+    private void previewCard() {
+        int top = viewPagerTop.getCurrentItem(), bottom = viewPagerBottom.getCurrentItem();
+        //top
+        switch (top) {
+            case 0:
+                mCardInfo.setQuestions(mTextQuestion.getText().toString());
+                break;
+            case 1:
+
+                break;
+        }
+
+        //bottom
+        switch (bottom) {
+            case 0:
+                mCardInfo.setSelectorList(mSelectorList);
+                break;
+            case 1:
+                mCardInfo.setDetailPic(imagePath);
+                break;
+        }
+
+        if (top == 0 && bottom == 0) {
+            mCardInfo.setCardMode(CardItemInfo.CardMode.TopTextBottomSelector);
+        } else if (top == 0 && bottom == 1) {
+            mCardInfo.setCardMode(CardItemInfo.CardMode.TopTextBottomImage);
+        }
+        if (top == 1 && bottom == 0) {
+            mCardInfo.setCardMode(CardItemInfo.CardMode.TopAudioBottomSelector);
+        }
+        if (top == 1 && bottom == 1) {
+            mCardInfo.setCardMode(CardItemInfo.CardMode.TopAudioBottomImage);
+        }
+
+        intentWithParcelable(PreviewActivity.class, "preview", mCardInfo);
+
     }
 }
