@@ -26,3 +26,6 @@ top_padding 相对于父物体的上边距
 重写CRListener openState() closeState方
 ##定位管理 LocationManager
 new的时候就会自动开始定位，使用destory销毁，不用的时候必须销毁
+##MyQAAdapter
+我的提问和我的回答的列表适配器，通过设置QAType设置类型
+
