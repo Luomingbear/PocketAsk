@@ -13,10 +13,13 @@
         app:scaleRate="0.68">
 
         <com.bear.pocketask.widget.record.RecordView
+            android:id="@+id/create_record_view"
             android:layout_width="200dp"
             android:layout_height="@dimen/record_height"
             android:layout_centerInParent="true"
+            app:recordMode="record"
             app:roundSize="@dimen/padding_normal" />
+
     </com.bear.pocketask.widget.cardview.AutoScaleLayout>
 
 </LinearLayout>

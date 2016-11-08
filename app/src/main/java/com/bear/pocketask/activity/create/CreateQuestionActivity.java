@@ -1,12 +1,21 @@
 package com.bear.pocketask.activity.create;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -19,20 +28,26 @@ import com.bear.pocketask.adapter.CreateSelectorAdapter;
 import com.bear.pocketask.adapter.IViewPagerAdapter;
 import com.bear.pocketask.utils.AdapterViewUtil;
 import com.bear.pocketask.widget.inputview.InputDialog;
+import com.bear.pocketask.widget.record.RecordView;
 import com.bear.pocketask.widget.titleview.TitleView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 创建问题
  * Created by bear on 16/10/31.
  */
 
-public class CreateQuestionActivity extends BaseActivity {
+public class CreateQuestionActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "CreateQuestionActivity";
 
     private TextView mTextQuestion; //文本的问题标题
+    private RecordView mRecordView; //播放语音按钮
     private static int maxQuestionTextNum = 50; //文本的最大字数
 
     private List<String> mSelectorList; //选项数据
@@ -40,6 +55,12 @@ public class CreateQuestionActivity extends BaseActivity {
     private CreateSelectorAdapter mSelectoradapter; //选项适配器
     private static int maxSelectorTextNum = 16; //选项文本的最大字数
     private int maxSelectorNum = 4; //最大的选项数量
+    //调用系统相册-选择图片
+    private static final int IMAGE = 1;
+    private static final int CAMERA = 2;
+    private ImageView mChoosedImageView; //选中的图片
+    private View mCamera; //相机
+    private View mImage; //相册
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +99,43 @@ public class CreateQuestionActivity extends BaseActivity {
     }
 
     /**
+     * 录音长按的响应
+     */
+    private View.OnTouchListener boastTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    startRecord();
+                    break;
+                case MotionEvent.ACTION_CANCEL:
+                case MotionEvent.ACTION_UP:
+                    stopRecord();
+                    break;
+            }
+            return true;
+        }
+    };
+
+    /**
+     * recordview点击时执行的动作
+     */
+    private void startRecord() {
+        if (mRecordView.isPlay()) {
+            mRecordView.setPlay(false);
+        } else mRecordView.setPlay(true);
+
+    }
+
+    /**
+     * recordview手指离开时执行的动作
+     */
+    private void stopRecord() {
+        if (mRecordView.getRecordMode() == RecordView.RecordMode.RECORD)
+            mRecordView.setPlay(false);
+    }
+
+    /**
      * 顶部的滚动view
      */
     private void initTopViewPager() {
@@ -99,6 +157,8 @@ public class CreateQuestionActivity extends BaseActivity {
         //语音
         View recordQuestion = lf.inflate(R.layout.create_record_question_view, null);
         viewList.add(recordQuestion);
+        mRecordView = (RecordView) viewList.get(1).findViewById(R.id.create_record_view);
+        mRecordView.setOnTouchListener(boastTouchListener);
 
         IViewPagerAdapter viewPagerAdapter = new IViewPagerAdapter(viewList);
         ViewPager viewPagerTop = (ViewPager) findViewById(R.id.create_view_pager_top);
@@ -193,6 +253,20 @@ public class CreateQuestionActivity extends BaseActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+
+        /**
+         * 相机
+         */
+
+        //相机
+        mCamera = viewList.get(1).findViewById(R.id.create_question_camera);
+        mCamera.setOnClickListener(this);
+        //相册
+        mImage = viewList.get(1).findViewById(R.id.create_question_image);
+        mImage.setOnClickListener(this);
+        //显示图片
+        mChoosedImageView = (ImageView) viewList.get(1).findViewById(R.id.create_iv_image);
+
     }
 
     /**
@@ -299,4 +373,78 @@ public class CreateQuestionActivity extends BaseActivity {
         AdapterViewUtil.FixHeight(mLv_question);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.create_question_camera:
+                takeImage();
+                break;
+            case R.id.create_question_image:
+                chooseImage();
+                break;
+        }
+    }
+
+    private String imagePath = null;
+
+    /**
+     * 调用相机拍照
+     */
+    private void takeImage() {
+        String name = new DateFormat().format("yyyyMMdd_hhmmss", Calendar.getInstance(Locale.CHINA)) + ".jpg";
+        imagePath = Environment.getExternalStorageDirectory() + "/PocketAsk/" + name;
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(imagePath)));
+        startActivityForResult(intent, CAMERA);
+    }
+
+    /**
+     * 调用系统相册
+     */
+    private void chooseImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //获取相册图片
+        if (requestCode == IMAGE && resultCode == Activity.RESULT_OK && data != null) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumns = {MediaStore.Images.Media.DATA};
+            Cursor c = getContentResolver().query(selectedImage, filePathColumns, null, null, null);
+            c.moveToFirst();
+            int columnIndex = c.getColumnIndex(filePathColumns[0]);
+            String imagePath = c.getString(columnIndex);
+            Toast.makeText(this, imagePath, Toast.LENGTH_SHORT).show();
+            showImage(imagePath);
+            c.close();
+        }
+
+        //获取相机拍摄的图片
+        if (requestCode == CAMERA) {
+            String sdStatus = Environment.getExternalStorageState();
+            if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
+                Log.i("TestFile",
+                        "SD card is not avaiable/writeable right now.");
+                return;
+            }
+
+            showImage(imagePath);
+        }
+    }
+
+    /**
+     * 显示图片
+     *
+     * @param path
+     */
+    private void showImage(String path) {
+        mChoosedImageView.setVisibility(View.VISIBLE);
+        mCamera.setVisibility(View.GONE);
+        mImage.setVisibility(View.GONE);
+        ImageLoader.getInstance().displayImage("file://" + path, mChoosedImageView);
+    }
 }
