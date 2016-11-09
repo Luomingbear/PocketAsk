@@ -45,7 +45,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         mLogOut = findViewById(R.id.person_logout);
         mLogOut.setOnClickListener(this);
 
-
     }
 
     private void initTitleView() {
@@ -62,6 +61,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             }
         });
     }
+
 
     @Override
     public void onClick(View v) {

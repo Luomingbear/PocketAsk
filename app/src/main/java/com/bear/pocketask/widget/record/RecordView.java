@@ -9,12 +9,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bear.pocketask.R;
+import com.bear.pocketask.model.record.RecordManager;
 import com.bear.pocketask.utils.DipPxConversion;
 
 import java.util.Timer;
@@ -43,6 +47,9 @@ public class RecordView extends View implements RecordObservable.RecordObserver 
     private boolean isRecord = false; //是否正在录音
     private int mRecordNum = 3; //播放高亮的波纹数
     private Timer mTimer; //定时器
+    private int minDuration = 800; //最小的语音时长 毫秒
+
+    private boolean isAtDuration = false; //录音时长是否达到需求
 
     private RecordMode mRecordMode;//按钮类型
 
@@ -253,7 +260,8 @@ public class RecordView extends View implements RecordObservable.RecordObserver 
             mTimer.schedule(task, 300, 300);
         } else {
             //取消定时器
-            mTimer.cancel();
+            if (mTimer != null)
+                mTimer.cancel();
             //恢复到波纹全部高亮显示
             mRecordNum = 3;
         }
@@ -279,6 +287,122 @@ public class RecordView extends View implements RecordObservable.RecordObserver 
 
     public void setRecordId(int recordId) {
         this.recordId = recordId;
+    }
+
+    /**
+     * 设置点击的响应事件
+     */
+    public void setClickRf() {
+
+        setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        float downX = event.getX();
+                        float downY = event.getY();
+                        if (isInButton(downX, downY))
+                            startRecord();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        float upX = event.getX();
+                        float upY = event.getY();
+                        if (isInButton(upX, upY))
+                            stopRecord();
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        stopRecord();
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    /**
+     * 手指点击的位置刚好在按钮上
+     *
+     * @param x 手指的坐标x
+     * @param y
+     * @return 是否在按钮上
+     */
+    private boolean isInButton(float x, float y) {
+        switch (getRecordMode()) {
+            case BROADCAST:
+                if (y < mHeight / 2 + mHalfHeight && y > mHeight / 2 - mHalfHeight)
+                    return true;
+            case RECORD:
+                if (x < mWidth / 2 + mCircleRaduis && x > mWidth / 2 - mCircleRaduis)
+                    if (y < mHeight / 2 + mCircleRaduis && y > mHeight / 2 - mCircleRaduis)
+                        return true;
+        }
+        return false;
+    }
+
+    /**
+     * recordview点击时执行的动作
+     */
+    private void startRecord() {
+        isAtDuration = false;
+        RecordManager.getInstance().setOnRecordListener(new RecordManager.OnRecordListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                setPlay(false);
+                if (recordViewListener != null)
+                    recordViewListener.onBroadcastStop();
+            }
+
+            @Override
+            public void onDuration(int duration) {
+                if (duration > minDuration)
+                    isAtDuration = true;
+                else
+                    Toast.makeText(getContext(), R.string.create_audio_min_hint, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        switch (getRecordMode()) {
+            case BROADCAST:
+                if (!isPlay()) {
+                    RecordManager.getInstance().startPlayTemp();
+                    setPlay(true);
+                    if (recordViewListener != null)
+                        recordViewListener.onRecordStart();
+                } else {
+                    RecordManager.getInstance().stopPlay();
+                    setPlay(false);
+                    if (recordViewListener != null)
+                        recordViewListener.onBroadcastStop();
+                }
+                break;
+            case RECORD:
+                RecordManager.getInstance().startRecordTemp();
+                setPlay(true);
+                if (recordViewListener != null)
+                    recordViewListener.onRecordStart();
+                break;
+        }
+    }
+
+    /**
+     * recordview手指离开时执行的动作
+     */
+    private void stopRecord() {
+        switch (getRecordMode()) {
+            case BROADCAST:
+//                RecordManager.getInstance().stopPlay();
+                break;
+            case RECORD:
+                setPlay(false);
+                RecordManager.getInstance().stopRecord();
+                if (isAtDuration) {
+                    setRecordMode(RecordView.RecordMode.BROADCAST);
+                    if (recordViewListener != null)
+                        recordViewListener.onRecordStop();
+                }
+
+                break;
+        }
     }
 
     private RecordViewListener recordViewListener;

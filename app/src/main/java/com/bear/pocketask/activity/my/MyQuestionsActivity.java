@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.bear.pocketask.R;
 import com.bear.pocketask.activity.base.BaseActivity;
+import com.bear.pocketask.activity.question.QuestionDetailActivity;
 import com.bear.pocketask.adapter.MyQAAdapter;
 import com.bear.pocketask.info.MyQAInfo;
 import com.bear.pocketask.utils.AdapterViewUtil;
@@ -95,6 +98,13 @@ public class MyQuestionsActivity extends BaseActivity {
         }
 
         AdapterViewUtil.FixHeight(listView);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                intentTo(QuestionDetailActivity.class);
+            }
+        });
         return listView;
     }
 }

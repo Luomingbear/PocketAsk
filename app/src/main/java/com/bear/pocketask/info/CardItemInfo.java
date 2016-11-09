@@ -3,7 +3,6 @@ package com.bear.pocketask.info;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +16,7 @@ public class CardItemInfo implements Parcelable {
     private String detailPic; //卡片详情图片
     private String detailUrl; //卡片详细的链接
     private String questions; //问题描述
+    private String audioUrl; //提问语音地址
     private int questionId; //问题id+
     private String inputText; //输入的文本
     private List<SelectorInfo> selectorList; //选项的数据源
@@ -44,12 +44,13 @@ public class CardItemInfo implements Parcelable {
     public CardItemInfo() {
     }
 
-    public CardItemInfo(String headPic, String userName, String detailPic, String detailUrl, String questions, int questionId, String inputText, List<SelectorInfo> selectorList, CardMode cardMode) {
+    public CardItemInfo(String headPic, String userName, String detailPic, String detailUrl, String questions, String audioUrl, int questionId, String inputText, List<SelectorInfo> selectorList, CardMode cardMode) {
         this.headPic = headPic;
         this.userName = userName;
         this.detailPic = detailPic;
         this.detailUrl = detailUrl;
         this.questions = questions;
+        this.audioUrl = audioUrl;
         this.questionId = questionId;
         this.inputText = inputText;
         this.selectorList = selectorList;
@@ -96,6 +97,14 @@ public class CardItemInfo implements Parcelable {
         this.questions = questions;
     }
 
+    public String getAudioUrl() {
+        return audioUrl;
+    }
+
+    public void setAudioUrl(String audioUrl) {
+        this.audioUrl = audioUrl;
+    }
+
     public int getQuestionId() {
         return questionId;
     }
@@ -128,9 +137,6 @@ public class CardItemInfo implements Parcelable {
         this.cardMode = cardMode;
     }
 
-    public static Creator<CardItemInfo> getCREATOR() {
-        return CREATOR;
-    }
 
     @Override
     public int describeContents() {
@@ -144,9 +150,10 @@ public class CardItemInfo implements Parcelable {
         dest.writeString(this.detailPic);
         dest.writeString(this.detailUrl);
         dest.writeString(this.questions);
+        dest.writeString(this.audioUrl);
         dest.writeInt(this.questionId);
         dest.writeString(this.inputText);
-        dest.writeList(this.selectorList);
+        dest.writeTypedList(this.selectorList);
         dest.writeInt(this.cardMode == null ? -1 : this.cardMode.ordinal());
     }
 
@@ -156,10 +163,10 @@ public class CardItemInfo implements Parcelable {
         this.detailPic = in.readString();
         this.detailUrl = in.readString();
         this.questions = in.readString();
+        this.audioUrl = in.readString();
         this.questionId = in.readInt();
         this.inputText = in.readString();
-        this.selectorList = new ArrayList<SelectorInfo>();
-        in.readList(this.selectorList, SelectorInfo.class.getClassLoader());
+        this.selectorList = in.createTypedArrayList(SelectorInfo.CREATOR);
         int tmpCardMode = in.readInt();
         this.cardMode = tmpCardMode == -1 ? null : CardMode.values()[tmpCardMode];
     }

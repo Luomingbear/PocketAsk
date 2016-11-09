@@ -44,6 +44,8 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
 
     private void initView() {
         cardItemInfo = getIntent().getParcelableExtra("card");
+        if (cardItemInfo == null)
+            cardItemInfo = new CardItemInfo();
 
         //title
         initTitleView();

@@ -120,12 +120,12 @@ public class ReceiverActivity extends BaseActivity implements GetCardAdapter.Car
 
         mCardInfoList.get(2).setUserName("小秃子");
         mCardInfoList.get(2).setHeadPic("http://imgsrc.baidu.com/forum/w%3D580/sign=c0c2b15a7af0f736d8fe4c093a54b382/ab5f251f95cad1c8cc207b027d3e6709c93d5109.jpg");
-        mCardInfoList.get(2).setQuestions("我不想动脑子，我只想睡觉 ＝ ＝");
+        mCardInfoList.get(2).setQuestions("我不想动脑子，我只想睡觉    ＝ ＝");
         mCardInfoList.get(2).setDetailPic("http://article.fd.zol-img.com.cn/t_s501x2000/g5/M00/03/0B/ChMkJlffwK6IeiLEAADwMoZllIYAAWL6QEHuDQAAPBK608.jpg");
 
         mCardInfoList.get(3).setUserName("大明星");
         mCardInfoList.get(3).setHeadPic("http://img3.duitang.com/uploads/item/201505/09/20150509095715_y3G4c.jpeg");
-        mCardInfoList.get(3).setQuestions("总是被人追求好害怕，，，遇到外人怎么办");
+        mCardInfoList.get(3).setQuestions("总是被人追求好害怕，，，遇到坏人怎么办");
         List<SelectorInfo> list = new ArrayList<SelectorInfo>();
         SelectorInfo selectorInfo = new SelectorInfo("不用怕，你是最漂亮的");
         list.add(selectorInfo);

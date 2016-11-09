@@ -3,7 +3,6 @@ package com.bear.pocketask.activity.create;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,7 +13,6 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -30,7 +28,6 @@ import com.bear.pocketask.adapter.CreateSelectorAdapter;
 import com.bear.pocketask.adapter.IViewPagerAdapter;
 import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.info.SelectorInfo;
-import com.bear.pocketask.model.record.RecordManager;
 import com.bear.pocketask.utils.AdapterViewUtil;
 import com.bear.pocketask.widget.inputview.InputDialog;
 import com.bear.pocketask.widget.record.RecordView;
@@ -53,7 +50,6 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
     private ViewPager viewPagerTop; //
     private TextView mTextQuestion; //文本的问题标题
     private RecordView mRecordView; //播放语音按钮
-    private boolean isAtDuration = false; //录音时长是否达到需求
     private static int maxQuestionTextNum = 50; //文本的最大字数
 
     private ViewPager viewPagerBottom;
@@ -108,76 +104,7 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
         initBottomViewPager();
     }
 
-    /**
-     * 录音长按的响应
-     */
-    private View.OnTouchListener boastTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    startRecord();
-                    break;
-                case MotionEvent.ACTION_CANCEL:
-                case MotionEvent.ACTION_UP:
-                    stopRecord();
-                    break;
-            }
-            return true;
-        }
-    };
 
-    /**
-     * recordview点击时执行的动作
-     */
-    private void startRecord() {
-        isAtDuration = false;
-        RecordManager.getInstance().setOnRecordListener(new RecordManager.OnRecordListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mRecordView.setPlay(false);
-            }
-
-            @Override
-            public void onDurationLong() {
-                isAtDuration = true;
-            }
-        });
-
-        switch (mRecordView.getRecordMode()) {
-            case BROADCAST:
-                if (!mRecordView.isPlay()) {
-                    RecordManager.getInstance().startPlayTemp();
-                    mRecordView.setPlay(true);
-                } else {
-                    RecordManager.getInstance().stopPlay();
-                    mRecordView.setPlay(false);
-                }
-                break;
-            case RECORD:
-                RecordManager.getInstance().startRecordTemp();
-                mRecordView.setPlay(true);
-                break;
-        }
-    }
-
-    /**
-     * recordview手指离开时执行的动作
-     */
-    private void stopRecord() {
-        switch (mRecordView.getRecordMode()) {
-            case BROADCAST:
-//                RecordManager.getInstance().stopPlay();
-                break;
-            case RECORD:
-                mRecordView.setPlay(false);
-                RecordManager.getInstance().stopRecord();
-                if (isAtDuration)
-                    mRecordView.setRecordMode(RecordView.RecordMode.BROADCAST);
-
-                break;
-        }
-    }
 
     /**
      * 顶部的滚动view
@@ -202,7 +129,7 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
         View recordQuestion = lf.inflate(R.layout.create_record_question_view, null);
         viewList.add(recordQuestion);
         mRecordView = (RecordView) viewList.get(1).findViewById(R.id.create_record_view);
-        mRecordView.setOnTouchListener(boastTouchListener);
+        mRecordView.setClickRf();
 
         IViewPagerAdapter viewPagerAdapter = new IViewPagerAdapter(viewList);
         viewPagerTop = (ViewPager) findViewById(R.id.create_view_pager_top);

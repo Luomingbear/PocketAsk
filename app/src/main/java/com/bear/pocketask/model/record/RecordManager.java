@@ -41,9 +41,8 @@ public class RecordManager {
         mAudioRecorder.setOnAudioRecordListener(new ExtAudioRecorder.OnAudioRecordListener() {
             @Override
             public void onDuration(int duration) {
-                Log.i(TAG, "onDuration: duration+++" + duration);
-                if (onRecordListener != null && duration > 500)
-                    onRecordListener.onDurationLong();
+                if (onRecordListener != null)
+                    onRecordListener.onDuration(duration);
             }
         });
         String filePath = fileDir + "/" + name + ".wav";
@@ -59,7 +58,8 @@ public class RecordManager {
     }
 
     public void stopRecord() {
-        mAudioRecorder.stopRecord();
+        if (mAudioRecorder != null)
+            mAudioRecorder.stopRecord();
 //        mAudioRecorder.
         mAudioRecorder = null;
     }
@@ -110,6 +110,6 @@ public class RecordManager {
         void onCompletion(MediaPlayer mp);
 
         //录音时间达到最小时间限制
-        void onDurationLong();
+        void onDuration(int duration);
     }
 }
