@@ -28,4 +28,11 @@ top_padding 相对于父物体的上边距
 new的时候就会自动开始定位，使用destory销毁，不用的时候必须销毁
 ##MyQAAdapter
 我的提问和我的回答的列表适配器，通过设置QAType设置类型
+##RecordManager 录音管理
+* startRecord(String name) 开始录音，name是保存的文件名
+* stopRecord 结束录音
+* startPlay(String filePath) 开始播放录音 filepath是文件路径
+* stopPlay 结束播放
+* startRecordTemp() 封装的保存录音到临时目录
+* startPlayTemp() 播放临时的录音文件
 
