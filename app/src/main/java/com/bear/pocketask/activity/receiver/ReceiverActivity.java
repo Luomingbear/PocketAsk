@@ -14,6 +14,7 @@ import com.bear.pocketask.activity.person.PersonActivity;
 import com.bear.pocketask.activity.question.QuestionDetailActivity;
 import com.bear.pocketask.adapter.GetCardAdapter;
 import com.bear.pocketask.info.CardItemInfo;
+import com.bear.pocketask.info.SelectorInfo;
 import com.bear.pocketask.model.location.ILocationManager;
 import com.bear.pocketask.tools.observable.EventObservable;
 import com.bear.pocketask.widget.cardview.CardSlideAdapterView;
@@ -25,6 +26,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReceiverActivity extends BaseActivity implements GetCardAdapter.CardItemClickListener, CardSlideAdapterView.OnCardSlidingListener {
     private static final String TAG = "ReceiverActivity";
@@ -105,7 +107,7 @@ public class ReceiverActivity extends BaseActivity implements GetCardAdapter.Car
             cardItemInfo.setUserName("海绵宝宝" + i);
             cardItemInfo.setQuestionId(i);
             cardItemInfo.setQuestions("请问长都大厦附近有好吃的冰淇淋吗？？+" + i);
-            cardItemInfo.setHeadPic("http://1124.cc/up_files/2012-05-11/1301c63e0a.jpg");
+            cardItemInfo.setHeadPic("http://v1.qzone.cc/avatar/201404/10/09/30/5345f41e670ec580.jpg%21200x200.jpg");
             cardItemInfo.setDetailPic("http://img1.3lian.com/2015/a2/150/d/24.jpg");
 
             mCardInfoList.add(cardItemInfo);
@@ -116,11 +118,21 @@ public class ReceiverActivity extends BaseActivity implements GetCardAdapter.Car
         mCardInfoList.get(1).setQuestions("谈恋爱会增加智商吗？？萌妹子求问");
         mCardInfoList.get(1).setDetailPic("http://img1.3lian.com/img013/v1/32/d/110.jpg");
 
-        mCardInfoList.get(3).setUserName("小秃子");
-        mCardInfoList.get(3).setHeadPic("http://imgsrc.baidu.com/forum/w%3D580/sign=c0c2b15a7af0f736d8fe4c093a54b382/ab5f251f95cad1c8cc207b027d3e6709c93d5109.jpg");
-        mCardInfoList.get(3).setQuestions("我不想动脑子，我只想睡觉 ＝ ＝");
-        mCardInfoList.get(3).setDetailPic("http://article.fd.zol-img.com.cn/t_s501x2000/g5/M00/03/0B/ChMkJlffwK6IeiLEAADwMoZllIYAAWL6QEHuDQAAPBK608.jpg");
+        mCardInfoList.get(2).setUserName("小秃子");
+        mCardInfoList.get(2).setHeadPic("http://imgsrc.baidu.com/forum/w%3D580/sign=c0c2b15a7af0f736d8fe4c093a54b382/ab5f251f95cad1c8cc207b027d3e6709c93d5109.jpg");
+        mCardInfoList.get(2).setQuestions("我不想动脑子，我只想睡觉 ＝ ＝");
+        mCardInfoList.get(2).setDetailPic("http://article.fd.zol-img.com.cn/t_s501x2000/g5/M00/03/0B/ChMkJlffwK6IeiLEAADwMoZllIYAAWL6QEHuDQAAPBK608.jpg");
 
+        mCardInfoList.get(3).setUserName("大明星");
+        mCardInfoList.get(3).setHeadPic("http://img3.duitang.com/uploads/item/201505/09/20150509095715_y3G4c.jpeg");
+        mCardInfoList.get(3).setQuestions("总是被人追求好害怕，，，遇到外人怎么办");
+        List<SelectorInfo> list = new ArrayList<SelectorInfo>();
+        SelectorInfo selectorInfo = new SelectorInfo("不用怕，你是最漂亮的");
+        list.add(selectorInfo);
+        list.add(selectorInfo);
+        list.add(selectorInfo);
+        mCardInfoList.get(3).setSelectorList(list);
+        mCardInfoList.get(3).setCardMode(CardItemInfo.CardMode.TopTextBottomSelector);
 
         mCardSlideAdapterView = (CardSlideAdapterView) findViewById(R.id.cardSlideView);
 
@@ -235,5 +247,6 @@ public class ReceiverActivity extends BaseActivity implements GetCardAdapter.Car
     protected void onDestroy() {
         super.onDestroy();
         mLocationManager.destroyLocationClient();
+        ImageLoader.getInstance().clearMemoryCache();
     }
 }

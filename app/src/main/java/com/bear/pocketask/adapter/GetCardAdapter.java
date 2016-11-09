@@ -112,7 +112,7 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
 
                 //
                 //// TODO: 16/10/28  语音,选项
-                initList(viewHolder.lvSelectorList,info.getSelectorList());
+                initList(viewHolder.lvSelectorList, info.getSelectorList());
                 break;
             }
             case TopTextBottomImage: {
@@ -136,7 +136,7 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
 
                 //
                 viewHolder.tvQuestion.setText(info.getQuestions());
-                initList(viewHolder.lvSelectorList,info.getSelectorList());
+                initList(viewHolder.lvSelectorList, info.getSelectorList());
                 break;
             }
         }
@@ -153,12 +153,15 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
 
     /**
      * 设置选项数据
+     *
      * @param listView
      * @param selectorList
      */
     private void initList(AdapterView listView, List<SelectorInfo> selectorList) {
-        //// TODO: 16/10/29 按钮列表
-
+        // TODO: 16/11/9 选项的点击与卡片的滑动矛盾了
+//        SelectorAdapter selectorAdapter = new SelectorAdapter(getmContext(), selectorList);
+//        listView.setAdapter(selectorAdapter);
+//        AdapterViewUtil.FixHeight(listView);
     }
 
     private ViewHolder viewHolder;

@@ -3,6 +3,7 @@ package com.bear.pocketask.activity.create;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,6 +30,7 @@ import com.bear.pocketask.adapter.CreateSelectorAdapter;
 import com.bear.pocketask.adapter.IViewPagerAdapter;
 import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.info.SelectorInfo;
+import com.bear.pocketask.model.record.RecordManager;
 import com.bear.pocketask.utils.AdapterViewUtil;
 import com.bear.pocketask.widget.inputview.InputDialog;
 import com.bear.pocketask.widget.record.RecordView;
@@ -51,6 +53,7 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
     private ViewPager viewPagerTop; //
     private TextView mTextQuestion; //文本的问题标题
     private RecordView mRecordView; //播放语音按钮
+    private boolean isAtDuration = false; //录音时长是否达到需求
     private static int maxQuestionTextNum = 50; //文本的最大字数
 
     private ViewPager viewPagerBottom;
@@ -118,8 +121,6 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
                 case MotionEvent.ACTION_CANCEL:
                 case MotionEvent.ACTION_UP:
                     stopRecord();
-                    if (mRecordView.getRecordMode() == RecordView.RecordMode.RECORD)
-                        mRecordView.setRecordMode(RecordView.RecordMode.BROADCAST);
                     break;
             }
             return true;
@@ -130,18 +131,52 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
      * recordview点击时执行的动作
      */
     private void startRecord() {
-        if (mRecordView.isPlay()) {
-            mRecordView.setPlay(false);
-        } else mRecordView.setPlay(true);
+        isAtDuration = false;
+        RecordManager.getInstance().setOnRecordListener(new RecordManager.OnRecordListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mRecordView.setPlay(false);
+            }
 
+            @Override
+            public void onDurationLong() {
+                isAtDuration = true;
+            }
+        });
+
+        switch (mRecordView.getRecordMode()) {
+            case BROADCAST:
+                if (!mRecordView.isPlay()) {
+                    RecordManager.getInstance().startPlayTemp();
+                    mRecordView.setPlay(true);
+                } else {
+                    RecordManager.getInstance().stopPlay();
+                    mRecordView.setPlay(false);
+                }
+                break;
+            case RECORD:
+                RecordManager.getInstance().startRecordTemp();
+                mRecordView.setPlay(true);
+                break;
+        }
     }
 
     /**
      * recordview手指离开时执行的动作
      */
     private void stopRecord() {
-        if (mRecordView.getRecordMode() == RecordView.RecordMode.RECORD)
-            mRecordView.setPlay(false);
+        switch (mRecordView.getRecordMode()) {
+            case BROADCAST:
+//                RecordManager.getInstance().stopPlay();
+                break;
+            case RECORD:
+                mRecordView.setPlay(false);
+                RecordManager.getInstance().stopRecord();
+                if (isAtDuration)
+                    mRecordView.setRecordMode(RecordView.RecordMode.BROADCAST);
+
+                break;
+        }
     }
 
     /**

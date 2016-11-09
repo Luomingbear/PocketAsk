@@ -183,13 +183,6 @@ public class RecordView extends View implements RecordObservable.RecordObserver 
         }
     }
 
-    private boolean shouldTouch(float x, float y) {
-        if (x < getWidth() && x > 0)
-            if (y < getHeight() && y > 0)
-                return true;
-        return false;
-    }
-
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
