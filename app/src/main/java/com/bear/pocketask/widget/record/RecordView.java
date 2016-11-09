@@ -177,7 +177,7 @@ public class RecordView extends View implements RecordObservable.RecordObserver 
                     break;
                 case RECORD:
                     if (isPlay())
-                        drawCircle(canvas, xCenter, mCircleRaduis * (6 + i) / 7, color);
+                        drawCircle(canvas, xCenter, mCircleRaduis * (5 + i) / 7, color);
                     break;
             }
         }
@@ -262,7 +262,7 @@ public class RecordView extends View implements RecordObservable.RecordObserver 
             //取消定时器
             mTimer.cancel();
             //恢复到波纹全部高亮显示
-            mRecordNum = 1;
+            mRecordNum = 3;
         }
         invalidate();
     }

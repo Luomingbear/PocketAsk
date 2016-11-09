@@ -118,6 +118,8 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
                 case MotionEvent.ACTION_CANCEL:
                 case MotionEvent.ACTION_UP:
                     stopRecord();
+                    if (mRecordView.getRecordMode() == RecordView.RecordMode.RECORD)
+                        mRecordView.setRecordMode(RecordView.RecordMode.BROADCAST);
                     break;
             }
             return true;
@@ -472,6 +474,10 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
         //bottom
         switch (bottom) {
             case 0:
+                for (int i = 0; i < mSelectorList.size(); i++) {
+                    if (TextUtils.isEmpty(mSelectorList.get(i).getContent()))
+                        mSelectorList.remove(i);
+                }
                 mCardInfo.setSelectorList(mSelectorList);
                 break;
             case 1:
