@@ -134,6 +134,8 @@ public class ReceiverActivity extends BaseActivity implements GetCardAdapter.Car
         mCardInfoList.get(3).setSelectorList(list);
         mCardInfoList.get(3).setCardMode(CardItemInfo.CardMode.TopTextBottomSelector);
 
+        mCardInfoList.get(4).setCardMode(CardItemInfo.CardMode.TopAudioBottomImage);
+
         mCardSlideAdapterView = (CardSlideAdapterView) findViewById(R.id.cardSlideView);
 
         mCardAdapter = new GetCardAdapter(this, mCardInfoList);
@@ -247,6 +249,5 @@ public class ReceiverActivity extends BaseActivity implements GetCardAdapter.Car
     protected void onDestroy() {
         super.onDestroy();
         mLocationManager.destroyLocationClient();
-        ImageLoader.getInstance().clearMemoryCache();
     }
 }

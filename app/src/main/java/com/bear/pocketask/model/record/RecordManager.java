@@ -31,12 +31,14 @@ public class RecordManager {
 
     protected RecordManager() {
         fileDir = Environment.getExternalStorageDirectory() + "/PocketAsk/Audio";
+
         File file = new File(fileDir);
         if (!file.exists())
             file.mkdirs();
     }
 
     public void startRecord(String name) {
+
         mAudioRecorder = ExtAudioRecorder.getInstanse(false);
         mAudioRecorder.setOnAudioRecordListener(new ExtAudioRecorder.OnAudioRecordListener() {
             @Override
@@ -45,9 +47,8 @@ public class RecordManager {
                     onRecordListener.onDuration(duration);
             }
         });
-        String filePath = fileDir + "/" + name + ".wav";
 
-        mAudioRecorder.recordChat(fileDir + "/", name + ".wav");
+        mAudioRecorder.recordChat(fileDir, name);
 
         //设置文件保存的地址
 

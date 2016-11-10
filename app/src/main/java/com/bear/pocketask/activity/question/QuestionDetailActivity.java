@@ -128,7 +128,7 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
                 //显示普通的矩形详情图片
                 ImageLoader.getInstance().displayImage(info.getDetailPic(), viewHolder.ivDetailPic);
                 //设置语音
-                //// TODO: 16/10/28  语音
+                viewHolder.rvRecordView.setClickRf();
                 break;
             }
             case TopAudioBottomSelector: {
@@ -139,8 +139,8 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
                 viewHolder.rvRecordView.setVisibility(View.VISIBLE);
 
                 //
-                //// TODO: 16/10/28  语音,选项
-//                initList(viewHolder.lvSelectorList, info.getSelectorList());
+                viewHolder.rvRecordView.setClickRf();
+                initList(viewHolder.lvSelectorList, info.getSelectorList());
                 break;
             }
             case TopTextBottomImage: {

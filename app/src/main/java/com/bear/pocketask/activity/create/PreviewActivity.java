@@ -148,7 +148,6 @@ public class PreviewActivity extends BaseActivity {
 
         listView.setAdapter(selectorAdapter);
         AdapterViewUtil.FixHeight(listView);
-        //
     }
 
     private class ViewHolder {

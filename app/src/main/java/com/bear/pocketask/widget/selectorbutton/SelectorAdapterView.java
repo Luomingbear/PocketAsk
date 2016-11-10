@@ -19,6 +19,7 @@ import java.util.List;
  */
 
 public class SelectorAdapterView extends AdapterView implements SelectorButton.SelectorChangeListener {
+    private static final String TAG = "SelectorAdapterView";
     private int mCheckedId = -1; //选中的id
     private Adapter mAdapter; //数据适配器
     private AdapterDataSetObserver mDataSetObserver; //数据观察者
@@ -219,6 +220,8 @@ public class SelectorAdapterView extends AdapterView implements SelectorButton.S
         int height = (int) getResources().getDimension(R.dimen.title_height);
         item.layout(0, height * index, width, height * (index + 1));
     }
+
+    private float mTouchX, mTouchY; //手指按下的坐标
 
     @Override
     public void requestLayout() {

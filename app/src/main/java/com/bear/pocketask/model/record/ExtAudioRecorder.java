@@ -501,13 +501,13 @@ public class ExtAudioRecorder {
     public static File recordChat(String savePath, String fileName) {
         File dir = new File(savePath);
         // 如果该目录没有存在，则新建目录
-        if (dir.list() == null) {
+        if (dir.list()==null) {
             dir.mkdirs();
         }
         // 获取录音文件
-        File file = new File(savePath + fileName);
+        File file = new File(savePath + "/" + fileName + ".wav");
         // 设置输出文件
-        result.setOutputFile(savePath + fileName);
+        result.setOutputFile(savePath + "/" + fileName + ".wav");
         result.prepare();
         // 开始录音
         result.start();
