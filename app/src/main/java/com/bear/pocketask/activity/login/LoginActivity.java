@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.bear.pocketask.R;
 import com.bear.pocketask.activity.base.BaseActivity;
 import com.bear.pocketask.activity.receiver.ReceiverActivity;
+import com.bear.pocketask.utils.PasswordUtil;
 
 /**
  * 登录界面
@@ -25,6 +27,7 @@ import com.bear.pocketask.activity.receiver.ReceiverActivity;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
+    private static final String TAG = "LoginActivity";
     private EditText mUserName; //用户名
     private EditText mPassWord; //密码
     private EditText mVerfiyPassWord; //确认密码
@@ -205,24 +208,42 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             return true;
         }
 
-        //注册账号的验证密码
-        if (isRegisterLayout)
-            verifyPassword = mVerfiyPassWord.getText().toString();
-
-        //
-        if (!password.equals(verifyPassword) && isRegisterLayout) {
-            showLoginFailedWarning(LoginFailedType.REGISTER_FAILED);
-        }
-        //登录名或者密码错误
-        //// TODO: 16/10/31 请求服务器的账号数据
+        Log.i(TAG, "checkInputAccount: 加密密码：" + PasswordUtil.getEncodeUsernamePassword(username, password));
 
         //登录名或者密码为空
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password))
             showLoginFailedWarning(LoginFailedType.EMPTY_INPUT);
+        else hideLoginFailedWarning();
+
+        //注册账号的验证密码
+        if (isRegisterLayout)
+            verifyPassword = mVerfiyPassWord.getText().toString();
+
+        //密码和确认密码不匹配
+        if (!password.equals(verifyPassword) && isRegisterLayout) {
+            showLoginFailedWarning(LoginFailedType.REGISTER_FAILED);
+        }
+
+        //登录名或者密码错误
+        //// TODO: 16/10/31 请求服务器的账号数据
+        if (requestServerLogin(username, password))
+            return true;
 
         //没有注册
 
 
+        return false;
+    }
+
+    /**
+     * 请求服务器的数据验证账号
+     *
+     * @param username
+     * @param password
+     * @return 用户名和账号是否匹配
+     */
+    private boolean requestServerLogin(String username, String password) {
+        // TODO: 16/11/10 验证用户名和账号是否匹配
         return false;
     }
 
@@ -286,6 +307,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 loginFailedWarningTextView.setText(getString(R.string.login_empty_input));
                 break;
         }
+    }
+
+    /**
+     * 隐藏错误显示
+     */
+    public void hideLoginFailedWarning() {
+        View loginFailedWarningLayout = findViewById(R.id.login_warning_layout);
+        TextView loginFailedWarningTextView = (TextView) findViewById(R.id.login_warning_text);
+        loginFailedWarningTextView.setText("");
+        loginFailedWarningLayout.setVisibility(View.GONE);
     }
 
     private enum LoginFailedType {
