@@ -50,7 +50,7 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
 
             viewHolder.leReport = convertView.findViewById(R.id.card_item_report);
             viewHolder.rvRecordView = (RecordView) convertView.findViewById(R.id.card_item_questions_audio);
-            viewHolder.llSelectorLayout = convertView.findViewById(R.id.card_item_select_list_layout);
+//            viewHolder.llSelectorLayout = convertView.findViewById(R.id.card_item_select_list_layout);
             viewHolder.lvSelectorList = (SelectorAdapterView) convertView.findViewById(R.id.card_item_select_list);
             viewHolder.etInputView = (ITextView) convertView.findViewById(R.id.card_item_input);
             viewHolder.btSend = convertView.findViewById(R.id.card_item_send);
@@ -91,7 +91,7 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
     private void initView(ViewHolder viewHolder, CardItemInfo info) {
         switch (info.getCardMode()) {
             case TopAudioBottomImage: {
-                viewHolder.llSelectorLayout.setVisibility(View.GONE);
+                viewHolder.lvSelectorList.setVisibility(View.GONE);
                 viewHolder.tvQuestion.setVisibility(View.GONE);
 
                 viewHolder.ivDetailPic.setVisibility(View.VISIBLE);
@@ -104,7 +104,7 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
                 break;
             }
             case TopAudioBottomSelector: {
-                viewHolder.llSelectorLayout.setVisibility(View.VISIBLE);
+                viewHolder.lvSelectorList.setVisibility(View.VISIBLE);
                 viewHolder.tvQuestion.setVisibility(View.GONE);
 
                 viewHolder.ivDetailPic.setVisibility(View.GONE);
@@ -116,7 +116,7 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
                 break;
             }
             case TopTextBottomImage: {
-                viewHolder.llSelectorLayout.setVisibility(View.GONE);
+                viewHolder.lvSelectorList.setVisibility(View.GONE);
                 viewHolder.tvQuestion.setVisibility(View.VISIBLE);
 
                 viewHolder.ivDetailPic.setVisibility(View.VISIBLE);
@@ -128,7 +128,7 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
                 break;
             }
             case TopTextBottomSelector: {
-                viewHolder.llSelectorLayout.setVisibility(View.VISIBLE);
+                viewHolder.lvSelectorList.setVisibility(View.VISIBLE);
                 viewHolder.tvQuestion.setVisibility(View.VISIBLE);
 
                 viewHolder.ivDetailPic.setVisibility(View.GONE);
@@ -158,10 +158,10 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
      * @param selectorList
      */
     private void initList(AdapterView listView, List<SelectorInfo> selectorList) {
-        // TODO: 16/11/9 选项的点击与卡片的滑动矛盾了
+
         SelectorAdapter selectorAdapter = new SelectorAdapter(getmContext(), selectorList);
         listView.setAdapter(selectorAdapter);
-//        AdapterViewUtil.FixHeight(listView);
+
     }
 
     private ViewHolder viewHolder;
@@ -213,7 +213,7 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
         View leReport;
         ITextView etInputView;
         RecordView rvRecordView;
-        View llSelectorLayout;
+        //        View llSelectorLayout;
         SelectorAdapterView lvSelectorList;
     }
 

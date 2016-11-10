@@ -9,7 +9,7 @@ import android.os.Parcelable;
  */
 
 public class SelectorInfo implements Parcelable {
-    private String content = ""; //内容
+    private String content ; //内容
 
     public SelectorInfo() {
     }

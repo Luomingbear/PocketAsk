@@ -131,6 +131,7 @@ public class ReceiverActivity extends BaseActivity implements GetCardAdapter.Car
         list.add(selectorInfo);
         list.add(selectorInfo);
         list.add(selectorInfo);
+        list.add(selectorInfo);
         mCardInfoList.get(3).setSelectorList(list);
         mCardInfoList.get(3).setCardMode(CardItemInfo.CardMode.TopTextBottomSelector);
 

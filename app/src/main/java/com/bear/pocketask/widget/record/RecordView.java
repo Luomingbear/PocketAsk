@@ -311,7 +311,8 @@ public class RecordView extends View implements RecordObservable.RecordObserver 
                             stopRecord();
                         break;
                     case MotionEvent.ACTION_CANCEL:
-                        stopRecord();
+                        if (getRecordMode() == RecordMode.RECORD)
+                            stopRecord();
                         break;
                 }
                 return true;
@@ -363,17 +364,6 @@ public class RecordView extends View implements RecordObservable.RecordObserver 
 
         switch (getRecordMode()) {
             case BROADCAST:
-                if (!isPlay()) {
-                    RecordManager.getInstance().startPlayTemp();
-                    setPlay(true);
-                    if (recordViewListener != null)
-                        recordViewListener.onRecordStart();
-                } else {
-                    RecordManager.getInstance().stopPlay();
-                    setPlay(false);
-                    if (recordViewListener != null)
-                        recordViewListener.onBroadcastStop();
-                }
                 break;
             case RECORD:
                 RecordManager.getInstance().startRecordTemp();
@@ -390,7 +380,17 @@ public class RecordView extends View implements RecordObservable.RecordObserver 
     private void stopRecord() {
         switch (getRecordMode()) {
             case BROADCAST:
-//                RecordManager.getInstance().stopPlay();
+                if (!isPlay()) {
+                    RecordManager.getInstance().startPlayTemp();
+                    setPlay(true);
+                    if (recordViewListener != null)
+                        recordViewListener.onRecordStart();
+                } else {
+                    RecordManager.getInstance().stopPlay();
+                    setPlay(false);
+                    if (recordViewListener != null)
+                        recordViewListener.onBroadcastStop();
+                }
                 break;
             case RECORD:
                 setPlay(false);

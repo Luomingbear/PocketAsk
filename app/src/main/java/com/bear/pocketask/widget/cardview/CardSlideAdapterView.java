@@ -20,7 +20,7 @@ public class CardSlideAdapterView extends AdapterView implements CardItemView.on
 	private boolean isLayout = false; //是否正在布局
 
 	private View mTopCard; //顶部的卡片
-	private final static int MAX_SHOW_NUM = 3; //卡片的最大显示数
+	private final static int MAX_SHOW_NUM = 2; //卡片的最大显示数
 	private final static int MAX_CARD_NUM = 4; //卡片的最大堆栈数量
 	private final int MIN_ITEM_HEIGHT = 0; //卡片最小的偏移高度
 	private int TOP_CARD_INDEX = 0; //最顶层的卡片的index

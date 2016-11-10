@@ -90,8 +90,7 @@ public class SelectorButton extends View {
             centerY = getHeight() / 2;
         }
         //设置背景色
-        mBackgroundColor = isClicking ? mCheckedColor : mUnCheckColor;
-        setBackgroundColor(mBackgroundColor);
+        drawBg(canvas);
         //绘制图标
         initIconPosition(canvas);
         drawIcon(canvas);
@@ -99,7 +98,12 @@ public class SelectorButton extends View {
         //绘制文本
         if (mTextString != null)
             drawText(canvas);
+    }
 
+    private void drawBg(Canvas canvas) {
+        mBackgroundColor = isClicking ? mCheckedColor : Color.TRANSPARENT;
+        mPaint.setColor(mBackgroundColor);
+        canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
     }
 
     /**
@@ -193,7 +197,7 @@ public class SelectorButton extends View {
     public void setChecked(boolean checked) {
         isChecked = checked;
 
-        postInvalidate();
+        invalidate();
     }
 
     public boolean isChecked() {
@@ -206,13 +210,15 @@ public class SelectorButton extends View {
 
     public void setTextString(String textString) {
         this.mTextString = textString;
-        postInvalidate();
+        invalidate();
     }
 
     private float touchX, touchY;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 touchX = event.getX();

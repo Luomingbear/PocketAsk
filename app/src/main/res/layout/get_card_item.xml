@@ -129,25 +129,15 @@
                     android:background="@color/lightgray"
                     android:scaleType="centerCrop" />
 
-                <ScrollView
-                    android:id="@+id/card_item_select_list_layout"
+                <!--android:id="@+id/card_item_select_list_layout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <com.bear.pocketask.widget.selectorbutton.SelectorAdapterView
+                    android:id="@+id/card_item_select_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <com.bear.pocketask.widget.selectorbutton.SelectorAdapterView
-                            android:id="@+id/card_item_select_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:clickable="false"
-                            android:focusable="false">
-
-                        </com.bear.pocketask.widget.selectorbutton.SelectorAdapterView>
-                    </LinearLayout>
-                </ScrollView>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" />
             </com.bear.pocketask.widget.cardview.AutoScaleLayout>
 
             <LinearLayout
