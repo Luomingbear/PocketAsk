@@ -39,6 +39,8 @@
     <dimen name="cr_btn_height">23dp</dimen>
     <dimen name="cr_switch_width">16dp</dimen>
     <dimen name="cr_btn_radius">5dp</dimen>
+    <dimen name="cr_bitbtn_padding">9dp</dimen>
+    <dimen name="cr_bit_size">24dp</dimen>
 
     <!-- 语音按钮的大小 -->
     <dimen name="record_height">150dp</dimen>

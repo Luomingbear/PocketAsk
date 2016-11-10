@@ -2,12 +2,15 @@ package com.bear.pocketask.widget.cradiobutton;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
+//import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -19,6 +22,12 @@ import com.bear.pocketask.R;
  */
 public class CRadioButton extends View {
     private Paint paint;
+
+    private Bitmap bitmapremark;
+    private int bitmap_left_padding;
+    private RectF bitmap_shape;
+    private int bitmap_size;
+    private int bitbtn_padding;
 
     private enum CRMode
     {
@@ -112,15 +121,21 @@ public class CRadioButton extends View {
             case NEAR_ANYWHERE:
                 text_store[0] = "任意";
                 text_store[1] = "附近";
+                bitmapremark=((BitmapDrawable)getResources().getDrawable(R.drawable.location)).getBitmap();
                 break;
             case PRIVATE_PUBLIC:
                 text_store[0] = "公开";
                 text_store[1] = "私密";
+                bitmapremark=((BitmapDrawable)getResources().getDrawable(R.drawable.lock)).getBitmap();
                 break;
         }
         text_show = text_store[1];
 
-        left_padding = ta.getDimensionPixelSize(R.styleable.CRadioButton_left_padding, 0);
+        bitmap_size=getResources().getDimensionPixelSize(R.dimen.cr_bit_size);
+        bitbtn_padding=getResources().getDimensionPixelSize(R.dimen.cr_bitbtn_padding);
+        bitmap_left_padding=ta.getDimensionPixelSize(R.styleable.CRadioButton_left_padding, 0);
+        left_padding = bitmap_left_padding+bitmap_size+bitbtn_padding;
+        //left_padding=ta.getDimensionPixelSize(R.styleable.CRadioButton_left_padding, 0);
         top_padding = ta.getDimensionPixelSize(R.styleable.CRadioButton_top_padding, 0);
         btn_width = ta.getDimensionPixelSize(R.styleable.CRadioButton_btn_width, getResources().getDimensionPixelSize(R.dimen.cr_btn_width));
         btn_height = ta.getDimensionPixelSize(R.styleable.CRadioButton_btn_height, getResources().getDimensionPixelSize(R.dimen.cr_btn_height));
@@ -131,6 +146,7 @@ public class CRadioButton extends View {
         text_x = left_padding + (btn_width - switch_width) / 2;
         ta.recycle();
 
+        bitmap_shape=new RectF(bitmap_left_padding,top_padding,bitmap_size,bitmap_size);
         btn = new RectF(left_padding, top_padding, left_padding + btn_width, top_padding + btn_height);
         select = new RectF(left_padding + btn_width - switch_width, top_padding, left_padding + btn_width, top_padding + btn_height);
 
@@ -143,7 +159,7 @@ public class CRadioButton extends View {
         if (event.getAction() == MotionEvent.ACTION_DOWN)
         {
             if(!isAnimation){
-                if (btn.contains(event.getX() + left_padding, event.getY() + top_padding))
+                if (btn.contains(event.getX() , event.getY() ))
                 {
                     state.changeCRState();
                 }
@@ -165,6 +181,8 @@ public class CRadioButton extends View {
         paint.setColor(Color.WHITE);
         canvas.drawRoundRect(select, btn_radius, btn_radius, paint);
 
+        canvas.drawBitmap(bitmapremark,null,bitmap_shape,paint);
+
         if(isAnimation){
             slideAnimation();
         }
@@ -184,7 +202,7 @@ public class CRadioButton extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int width=btn_width;
+        int width=btn_width+bitmap_size+bitbtn_padding;
         int height=btn_height;
 
         int widthMode=MeasureSpec.getMode(widthMeasureSpec);
@@ -197,7 +215,7 @@ public class CRadioButton extends View {
                 width=widthSize;
                 break;
             case MeasureSpec.AT_MOST:
-                width=btn_width;
+                width=btn_width+bitmap_size+bitbtn_padding;
                 break;
         }
 
@@ -227,14 +245,14 @@ public class CRadioButton extends View {
     }
 
     private void slideAnimation(){
-        if(((end==0)&&(select.left<=end))||((end==(btn_width-switch_width))&&(select.left>=end))){
+        if(((end==0)&&(select.left<=left_padding+end))||((end==change)&&(select.left>=left_padding+end))){
             isAnimation=false;
-            select.left=end;
+            select.left=left_padding+end;
             select.right=select.left+switch_width;
             //Log.e("view",Boolean.toString(isAnimation));
         }
         else {
-            select.left += duration*Math.sin((select.left/change)*Math.PI*0.9+0.1);
+            select.left += duration*Math.sin(((select.left-left_padding)/change)*Math.PI*0.9+0.1);
             select.right = select.left + switch_width;
             //Log.e("left",Float.toString(select.left));
             //Log.e("duration",Double.toString(duration*Math.sin((double)(select.left/change)*Math.PI)));
