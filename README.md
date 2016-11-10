@@ -36,3 +36,8 @@ new的时候就会自动开始定位，使用destory销毁，不用的时候必�
 * startRecordTemp() 封装的保存录音到临时目录
 * startPlayTemp() 播放临时的录音文件
 
+##PasswordUtil 密码加密工具
+* getSampleEncodePassword(String password) 获取经过简单md5加密的密码，只进行一次加密
+* getDoubleEncodePassword(String password) 获取经过两次md5加密的密码
+* getEncodeUsernamePassword(String username, String password) 获取经过用户名和密码双重加密的密码
+
