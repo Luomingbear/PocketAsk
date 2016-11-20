@@ -10,7 +10,6 @@
         android:id="@+id/title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleText="@string/my_questions_title"
         app:titleMode="BACK_TITLE">
 
     </com.bear.pocketask.widget.titleview.TitleView>

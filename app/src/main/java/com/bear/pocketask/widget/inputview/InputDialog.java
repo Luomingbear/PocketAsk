@@ -63,11 +63,8 @@ public class InputDialog extends IBaseDialog {
      * 显示键盘
      */
     public void showKeyboard() {
-        mEditText.setFocusable(true);
-        mEditText.requestFocus();
         InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.RESULT_SHOWN, InputMethodManager.RESULT_HIDDEN);
-//        inputMethodManager.showSoftInput(getWindow().getDecorView(), InputMethodManager.SHOW_FORCED);
+        inputMethodManager.showSoftInput(mEditText, InputMethodManager.SHOW_FORCED);
     }
 
     /**
@@ -77,7 +74,7 @@ public class InputDialog extends IBaseDialog {
         //// TODO: 16/10/29 隐藏键盘 
         InputMethodManager im = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         im.toggleSoftInput(InputMethodManager.RESULT_UNCHANGED_SHOWN, InputMethodManager.RESULT_HIDDEN);
-        im.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.RESULT_UNCHANGED_HIDDEN);
+        im.hideSoftInputFromWindow(mEditText.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
 
     private void initView() {

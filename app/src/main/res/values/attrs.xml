@@ -79,4 +79,8 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="RatioImageView">
+        <attr name="ratio" format="float|reference" />
+    </declare-styleable>
+
 </resources>

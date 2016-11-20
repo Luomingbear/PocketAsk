@@ -25,6 +25,8 @@
             android:layout_marginTop="@dimen/margin_small"
             android:layout_weight="1"
             android:background="@color/white"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:lineSpacingExtra="@dimen/text_space_extra"
             android:maxLines="3"
             android:paddingLeft="@dimen/margin_small"

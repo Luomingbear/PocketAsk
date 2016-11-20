@@ -61,7 +61,7 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/person_my_questions"
+            android:id="@+id/person_my_respond"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginTop="@dimen/margin_normal"
@@ -92,7 +92,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/person_my_respond"
+            android:id="@+id/person_my_questions"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginTop="@dimen/padding_small"

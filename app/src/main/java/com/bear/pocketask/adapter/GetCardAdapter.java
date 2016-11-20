@@ -13,6 +13,7 @@ import com.bear.pocketask.adapter.base.IBaseAdapter;
 import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.info.SelectorInfo;
 import com.bear.pocketask.tools.observable.EventObservable;
+import com.bear.pocketask.utils.AdapterViewUtil;
 import com.bear.pocketask.widget.inputview.ITextView;
 import com.bear.pocketask.widget.record.RecordObservable;
 import com.bear.pocketask.widget.record.RecordView;
@@ -98,6 +99,8 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
                 viewHolder.rvRecordView.setVisibility(View.VISIBLE);
 
                 //显示普通的矩形详情图片
+                viewHolder.ivDetailPic.setVisibility(View.VISIBLE);
+                viewHolder.lvSelectorList.setVisibility(View.GONE);
                 ImageLoader.getInstance().displayImage(info.getDetailPic(), viewHolder.ivDetailPic);
                 //设置语音
                 viewHolder.rvRecordView.setClickRf();
@@ -111,6 +114,9 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
                 viewHolder.rvRecordView.setVisibility(View.VISIBLE);
 
                 //
+
+                viewHolder.ivDetailPic.setVisibility(View.GONE);
+                viewHolder.lvSelectorList.setVisibility(View.VISIBLE);
                 viewHolder.rvRecordView.setClickRf();
                 initList(viewHolder.lvSelectorList, info.getSelectorList());
                 break;
@@ -123,6 +129,9 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
                 viewHolder.rvRecordView.setVisibility(View.GONE);
 
                 //
+
+                viewHolder.ivDetailPic.setVisibility(View.VISIBLE);
+                viewHolder.lvSelectorList.setVisibility(View.GONE);
                 viewHolder.tvQuestion.setText(info.getQuestions());
                 ImageLoader.getInstance().displayImage(info.getDetailPic(), viewHolder.ivDetailPic);
                 break;
@@ -135,6 +144,8 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
                 viewHolder.rvRecordView.setVisibility(View.GONE);
 
                 //
+                viewHolder.ivDetailPic.setVisibility(View.GONE);
+                viewHolder.lvSelectorList.setVisibility(View.VISIBLE);
                 viewHolder.tvQuestion.setText(info.getQuestions());
                 initList(viewHolder.lvSelectorList, info.getSelectorList());
                 break;
@@ -161,7 +172,7 @@ public class GetCardAdapter extends IBaseAdapter implements View.OnClickListener
 
         SelectorAdapter selectorAdapter = new SelectorAdapter(getmContext(), selectorList);
         listView.setAdapter(selectorAdapter);
-
+        AdapterViewUtil.FixHeight(listView);
     }
 
     private ViewHolder viewHolder;

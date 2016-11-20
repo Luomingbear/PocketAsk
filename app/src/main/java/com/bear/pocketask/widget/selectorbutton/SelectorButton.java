@@ -84,7 +84,7 @@ public class SelectorButton extends View {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setAntiAlias(true);
 
-        //设置中心点坐标
+        //设置中心点坐标铯le
         if (centerX == 0 || centerY == 0) {
             centerX = getWidth() / 2;
             centerY = getHeight() / 2;
@@ -196,7 +196,6 @@ public class SelectorButton extends View {
 
     public void setChecked(boolean checked) {
         isChecked = checked;
-
         invalidate();
     }
 
@@ -225,8 +224,13 @@ public class SelectorButton extends View {
                 touchY = event.getY();
                 isClicking = true;
                 invalidate();
+
                 break;
+
             case MotionEvent.ACTION_CANCEL:
+                isClicking = false;
+                invalidate();
+                break;
             case MotionEvent.ACTION_UP:
 
                 isClicking = false;
@@ -238,6 +242,7 @@ public class SelectorButton extends View {
                     if (selectorChangeListener != null)
                         selectorChangeListener.onChange(this, isChecked);
                 }
+
                 break;
         }
         return true;

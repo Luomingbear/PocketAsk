@@ -71,7 +71,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.person_my_respond:
                 intentTo(MyRespondsActivity.class);
-
                 break;
             case R.id.person_feedback:
                 break;

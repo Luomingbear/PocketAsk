@@ -45,7 +45,7 @@ public class MyRespondsActivity extends BaseActivity {
 
     private void initTitleView() {
         TitleView titleView = (TitleView) findViewById(R.id.title_view);
-        titleView.setmTitleText(getString(R.string.my_reminds_title));
+        titleView.setmTitleText(R.string.my_reminds_title);
         titleView.setOnTitleViewListener(new TitleView.OnTitleViewListener() {
             @Override
             public void onLeftButton() {

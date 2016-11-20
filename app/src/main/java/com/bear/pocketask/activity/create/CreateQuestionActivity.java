@@ -28,6 +28,7 @@ import com.bear.pocketask.adapter.CreateSelectorAdapter;
 import com.bear.pocketask.adapter.IViewPagerAdapter;
 import com.bear.pocketask.info.CardItemInfo;
 import com.bear.pocketask.info.SelectorInfo;
+import com.bear.pocketask.model.record.RecordManager;
 import com.bear.pocketask.utils.AdapterViewUtil;
 import com.bear.pocketask.widget.inputview.InputDialog;
 import com.bear.pocketask.widget.record.RecordView;
@@ -103,7 +104,6 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
 
         initBottomViewPager();
     }
-
 
 
     /**
@@ -402,10 +402,13 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
                         "SD card is not avaiable/writeable right now.");
                 return;
             }
-
-            showImage(imagePath);
+            File f = new File(imagePath);
+            if (f.exists())
+                showImage(imagePath);
         }
     }
+
+    private boolean isLongClick = false; //是否长按图片
 
     /**
      * 显示图片
@@ -413,13 +416,40 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
      * @param path
      */
     private void showImage(String path) {
-        if (TextUtils.isEmpty(imagePath))
+        if (TextUtils.isEmpty(path)) {
+            mChoosedImageView.setVisibility(View.GONE);
+            mCamera.setVisibility(View.VISIBLE);
+            mImage.setVisibility(View.VISIBLE);
+            Toast.makeText(getBaseContext(), R.string.create_delete_pic_hint, Toast.LENGTH_SHORT).show();
             return;
+        }
+        Log.i(TAG, "showImage: path:" + path);
         mChoosedImageView.setVisibility(View.VISIBLE);
         mCamera.setVisibility(View.GONE);
         mImage.setVisibility(View.GONE);
         ImageLoader.getInstance().displayImage("file://" + path, mChoosedImageView);
+
+        isLongClick = false;
+        //长按删除
+        mChoosedImageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                isLongClick = true;
+                showImage(null);
+                return false;
+            }
+        });
+
+        //点击重新选择
+        mChoosedImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isLongClick)
+                    chooseImage();
+            }
+        });
     }
+
 
     private void previewCard() {
         int top = viewPagerTop.getCurrentItem(), bottom = viewPagerBottom.getCurrentItem();
@@ -461,5 +491,12 @@ public class CreateQuestionActivity extends BaseActivity implements View.OnClick
 
         intentWithParcelable(PreviewActivity.class, "preview", mCardInfo);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //停止播放录音
+        RecordManager.getInstance().stopPlay();
     }
 }

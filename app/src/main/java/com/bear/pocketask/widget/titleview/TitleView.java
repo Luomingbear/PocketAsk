@@ -220,6 +220,15 @@ public class TitleView extends RelativeLayout {
     }
 
     /**
+     * 设置标题文字
+     *
+     */
+    public void setmTitleText(int textid) {
+        if (mTitleTextView != null)
+            mTitleTextView.setText(textid);
+    }
+
+    /**
      * 设置标题颜色
      *
      * @param color

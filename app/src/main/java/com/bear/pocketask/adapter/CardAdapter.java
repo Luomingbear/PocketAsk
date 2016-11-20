@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bear.pocketask.R;
@@ -17,6 +16,7 @@ import com.bear.pocketask.utils.AdapterViewUtil;
 import com.bear.pocketask.widget.inputview.ITextView;
 import com.bear.pocketask.widget.record.RecordObservable;
 import com.bear.pocketask.widget.record.RecordView;
+import com.bear.pocketask.widget.selectorbutton.SelectorAdapterView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -47,7 +47,7 @@ public class CardAdapter extends IBaseAdapter {
             viewHolder.leReport = convertView.findViewById(R.id.card_item_report);
             viewHolder.rvRecordView = (RecordView) convertView.findViewById(R.id.card_item_questions_audio);
             viewHolder.llSelectorLayout = convertView.findViewById(R.id.card_item_select_list_layout);
-            viewHolder.lvSelectorList = (ListView) convertView.findViewById(R.id.card_item_select_list);
+            viewHolder.lvSelectorList = (SelectorAdapterView) convertView.findViewById(R.id.card_item_select_list);
             viewHolder.etInputView = (ITextView) convertView.findViewById(R.id.card_item_input);
             viewHolder.btSend = convertView.findViewById(R.id.card_item_send);
             convertView.setTag(viewHolder);
@@ -161,7 +161,7 @@ public class CardAdapter extends IBaseAdapter {
         ITextView etInputView;
         RecordView rvRecordView;
         View llSelectorLayout;
-        ListView lvSelectorList;
+        SelectorAdapterView lvSelectorList;
     }
 
 }

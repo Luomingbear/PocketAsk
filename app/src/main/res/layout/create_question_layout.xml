@@ -87,6 +87,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/margin_normal"
+            android:scaleType="fitXY"
             android:src="@drawable/white_gradient_left" />
 
         <ImageView
@@ -95,6 +96,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/margin_normal"
+            android:scaleType="fitXY"
             android:src="@drawable/white_gradient_right" />
     </com.bear.pocketask.widget.cardview.AutoScaleLayout>
 
