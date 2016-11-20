@@ -48,3 +48,5 @@ new的时候就会自动开始定位，使用destory销毁，不用的时候必�
 * getDoubleEncodePassword(String password) 获取经过两次md5加密的密码
 * getEncodeUsernamePassword(String username, String password) 获取经过用户名和密码双重加密的密码
 
+##RatioimageView 自定义比例的图片显示控件
+* ratio设置图片的高宽比
